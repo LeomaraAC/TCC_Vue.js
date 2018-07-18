@@ -1,0 +1,54 @@
+
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url('https://fonts.googleapis.com/css?family=Kaushan+Script');
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// main.styl
+// @import '~vuetify/dist/vuetify.min';
+
+.navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+body{
+  background-image: url('../image/fundo3.jpg') !important;
+  background-repeat: repeat-x;
+  font-size: 13px;
+  // min-width:600px;
+}
+.font{
+  font-family: 'Kaushan Script', cursive;
+}
+// /* ---------------------------------------------------
+//   LOGIN STYLE
+// ----------------------------------------------------- */
+
+.fundo{
+  height: 50vh;
+  width: 100%;
+}
+
+// /* ---------------------------------------------------
+//   SIDEBAR STYLE
+// ----------------------------------------------------- */
+.wrapper {
+  display: flex;
+  align-items: stretch;
+}
+
+// /* ---------------------------------------------------
+//   CONTENT STYLE
+// ----------------------------------------------------- */
+#content {
+  width: 100%;
+  padding: 0px;
+  min-height: 100vh;
+  transition: all 0.3s;
+}
