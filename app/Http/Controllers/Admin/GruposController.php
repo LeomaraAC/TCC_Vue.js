@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Grupo_Usuario as Grupo;
 
 class GruposController extends Controller
 {
@@ -20,7 +21,10 @@ class GruposController extends Controller
         ]);
         return view('master.grupos', compact('breadcrumb'));
     }
-
+    public function filtro($campo = 'nomeGrupo',$order = 'asc', $filter = null)
+    {
+        return Grupo::orderBy($campo, $order)->where('nomeGrupo', 'like', '%'.$filter.'%')->paginate(5);
+    }
     /**
      * Show the form for creating a new resource.
      *
