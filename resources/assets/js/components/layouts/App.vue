@@ -2,7 +2,7 @@
     <div class="wrapper application ">
         <sara-sidebar v-if="login === 'true'" :toggled="isToggled"></sara-sidebar>
         <div id="content">
-            <sara-navbar v-if="login === 'true'" @toggled="toggle" v-bind:logout="logout" 
+            <sara-navbar v-if="login === 'true'" @toggled="toggle" :logout="logout" 
                 v-bind:token="token" v-bind:user="user"></sara-navbar>
             <main class="py-4">
                 <slot></slot>

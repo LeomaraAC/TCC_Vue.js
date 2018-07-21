@@ -10,7 +10,7 @@
             <sara-input  icon="fas fa-user-tie">
                 <input v-model="user"  v-validate="'required'" name="prontuario" type="text" 
                     placeholder="Usuário"  data-vv-validate-on="focusout|input" autofocus
-                    :class="{'form-control': true, 'form-control-warning': true, 'is-invalid': errors.has('prontuario') }"
+                    :class="{'form-control form-control-warning': true, 'is-invalid': errors.has('prontuario') }"
                 >
                 <span slot="error">
                     {{ errors.first('prontuario') }}
@@ -43,7 +43,7 @@
 <script>
 export default {
     mounted() {
-        this.$validator.localize("pt_BR");
+        // this.$validator.localize("pt_BR");
     },
     props: ['old', 'url', 'token', 'action'],
     data: function(){

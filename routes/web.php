@@ -17,4 +17,6 @@ Auth::routes();
 
 Route::middleware('auth')->prefix('master')->group(function(){
     Route::resource('grupos', 'Admin\GruposController');
+    Route::get('/filtro/{campo?}/{sort?}/{filter?}', 'Admin\GruposController@filtro')->name('filtro');
+    Route::get('/permissoes/{campo?}/{sort?}/{filter?}', 'Admin\PermissoesController@index')->name('permissoes');
 });
