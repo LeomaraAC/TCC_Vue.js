@@ -20,23 +20,8 @@ window.VueGoodTablePlugin = require('vue-good-table');
 window.Vue.use(VueGoodTablePlugin);
 import 'vue-good-table/dist/vue-good-table.css';
 
-window.Vuex = require('Vuex');
-window.Vue.use(Vuex);
-
-/**
- * Vuex
- */
-const store = new Vuex.Store({
-    state: {
-        itens: {}
-    },
-    mutations: {
-        settItens(state, obj) {
-            state.itens = obj;
-        }
-    }
-})
-
+import VModal from 'vue-js-modal'
+Vue.use(VModal)
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
