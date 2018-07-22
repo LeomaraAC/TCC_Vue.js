@@ -52,3 +52,30 @@ body{
   min-height: 100vh;
   transition: all 0.3s;
 }
+
+// /* ---------------------------------------------------
+//   SCROLLBAR STYLE
+// ----------------------------------------------------- */
+::-webkit-scrollbar-track{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+	background-color: transparent;
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar{
+	width: 6px;
+	background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb{
+	border-radius: 10px;
+	background-color: #FFF;
+  background-image: -webkit-linear-gradient(top, 
+                              rgba(149,149,149,1) 0%,
+                              rgba(13,13,13,1) 46%,
+                              rgba(1,1,1,1) 50%,
+                              rgba(10,10,10,1) 53%,
+                              rgba(78,78,78,1) 76%,
+                              rgba(56,56,56,1) 87%,
+                              rgba(27,27,27,1) 100%);
+}
