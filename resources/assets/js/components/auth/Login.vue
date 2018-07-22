@@ -7,7 +7,7 @@
             </div>
             <!-- Campos do formulário -->
             <!-- Usuário -->
-            <sara-input  icon="fas fa-user-tie">
+            <s-input  icon="fas fa-user-tie">
                 <input v-model="user"  v-validate="'required'" name="prontuario" type="text" 
                     placeholder="Usuário"  data-vv-validate-on="focusout|input" autofocus
                     :class="{'form-control form-control-warning': true, 'is-invalid': errors.has('prontuario') }"
@@ -15,10 +15,10 @@
                 <span slot="error">
                     {{ errors.first('prontuario') }}
                 </span>
-            </sara-input>
+            </s-input>
             <!-- /Usuário -->
             <!-- Senha -->
-            <sara-input  icon="fas fa-key">
+            <s-input  icon="fas fa-key">
                 <input  v-validate="'required'" name="password" type="password" placeholder="Senha" 
                     data-vv-validate-on="focusout|input"
                     :class="{'form-control': true, 'form-control-warning': true, 'is-invalid': errors.has('password') }"
@@ -26,7 +26,7 @@
                 <span slot="error">
                     {{ errors.first('password') }}
                 </span>
-            </sara-input>
+            </s-input>
             <!-- /Senha -->
             <!-- Remember -->
             <div class="checkbox text-center">

@@ -26,18 +26,18 @@
 <body>
     <div id="app" style="visibility:hidden">
         @auth
-            <sara-app login=true logout="{{ route('logout') }}"  token= "{{ csrf_token() }}" user="{{ Auth::user()->nome }}">
+            <s-app login=true logout="{{ route('logout') }}"  token= "{{ csrf_token() }}" user="{{ Auth::user()->nome }}">
                 <div class="ml-3 mr-3">
                     @yield('content')
                 </div> 
-            </sara-app>      
+            </s-app>      
         @endauth
         @guest
-            <sara-app login=false logout="{{ route('logout') }}"  token= "{{ csrf_token() }}">
+            <s-app login=false logout="{{ route('logout') }}"  token= "{{ csrf_token() }}">
                 <div class="ml-3 mr-3">
                     @yield('content')
                 </div>
-            </sara-app>   
+            </s-app>   
         @endguest
     </div>
 </body>

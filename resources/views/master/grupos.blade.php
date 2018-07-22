@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
-<sara-breadcrumb :caminhos="{{$breadcrumb}}"></sara-breadcrumb>
-<sara-listagem  linknovo="{{ route('grupos.create') }}" linkfiltro="{{route('filtro')}}" 
-    titulo="Grupos" filtroinicial="nomeGrupo" :header="[{id:'nomeGrupo', label: 'Grupo'}]"
-    :exceto="['idGrupo']" :apagar="false" :editar="false"></sara-listagem>
-                         
+<s-breadcrumb :caminhos="{{$breadcrumb}}"></s-breadcrumb>
+<s-listagem  linknovo="{{ route('grupos.create') }}" linkfiltro="{{route('filtro')}}" 
+    titulo="Grupos" filtroinicial="nomeGrupo" 
+    :columns="[{field:'nomeGrupo', label: 'Grupo'}, {field:'idGrupo', label: 'Grupo', hidden: true}]"
+    :apagar="false" :editar="false"></s-listagem>                         
 @endsection

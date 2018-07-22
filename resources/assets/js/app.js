@@ -29,28 +29,25 @@ Vue.use(VModal)
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('sara-breadcrumb', require('./components/shared/Breadcrumb.vue'));
-Vue.component('sara-input', require('./components/shared/Input.vue'));
-Vue.component('sara-snackbar', require('./components/shared/Snackbar.vue'));
-Vue.component('sara-tabela', require('./components/shared/tabela/Tabela.vue'));
-Vue.component('sara-checkbox', require('./components/shared/Checkbox.vue'));
-Vue.component('sara-pagination', require('./components/shared/tabela/Pagination.vue'));
-Vue.component('sara-modal', require('./components/shared/modal/Modal.vue'));
-Vue.component('sara-linkmodal', require('./components/shared/modal/LinkModal.vue'));
+Vue.component('s-breadcrumb', require('./components/shared/Breadcrumb.vue'));
+Vue.component('s-input', require('./components/shared/Input.vue'));
+Vue.component('s-snackbar', require('./components/shared/Snackbar.vue'));
+Vue.component('s-checkbox', require('./components/shared/Checkbox.vue'));
+Vue.component('s-pagination', require('./components/shared/tabela/Pagination.vue'));
 
-Vue.component('sara-login', require('./components/auth/Login.vue'));
+Vue.component('s-login', require('./components/auth/Login.vue'));
 
-Vue.component('sara-sidebar', require('./components/layouts/Sidebar.vue'));
-Vue.component('sara-card', require('./components/layouts/Card.vue'));
-Vue.component('sara-navbar', require('./components/layouts/Navbar.vue'));
-Vue.component('sara-app', require('./components/layouts/App.vue'));
-Vue.component('sara-criargrupo', require('./components/layouts/CriarGrupo.vue'));
-Vue.component('sara-listagem', require('./components/layouts/Listagem.vue'));
-Vue.component('sara-tabelapaginada', require('./components/layouts/TabelaPaginada.vue'));
+Vue.component('s-sidebar', require('./components/layouts/Sidebar.vue'));
+Vue.component('s-card', require('./components/layouts/Card.vue'));
+Vue.component('s-navbar', require('./components/layouts/Navbar.vue'));
+Vue.component('s-app', require('./components/layouts/App.vue'));
+Vue.component('s-listagem', require('./components/layouts/Listagem.vue'));
+
+Vue.component('s-modalpermissoes', require('./components/grupo/ModalPermissoes.vue'));
+Vue.component('s-criargrupo', require('./components/grupo/CriarGrupo.vue'));
 
 const app = new Vue({
     el: '#app',
-    store,
     mounted: function () {
         document.getElementById('app').style.visibility = 'visible';
         this.$validator.localize("pt_BR");

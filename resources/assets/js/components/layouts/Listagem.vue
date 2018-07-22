@@ -1,12 +1,12 @@
 <template>
 <div class="text-left">
-    <sara-card :titulo="titulo" :footer="true">
+    <s-card :titulo="titulo" :footer="true">
     <span slot="body">
         <div class="offset-md-2 col-md-8 col-sm-12">
-            <sara-input  icon="fas fa-search">
+            <s-input  icon="fas fa-search">
                 <input name="busca" type="text" placeholder="Buscar...." class="form-control" autofocus 
                 v-model="busca" @keyup="filtrar">
-            </sara-input>
+            </s-input>
         </div>
     </span>
     <span slot="footer">

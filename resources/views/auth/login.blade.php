@@ -3,13 +3,13 @@
 @section('content')
 <div class="row justify-content-center fundo">
         <div class="col">
-            <sara-login old="{{old('prontuario')}}"  url="{{ route('password.request') }}" token= "{{ csrf_token() }}" 
-            action="{{ route('login') }}"></sara-login>
+            <s-login old="{{old('prontuario')}}"  url="{{ route('password.request') }}" token= "{{ csrf_token() }}" 
+            action="{{ route('login') }}"></s-login>
         </div>
 </div>
 @if ($errors->has('prontuario'))
-    <sara-snackbar cor="red" msg="{{ $errors->first('prontuario') }}"></sara-snackbar>
+    <s-snackbar cor="red" msg="{{ $errors->first('prontuario') }}"></s-snackbar>
 @elseif ($errors->has('password'))
-    <sara-snackbar cor="red" msg="{{ $errors->first('password') }}"></sara-snackbar>
+    <s-snackbar cor="red" msg="{{ $errors->first('password') }}"></s-snackbar>
 @endif
 @endsection
