@@ -14,16 +14,14 @@ class GruposController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(){
         $breadcrumb = json_encode([
             ["titulo"=>"Home", "url" =>route('home')],
             ["titulo"=>"Grupos", "url" =>""]
         ]);
         return view('master.grupos', compact('breadcrumb'));
     }
-    public function filtro($campo = 'nomeGrupo',$order = 'asc', $filter = null)
-    {
+    public function filtro($campo = 'idGrupo',$order = 'asc', $filter = null){
         return Grupo::orderBy($campo, $order)->where('nomeGrupo', 'like', '%'.$filter.'%')->paginate(5);
     }
     /**
@@ -31,8 +29,7 @@ class GruposController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create(){
         $breadcrumb = json_encode([
             ["titulo"=>"Home", "url" =>route('home')],
             ["titulo"=>"Grupos", "url" =>route('grupos.index')],
@@ -40,7 +37,6 @@ class GruposController extends Controller
         ]);
         return view('master.grupos_create', compact('breadcrumb'));
     }
-
     /**
      * Store a newly created resource in storage.
      *
