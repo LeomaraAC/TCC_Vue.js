@@ -8,7 +8,7 @@ use App\Permissao;
 
 class PermissoesController extends Controller
 {
-    public function index($campo = 'nomeTela',$order = 'asc', $filter = null) {
+    public function index($campo = 'idTelas',$order = 'asc', $filter = null) {
         return Permissao::orderBy($campo, $order)->where('nomeTela', 'like', '%'.$filter.'%')->paginate(5);
     }
 }
