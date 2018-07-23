@@ -110,6 +110,13 @@ class GruposController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $grupo = Grupo::find($id);
+        if($grupo != null) {
+            $grupo->funcoes()->detach();
+            $grupo->delete();
+            return redirect()->route('grupos.index')->with('success', 'Grupo excluído  com sucesso!');
+        }
+        else
+            return redirect()->route('grupos.index')->with('error', 'Ops! O grupo a ser excluído  não foi encontrado.');
     }
 }
