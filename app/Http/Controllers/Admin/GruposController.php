@@ -45,9 +45,29 @@ class GruposController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->valida($request);
+        $permissoes = explode(',', $request->idTelas);
+        $grupo = new Grupo;
+        $grupo->nomeGrupo = $request->grupo;
+        $grupo->save();
+        // Removendo possíveis  duplicidade de funções
+        $funcoes = array_unique($permissoes);
+        // Informando as permssoes do grupo
+        foreach ($funcoes as $idFuncao) {
+            $funcao = Permissao::find($idFuncao);
+            if ($funcao != null)
+                $grupo->funcoes()->attach($funcao->idTelas);
+        }
+        return redirect()->route('grupos.index')->with('success', 'Grupo criado com sucesso!');
     }
 
+    private function valida ($request) {
+        
+        $request->validate([
+            'grupo' =>'bail|required|unique:grupo,nomeGrupo|min:3|max:60|regex:/^[a-zA-Z0-9\\- áÁéÉíÍóÓúÚçÇ`àÀãÃõÕôÔêÊ_]+$/',
+            'idTelas' =>'required'
+        ]);
+    }
     /**
      * Display the specified resource.
      *
