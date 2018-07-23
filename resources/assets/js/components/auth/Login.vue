@@ -1,6 +1,6 @@
 <template>
     <form method="post" v-bind:action="action" novalidate v-on:submit="validaForm">
-    <input type="hidden" name="_token" v-bind:value="token">
+        <input type="hidden" name="_token" v-bind:value="token">
         <div class="login-form">
             <div class="row justify-content-center mb-3">
                 <h1><span class="font">SARA</span><small> Campus Capivari</small></h1>
@@ -42,9 +42,6 @@
 
 <script>
 export default {
-    mounted() {
-        // this.$validator.localize("pt_BR");
-    },
     props: ['old', 'url', 'token', 'action'],
     data: function(){
         return {
