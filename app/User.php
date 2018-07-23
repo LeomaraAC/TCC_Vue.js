@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class User extends Authenticatable
 {
     use Notifiable, SoftDeletes;
-
+    
+    protected $primaryKey = 'idUser';
     /**
      * The attributes that are mass assignable.
      *
