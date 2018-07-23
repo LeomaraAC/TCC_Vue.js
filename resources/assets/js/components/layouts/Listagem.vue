@@ -25,7 +25,26 @@
             @on-sort-change="sort"
             :sort-options="{ enabled: true }"
             styleClass="table table-hover">
-      </vue-good-table>
+            <span slot="table-row" slot-scope="props">
+                <span v-if="(props.column.field == 'idGrupo') && apagar" class="btn-icon">
+                    <form  :id="props.row.originalIndex" 
+                                :action="apagar + props.formattedRow[props.column.field]" 
+                                method="POST">
+                        <input  type="hidden" name="_method" value="delete">
+                        <input type="hidden" name="_token" :value="token">
+                        <i  class="fas fa-trash-alt" @click="executaForm(props.row.originalIndex)"></i>
+                    </form>
+                </span>
+                <span v-else>
+                {{props.formattedRow[props.column.field]}}
+                </span>
+            </span>
+            <div slot="emptystate">
+                <v-alert :value="true" color="red" icon="warning">
+                    Nenhum dado encontrado :(
+                </v-alert>
+            </div>
+        </vue-good-table>
     </span>
     <span slot="footer">
         <s-pagination :souce="pagination" @navigate="buscaDados" :pages="pages"></s-pagination>
@@ -36,7 +55,7 @@
 
 <script>
     export default {
-        props:[ 'linknovo', 'linkfiltro', 'titulo', "filtroinicial", 'columns','apagar', 'editar'],
+        props:[ 'linknovo', 'linkfiltro', 'titulo', "filtroinicial", 'columns','apagar', 'editar', 'token'],
         data: function () {
             return {
                 pages: [],
@@ -52,8 +71,8 @@
             this.buscaDados();
         },
         methods: {
-            selectionChanged(v) {
-                console.log(v);
+            executaForm: function(index){
+                document.getElementById(index).submit();
             },
             buscaDados(page = 1) {
                 var url = this.busca === '' ? this.linkfiltro+'/'+this.sortProperty+'/'+this.sortDirection+'?page='+page
