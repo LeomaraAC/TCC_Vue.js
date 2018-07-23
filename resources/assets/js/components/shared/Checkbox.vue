@@ -1,26 +1,19 @@
 <template>
     <label class="check ">
         {{label}}
-        <input type="checkbox" name="name" @click="checked" checked="checked" v-if="ischecked">
-        <input type="checkbox" name="name" @click="checked" v-if="!ischecked">
+        <input type="checkbox" name="name" @click="checked"  :checked="ischecked ? 'checked' : ''">
         <span class="checkmark"></span>
     </label>
 </template>
 <script>
     export default {
         props: ['label', 'name', 'ischecked', 'item'],
-        data() {
-            return{
-                check: this.ischecked
-            }
-        },
         methods: {
             checked ( ) {
-                this.check = !this.check;
                 if(this.item == undefined)
-                    this.$emit('checked', [this.check, this.name]);
+                    this.$emit('checked', [!this.ischecked, this.name]);
                 else
-                    this.$emit('checked', [this.check, this.item])
+                    this.$emit('checked', [!this.ischecked, this.item])
             }
         }
     }
@@ -30,7 +23,7 @@
     display: block;
     position: relative;
     padding-left: 25px;
-    margin-bottom: 12px;
+    padding-bottom:  5px;
     padding-right: 15px;
     cursor: pointer;
     font-size: 13px !important;
@@ -47,7 +40,7 @@
 /* Create a custom checkbox */
 .checkmark {
     position: absolute;
-    top: 3px;
+    /* top: 3px; */
     left: 0;
     height: 18px;
     width: 18px;
