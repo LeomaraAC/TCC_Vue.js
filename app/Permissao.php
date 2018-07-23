@@ -12,6 +12,6 @@ class Permissao extends Model
 
     public function grupos()
     {
-        return $this->belongsToMany(Grupo_Usuarios::class,'permissoes_grupo','idTelas','idGrupo');
+        return $this->belongsToMany(Grupo::class,'permissoes_grupo','idTelas','idGrupo');
     }
 }

@@ -18,7 +18,7 @@ class CreatePermissoesGrupoTable extends Migration
             $table->integer('idTelas')->unsigned();
             $table->primary(['idGrupo', 'idTelas']);
 
-            $table->foreign('idGrupo')->references('idGrupo')->on('grupo_usuarios')->onDelete('cascade');
+            $table->foreign('idGrupo')->references('idGrupo')->on('grupo')->onDelete('cascade');
             $table->foreign('idTelas')->references('idTelas')->on('permissoes')->onDelete('cascade');
         });
     }

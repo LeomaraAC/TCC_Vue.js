@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGrupoUsuariosTable extends Migration
+class CreateGrupoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateGrupoUsuariosTable extends Migration
      */
     public function up()
     {
-        Schema::create('grupo_usuarios', function (Blueprint $table) {
+        Schema::create('grupo', function (Blueprint $table) {
             $table->increments('idGrupo');
             $table->string('nomeGrupo',60);
             $table->softDeletes();
@@ -28,6 +28,6 @@ class CreateGrupoUsuariosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('grupo_usuarios');
+        Schema::dropIfExists('grupo');
     }
 }

@@ -4,7 +4,8 @@ namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Grupo_Usuario as Grupo;
+use App\Grupo as Grupo;
+use App\Permissao;
 
 class GruposController extends Controller
 {
