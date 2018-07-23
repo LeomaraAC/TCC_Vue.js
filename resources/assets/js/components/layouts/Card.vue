@@ -6,7 +6,7 @@
         <div class="card-body">
             <slot name="body"></slot>
         </div>
-        <div class="card-footer" v-if="footer == true">
+        <div class="card-footer text-left" v-if="footer == true">
             <slot name="footer"></slot>
         </div>
     </div>
