@@ -34,6 +34,7 @@ Vue.component('s-input', require('./components/shared/Input.vue'));
 Vue.component('s-snackbar', require('./components/shared/Snackbar.vue'));
 Vue.component('s-checkbox', require('./components/shared/Checkbox.vue'));
 Vue.component('s-pagination', require('./components/shared/tabela/Pagination.vue'));
+Vue.component('s-modal', require('./components/shared/Modal.vue'));
 
 Vue.component('s-login', require('./components/auth/Login.vue'));
 
@@ -43,7 +44,7 @@ Vue.component('s-navbar', require('./components/layouts/Navbar.vue'));
 Vue.component('s-app', require('./components/layouts/App.vue'));
 Vue.component('s-listagem', require('./components/layouts/Listagem.vue'));
 
-Vue.component('s-modalpermissoes', require('./components/grupo/ModalPermissoes.vue'));
+
 Vue.component('s-criargrupo', require('./components/grupo/CriarGrupo.vue'));
 
 const app = new Vue({
