@@ -39,6 +39,7 @@ Vue.component('s-modal', require('./components/shared/Modal.vue'));
 Vue.component('s-login', require('./components/auth/Login.vue'));
 
 Vue.component('s-sidebar', require('./components/layouts/Sidebar.vue'));
+Vue.component('s-formulario', require('./components/layouts/Formulario.vue'));
 Vue.component('s-card', require('./components/layouts/Card.vue'));
 Vue.component('s-navbar', require('./components/layouts/Navbar.vue'));
 Vue.component('s-app', require('./components/layouts/App.vue'));
