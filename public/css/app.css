@@ -10524,11 +10524,15 @@ body {
   background-image: -webkit-linear-gradient(top, #959595 0%, #0d0d0d 46%, #010101 50%, #0a0a0a 53%, #4e4e4e 76%, #383838 87%, #1b1b1b 100%);
 }
 
-.btn-icon {
+.btn-icon,
+.btn-icon a {
+  text-decoration: none;
   cursor: pointer;
+  color: black;
 }
 
-.btn-icon:hover {
+.btn-icon:hover,
+.btn-icon:hover a {
   color: #179910;
 }
 
