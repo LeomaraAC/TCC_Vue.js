@@ -1,6 +1,6 @@
 <template>
 <div class="text-left">
-    <s-card :titulo="titulo" :footer="true">
+    <s-card :titulo="titulo" :footer="true" :icon="icon">
     <span slot="body">
         <div class="offset-md-2 col-md-8 col-sm-12">
             <s-input  icon="fas fa-search">
@@ -52,7 +52,7 @@
 
 <script>
     export default {
-        props:[ 'linknovo', 'linkfiltro', 'titulo', "filtroinicial", 'columns','apagar', 'editar', 'token'],
+        props:[ 'linknovo', 'linkfiltro', 'titulo', "filtroinicial", 'columns','apagar', 'editar', 'token', 'icon'],
         data: function () {
             return {
                 pages: [],
