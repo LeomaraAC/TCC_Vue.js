@@ -87,7 +87,13 @@ class GruposController extends Controller
      */
     public function edit($id)
     {
-        //
+        $grupo = Grupo::findOrFail($id)->load('funcoes');
+        $breadcrumb = json_encode([
+            ["titulo"=>"Home", "url" =>route('home')],
+            ["titulo"=>"Grupos", "url" =>route('grupos.index')],
+            ["titulo"=>"Editar Grupo", "url" =>""]
+        ]);
+        return view('master.grupo.grupos_edit', compact('breadcrumb', 'grupo'));
     }
 
     /**

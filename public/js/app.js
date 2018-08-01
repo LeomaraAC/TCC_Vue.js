@@ -98688,7 +98688,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -98878,11 +98877,6 @@ var render = function() {
                       _vm.idTelas = $event.target.value
                     }
                   }
-                }),
-                _vm._v(" "),
-                _c("input", {
-                  attrs: { type: "hidden", name: "idGrupo" },
-                  domProps: { value: _vm.idgrupo }
                 }),
                 _vm._v(" "),
                 _c(
