@@ -84,9 +84,13 @@ body{
 // /* ---------------------------------------------------
 //   TABLE ICON STYLE
 // ----------------------------------------------------- */
-.btn-icon {
+.btn-icon,
+.btn-icon a {
+  text-decoration: none;
   cursor: pointer;
+  color: black;
 }
-.btn-icon:hover {
+.btn-icon:hover,
+.btn-icon:hover a {
   color: #179910;
 }
