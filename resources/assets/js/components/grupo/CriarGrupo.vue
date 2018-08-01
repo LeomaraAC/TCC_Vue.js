@@ -1,5 +1,5 @@
 <template>
-    <s-card titulo="Criar Grupo" :footer="true">
+    <s-card :titulo="titulo" :footer="true"  :icon="icon">
         <span slot="body">
             <div  class="text-left">
                 <s-formulario @submit="validaForm"  :action="action" :token="token"  ref="form"
@@ -89,15 +89,17 @@ export default {
   props: [
     "titulo",
     "link",
-    "nomeGrupo",
-    "dadosSelecionados",
+    "nomegrupo",
+    "dadosselecionados",
     "method",
     "action",
-    "token"
+    "token",
+    'icon',
+    'titulo'
   ],
   data: function() {
     return {
-      dadosSelect: this.dadosSelecionados || [],
+      dadosSelect: this.dadosselecionados || [],
       idTelas: [],
       columns: [],
       busca: "",
@@ -106,13 +108,13 @@ export default {
       sortDirection: "asc",
       pagination: [],
       pages: [],
-      grupo: this.nomeGrupo || []
+      grupo: this.nomegrupo || ''
     };
   },
   mounted: function() {
-    if (this.dadosSelecionados) {
-      this.idTelas = this.dadosSelecionados.map(e => e.idTelas);
-    }
+      console.log(this.nomegrupo)
+    if (this.dadosselecionados) 
+      this.idTelas = this.dadosselecionados.map(e => e.idTelas);
   },
   methods: {
     validaForm: function(event) {
