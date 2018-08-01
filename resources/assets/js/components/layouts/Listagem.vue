@@ -27,13 +27,10 @@
             styleClass="table table-hover">
             <span slot="table-row" slot-scope="props">
                 <span v-if="(props.column.field == 'idGrupo') && apagar" class="btn-icon">
-                    <form  :id="props.row.originalIndex" 
-                                :action="apagar + props.formattedRow[props.column.field]" 
-                                method="POST">
-                        <input  type="hidden" name="_method" value="delete">
-                        <input type="hidden" name="_token" :value="token">
+                    <s-formulario @submit="executaForm"  :action="apagar + props.formattedRow[props.column.field]" 
+                                            :token="token"  method="delete" :id="props.row.originalIndex">
                         <i  class="fas fa-trash-alt" @click="executaForm(props.row.originalIndex)"></i>
-                    </form>
+                    </s-formulario>
                 </span>
                 <span v-else>
                 {{props.formattedRow[props.column.field]}}
@@ -64,7 +61,7 @@
                 sortProperty: this.filtroinicial,
                 sortDirection: 'asc',
                 listaExceto: this.exceto || [],
-                rows: [ ],
+                rows: [],
             }
         },
         mounted() {
