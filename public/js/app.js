@@ -97555,7 +97555,10 @@ var staticRenderFns = [
           },
           [
             _c("li", [
-              _c("a", { attrs: { href: "/master/grupos" } }, [_vm._v("Grupos")])
+              _c("a", { attrs: { href: "/master/grupos" } }, [
+                _c("i", { staticClass: "fas fa-shapes" }),
+                _vm._v(" Grupos")
+              ])
             ])
           ]
         )
@@ -97707,21 +97710,17 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(256)
-}
 var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(258)
 /* template */
-var __vue_template__ = __webpack_require__(259)
+var __vue_template__ = __webpack_require__(278)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = injectStyle
+var __vue_styles__ = null
 /* scopeId */
-var __vue_scopeId__ = "data-v-2b64140c"
+var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -97754,46 +97753,8 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 256 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(257);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(9)("227bdc04", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2b64140c\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Card.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2b64140c\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Card.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 257 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(7)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* .header {\n    font-size: \n} */\n", ""]);
-
-// exports
-
-
-/***/ }),
+/* 256 */,
+/* 257 */,
 /* 258 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -97813,49 +97774,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['titulo', 'footer']
+    props: ['titulo', 'footer', 'icon']
 });
 
 /***/ }),
-/* 259 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card text-center" }, [
-    _vm.titulo
-      ? _c("div", { staticClass: "card-header text-left" }, [
-          _c("h3", [_c("strong", [_vm._v(_vm._s(_vm.titulo))])])
-        ])
-      : _vm._e(),
-    _vm._v(" "),
-    _c("div", { staticClass: "card-body" }, [_vm._t("body")], 2),
-    _vm._v(" "),
-    _vm.footer == true
-      ? _c(
-          "div",
-          { staticClass: "card-footer text-left" },
-          [_vm._t("footer")],
-          2
-        )
-      : _vm._e()
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-2b64140c", module.exports)
-  }
-}
-
-/***/ }),
+/* 259 */,
 /* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -98332,7 +98258,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['linknovo', 'linkfiltro', 'titulo', "filtroinicial", 'columns', 'apagar', 'editar', 'token'],
+    props: ['linknovo', 'linkfiltro', 'titulo', "filtroinicial", 'columns', 'apagar', 'editar', 'token', 'icon'],
     data: function data() {
         return {
             pages: [],
@@ -98388,59 +98314,63 @@ var render = function() {
     "div",
     { staticClass: "text-left" },
     [
-      _c("s-card", { attrs: { titulo: _vm.titulo, footer: true } }, [
-        _c("span", { attrs: { slot: "body" }, slot: "body" }, [
-          _c(
-            "div",
-            { staticClass: "offset-md-2 col-md-8 col-sm-12" },
-            [
-              _c("s-input", { attrs: { icon: "fas fa-search" } }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.busca,
-                      expression: "busca"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    name: "busca",
-                    type: "text",
-                    placeholder: "Buscar....",
-                    autofocus: ""
-                  },
-                  domProps: { value: _vm.busca },
-                  on: {
-                    keyup: _vm.filtrar,
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.busca = $event.target.value
-                    }
-                  }
-                })
-              ])
-            ],
-            1
-          )
-        ]),
-        _vm._v(" "),
-        _c("span", { attrs: { slot: "footer" }, slot: "footer" }, [
-          _c("div", { staticClass: "text-left" }, [
+      _c(
+        "s-card",
+        { attrs: { titulo: _vm.titulo, footer: true, icon: _vm.icon } },
+        [
+          _c("span", { attrs: { slot: "body" }, slot: "body" }, [
             _c(
-              "a",
-              {
-                staticClass: "btn btn-outline-info",
-                attrs: { href: _vm.linknovo }
-              },
-              [_c("i", { staticClass: "fas fa-plus" }), _vm._v(" Novo")]
+              "div",
+              { staticClass: "offset-md-2 col-md-8 col-sm-12" },
+              [
+                _c("s-input", { attrs: { icon: "fas fa-search" } }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.busca,
+                        expression: "busca"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      name: "busca",
+                      type: "text",
+                      placeholder: "Buscar....",
+                      autofocus: ""
+                    },
+                    domProps: { value: _vm.busca },
+                    on: {
+                      keyup: _vm.filtrar,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.busca = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ],
+              1
             )
+          ]),
+          _vm._v(" "),
+          _c("span", { attrs: { slot: "footer" }, slot: "footer" }, [
+            _c("div", { staticClass: "text-left" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-outline-info",
+                  attrs: { href: _vm.linknovo }
+                },
+                [_c("i", { staticClass: "fas fa-plus" }), _vm._v(" Novo")]
+              )
+            ])
           ])
-        ])
-      ]),
+        ]
+      ),
       _vm._v(" "),
       _c("hr"),
       _vm._v(" "),
@@ -98703,10 +98633,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["titulo", "link", "nomeGrupo", "dadosSelecionados", "method", "action", "token"],
+  props: ["titulo", "link", "nomegrupo", "dadosselecionados", "method", "action", "token", 'icon', 'titulo'],
   data: function data() {
     return {
-      dadosSelect: this.dadosSelecionados || [],
+      dadosSelect: this.dadosselecionados || [],
       idTelas: [],
       columns: [],
       busca: "",
@@ -98715,15 +98645,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       sortDirection: "asc",
       pagination: [],
       pages: [],
-      grupo: this.nomeGrupo || []
+      grupo: this.nomegrupo || ''
     };
   },
   mounted: function mounted() {
-    if (this.dadosSelecionados) {
-      this.idTelas = this.dadosSelecionados.map(function (e) {
-        return e.idTelas;
-      });
-    }
+    console.log(this.nomegrupo);
+    if (this.dadosselecionados) this.idTelas = this.dadosselecionados.map(function (e) {
+      return e.idTelas;
+    });
   },
   methods: {
     validaForm: function validaForm(event) {
@@ -98814,343 +98743,358 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("s-card", { attrs: { titulo: "Criar Grupo", footer: true } }, [
-    _c("span", { attrs: { slot: "body" }, slot: "body" }, [
-      _c(
-        "div",
-        { staticClass: "text-left" },
-        [
-          _c(
-            "s-formulario",
-            {
-              ref: "form",
-              attrs: {
-                action: _vm.action,
-                token: _vm.token,
-                method: _vm.method,
-                id: "criarGrupo"
+  return _c(
+    "s-card",
+    { attrs: { titulo: _vm.titulo, footer: true, icon: _vm.icon } },
+    [
+      _c("span", { attrs: { slot: "body" }, slot: "body" }, [
+        _c(
+          "div",
+          { staticClass: "text-left" },
+          [
+            _c(
+              "s-formulario",
+              {
+                ref: "form",
+                attrs: {
+                  action: _vm.action,
+                  token: _vm.token,
+                  method: _vm.method,
+                  id: "criarGrupo"
+                },
+                on: { submit: _vm.validaForm }
               },
-              on: { submit: _vm.validaForm }
-            },
-            [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.idTelas,
-                    expression: "idTelas"
-                  }
-                ],
-                attrs: { type: "hidden", name: "idTelas" },
-                domProps: { value: _vm.idTelas },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.idTelas = $event.target.value
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "offset-md-2 col-md-8 col-sm-12" },
-                [
-                  _c("s-input", [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "validate",
-                          rawName: "v-validate",
-                          value:
-                            "required|regex:^[a-zA-Z0-9\\- áÁéÉíÍóÓúÚçÇ`àÀãÃõÕôÔêÊ_]+$|min:3|max:60",
-                          expression:
-                            "'required|regex:^[a-zA-Z0-9\\\\- áÁéÉíÍóÓúÚçÇ`àÀãÃõÕôÔêÊ_]+$|min:3|max:60'"
-                        },
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.grupo,
-                          expression: "grupo"
-                        }
-                      ],
-                      ref: "grupo",
-                      class: {
-                        "form-control form-control-warning": true,
-                        "is-invalid": _vm.errors.has("grupo")
-                      },
-                      attrs: {
-                        name: "grupo",
-                        type: "text",
-                        placeholder: "Nome do grupo",
-                        "data-vv-validate-on": "focusout|input",
-                        autofocus: ""
-                      },
-                      domProps: { value: _vm.grupo },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.grupo = $event.target.value
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", { attrs: { slot: "error" }, slot: "error" }, [
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(_vm.errors.first("grupo")) +
-                          "\n                        "
-                      )
-                    ])
-                  ])
-                ],
-                1
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c("h5", [_vm._v("Funcionalidades")]),
-          _vm._v(" "),
-          _c("hr"),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-outline-success",
-              attrs: { type: "button" },
-              on: { click: _vm.show }
-            },
-            [_c("i", { staticClass: "fas fa-plus" }), _vm._v("  Adicionar ")]
-          ),
-          _vm._v(" "),
-          _c(
-            "s-modal",
-            {
-              attrs: { name: "permissoes", title: "Lista de Permissoes" },
-              on: { open: _vm.openModal }
-            },
-            [
-              _c(
-                "span",
-                { attrs: { slot: "modal-body" }, slot: "modal-body" },
-                [
-                  _c("s-input", { attrs: { icon: "fas fa-search" } }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.busca,
-                          expression: "busca"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        name: "busca",
-                        type: "text",
-                        placeholder: "Buscar....",
-                        autofocus: ""
-                      },
-                      domProps: { value: _vm.busca },
-                      on: {
-                        keyup: _vm.buscaDados,
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.busca = $event.target.value
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "vue-good-table",
+              [
+                _c("input", {
+                  directives: [
                     {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.idTelas,
+                      expression: "idTelas"
+                    }
+                  ],
+                  attrs: { type: "hidden", name: "idTelas" },
+                  domProps: { value: _vm.idTelas },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.idTelas = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "offset-md-2 col-md-8 col-sm-12" },
+                  [
+                    _c("s-input", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value:
+                              "required|regex:^[a-zA-Z0-9\\- áÁéÉíÍóÓúÚçÇ`àÀãÃõÕôÔêÊ_]+$|min:3|max:60",
+                            expression:
+                              "'required|regex:^[a-zA-Z0-9\\\\- áÁéÉíÍóÓúÚçÇ`àÀãÃõÕôÔêÊ_]+$|min:3|max:60'"
+                          },
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.grupo,
+                            expression: "grupo"
+                          }
+                        ],
+                        ref: "grupo",
+                        class: {
+                          "form-control form-control-warning": true,
+                          "is-invalid": _vm.errors.has("grupo")
+                        },
+                        attrs: {
+                          name: "grupo",
+                          type: "text",
+                          placeholder: "Nome do grupo",
+                          "data-vv-validate-on": "focusout|input",
+                          autofocus: ""
+                        },
+                        domProps: { value: _vm.grupo },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.grupo = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", { attrs: { slot: "error" }, slot: "error" }, [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(_vm.errors.first("grupo")) +
+                            "\n                        "
+                        )
+                      ])
+                    ])
+                  ],
+                  1
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("h5", [_vm._v("Funcionalidades")]),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-outline-success",
+                attrs: { type: "button" },
+                on: { click: _vm.show }
+              },
+              [_c("i", { staticClass: "fas fa-plus" }), _vm._v("  Adicionar ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "s-modal",
+              {
+                attrs: { name: "permissoes", title: "Lista de Permissoes" },
+                on: { open: _vm.openModal }
+              },
+              [
+                _c(
+                  "span",
+                  { attrs: { slot: "modal-body" }, slot: "modal-body" },
+                  [
+                    _c("s-input", { attrs: { icon: "fas fa-search" } }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.busca,
+                            expression: "busca"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          name: "busca",
+                          type: "text",
+                          placeholder: "Buscar....",
+                          autofocus: ""
+                        },
+                        domProps: { value: _vm.busca },
+                        on: {
+                          keyup: _vm.buscaDados,
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.busca = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "vue-good-table",
+                      {
+                        attrs: {
+                          mode: "remote",
+                          columns: _vm.columns,
+                          rows: _vm.rows,
+                          "sort-options": { enabled: true },
+                          styleClass: "table table-hover"
+                        },
+                        on: { "on-sort-change": _vm.sort },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "table-row",
+                            fn: function(props) {
+                              return _c(
+                                "span",
+                                {},
+                                [
+                                  props.column.field == "idTelas"
+                                    ? _c("s-checkbox", {
+                                        attrs: {
+                                          name: "asd",
+                                          ischecked:
+                                            _vm.getIndex(props.row.idTelas) >
+                                            -1,
+                                          item: props.row
+                                        },
+                                        on: { checked: _vm.checked }
+                                      })
+                                    : _c("span", [
+                                        _vm._v(
+                                          "\n                            " +
+                                            _vm._s(
+                                              props.formattedRow[
+                                                props.column.field
+                                              ]
+                                            ) +
+                                            "\n                            "
+                                        )
+                                      ])
+                                ],
+                                1
+                              )
+                            }
+                          }
+                        ])
+                      },
+                      [
+                        _c(
+                          "div",
+                          { attrs: { slot: "emptystate" }, slot: "emptystate" },
+                          [
+                            _c(
+                              "v-alert",
+                              {
+                                attrs: {
+                                  value: true,
+                                  color: "red",
+                                  icon: "warning"
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Nenhum dado encontrado :(\n                            "
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("s-pagination", {
+                      attrs: { souce: _vm.pagination, pages: _vm.pages },
+                      on: { navigate: _vm.buscaDados }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  { attrs: { slot: "modal-footer" }, slot: "modal-footer" },
+                  [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-outline-primary",
+                        attrs: { type: "button" },
+                        on: { click: _vm.closeModal }
+                      },
+                      [_vm._v("Fechar")]
+                    )
+                  ]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            this.dadosSelect.length > 0
+              ? _c(
+                  "div",
+                  [
+                    _c("vue-good-table", {
                       attrs: {
-                        mode: "remote",
                         columns: _vm.columns,
-                        rows: _vm.rows,
+                        rows: _vm.dadosSelect,
                         "sort-options": { enabled: true },
                         styleClass: "table table-hover"
                       },
-                      on: { "on-sort-change": _vm.sort },
                       scopedSlots: _vm._u([
                         {
                           key: "table-row",
                           fn: function(props) {
-                            return _c(
-                              "span",
-                              {},
-                              [
-                                props.column.field == "idTelas"
-                                  ? _c("s-checkbox", {
-                                      attrs: {
-                                        name: "asd",
-                                        ischecked:
-                                          _vm.getIndex(props.row.idTelas) > -1,
-                                        item: props.row
-                                      },
-                                      on: { checked: _vm.checked }
-                                    })
-                                  : _c("span", [
-                                      _vm._v(
-                                        "\n                            " +
-                                          _vm._s(
-                                            props.formattedRow[
-                                              props.column.field
-                                            ]
-                                          ) +
-                                          "\n                            "
-                                      )
-                                    ])
-                              ],
-                              1
-                            )
+                            return _c("span", {}, [
+                              props.column.field == "idTelas"
+                                ? _c(
+                                    "span",
+                                    {
+                                      staticClass: "btn-icon",
+                                      on: {
+                                        click: function($event) {
+                                          _vm.removeItem(props.row)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-trash-alt"
+                                      })
+                                    ]
+                                  )
+                                : _c("span", [
+                                    _vm._v(
+                                      "\n                        " +
+                                        _vm._s(
+                                          props.formattedRow[props.column.field]
+                                        ) +
+                                        "\n                        "
+                                    )
+                                  ])
+                            ])
                           }
                         }
                       ])
-                    },
-                    [
-                      _c(
-                        "div",
-                        { attrs: { slot: "emptystate" }, slot: "emptystate" },
-                        [
-                          _c(
-                            "v-alert",
-                            {
-                              attrs: {
-                                value: true,
-                                color: "red",
-                                icon: "warning"
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                                Nenhum dado encontrado :(\n                            "
-                              )
-                            ]
-                          )
-                        ],
-                        1
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("s-pagination", {
-                    attrs: { souce: _vm.pagination, pages: _vm.pages },
-                    on: { navigate: _vm.buscaDados }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "span",
-                { attrs: { slot: "modal-footer" }, slot: "modal-footer" },
-                [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-outline-primary",
-                      attrs: { type: "button" },
-                      on: { click: _vm.closeModal }
-                    },
-                    [_vm._v("Fechar")]
-                  )
-                ]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          this.dadosSelect.length > 0
-            ? _c(
-                "div",
-                [
-                  _c("vue-good-table", {
-                    attrs: {
-                      columns: _vm.columns,
-                      rows: _vm.dadosSelect,
-                      "sort-options": { enabled: true },
-                      styleClass: "table table-hover"
-                    },
-                    scopedSlots: _vm._u([
-                      {
-                        key: "table-row",
-                        fn: function(props) {
-                          return _c("span", {}, [
-                            props.column.field == "idTelas"
-                              ? _c(
-                                  "span",
-                                  {
-                                    staticClass: "btn-icon",
-                                    on: {
-                                      click: function($event) {
-                                        _vm.removeItem(props.row)
-                                      }
-                                    }
-                                  },
-                                  [_c("i", { staticClass: "fas fa-trash-alt" })]
-                                )
-                              : _c("span", [
-                                  _vm._v(
-                                    "\n                        " +
-                                      _vm._s(
-                                        props.formattedRow[props.column.field]
-                                      ) +
-                                      "\n                        "
-                                  )
-                                ])
-                          ])
-                        }
-                      }
-                    ])
-                  })
-                ],
-                1
-              )
-            : _vm._e()
-        ],
-        1
-      )
-    ]),
-    _vm._v(" "),
-    _c("span", { attrs: { slot: "footer" }, slot: "footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-outline-success",
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              $event.preventDefault()
-              return _vm.validaForm($event)
-            }
-          }
-        },
-        [_c("i", { staticClass: "fas fa-save" }), _vm._v(" Salvar \n        ")]
-      ),
+                    })
+                  ],
+                  1
+                )
+              : _vm._e()
+          ],
+          1
+        )
+      ]),
       _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-outline-secondary",
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              $event.preventDefault()
-              return _vm.reset($event)
+      _c("span", { attrs: { slot: "footer" }, slot: "footer" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-outline-success",
+            attrs: { type: "button" },
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.validaForm($event)
+              }
             }
-          }
-        },
-        [_c("i", { staticClass: "fas fa-eraser" }), _vm._v(" Limpar\n        ")]
-      )
-    ])
-  ])
+          },
+          [
+            _c("i", { staticClass: "fas fa-save" }),
+            _vm._v(" Salvar \n        ")
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-outline-secondary",
+            attrs: { type: "button" },
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.reset($event)
+              }
+            }
+          },
+          [
+            _c("i", { staticClass: "fas fa-eraser" }),
+            _vm._v(" Limpar\n        ")
+          ]
+        )
+      ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -99167,6 +99111,50 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 275 */,
+/* 276 */,
+/* 277 */,
+/* 278 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "card text-center" }, [
+    _vm.titulo
+      ? _c("div", { staticClass: "card-header row text-left" }, [
+          _c("h4", { staticClass: "mr-3 ml-3" }, [
+            _c("i", { class: _vm.icon })
+          ]),
+          _vm._v(" "),
+          _c("h3", [_c("strong", [_vm._v(" " + _vm._s(_vm.titulo))])])
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-body" }, [_vm._t("body")], 2),
+    _vm._v(" "),
+    _vm.footer == true
+      ? _c(
+          "div",
+          { staticClass: "card-footer text-left" },
+          [_vm._t("footer")],
+          2
+        )
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-2b64140c", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

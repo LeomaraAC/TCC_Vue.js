@@ -1,7 +1,8 @@
 <template>
     <div class="card text-center">
-        <div class="card-header text-left" v-if="titulo">
-           <h3><strong>{{titulo}}</strong></h3>
+        <div class="card-header row text-left" v-if="titulo">
+            <h4 class="mr-3 ml-3"><i :class="icon"></i> </h4>
+           <h3><strong> {{titulo}}</strong></h3>
         </div>
         <div class="card-body">
             <slot name="body"></slot>
@@ -14,12 +15,7 @@
 
 <script>
     export default {
-        props:['titulo','footer']
+        props:['titulo','footer', 'icon']
     }
 </script>
-<style scoped>
-    /* .header {
-        font-size: 
-    } */
-</style>
 
