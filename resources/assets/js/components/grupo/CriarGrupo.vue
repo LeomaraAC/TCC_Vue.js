@@ -127,13 +127,24 @@ export default {
       sortDirection: "asc",
       pagination: [],
       pages: [],
-      grupo: this.nomegrupo || ''
+      grupo: this.nomegrupo || '',
+      link: 'http://projetosara.meu/master/permissoes'
     };
   },
   mounted: function() {
-      console.log(this.nomegrupo)
-    if (this.dadosselecionados) 
-      this.idTelas = this.dadosselecionados.map(e => e.idTelas);
+    if (this.dadosselecionados) {
+        this.dadosselecionados.forEach( param => {
+            var item = this.novoItem(param);
+            this.dadosSelect.push(item);
+            this.idTelas.push(item.idTelas);
+        });            
+        // console.log(typeof this.dadosSelect ); // Object
+    }
+    this.columns = [
+        { field: "idTelas", label: "", width: "50px" },
+        { field: "nomeTela", label: "Permissões" },
+        { field: "siglaTela", label: "Sigla", hidden: true }
+    ];
   },
   methods: {
     validaForm: function(event) {
@@ -155,11 +166,6 @@ export default {
       this.$modal.hide("permissoes");
     },
     openModal() {
-      this.columns = [
-        { field: "idTelas", label: "", width: "50px" },
-        { field: "nomeTela", label: "Permissões" },
-        { field: "siglaTela", label: "Sigla", hidden: true }
-      ];
       this.sortProperty = "nomeTela";
       this.buscaDados();
     },
