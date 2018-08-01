@@ -105,7 +105,16 @@ class GruposController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+        $this->valida($request,$id);
+        $permissoes = explode(',', $request->idTelas);
+        $grupo = Grupo::find($id);
+        $grupo->nomeGrupo = $request->grupo;
+        $grupo->save();
+        // Atualiza as permissoes
+        $grupo->funcoes()->sync(array_unique($permissoes));
+       // Redireciona para a página da listagem dos grupos juntamente com a mensagem de sucesso.
+        return redirect()->route('grupos.index')->with('success', 'Grupo editado com sucesso!');
     }
 
     /**
