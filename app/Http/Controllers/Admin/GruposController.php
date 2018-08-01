@@ -19,7 +19,7 @@ class GruposController extends Controller
             ["titulo"=>"Home", "url" =>route('home')],
             ["titulo"=>"Grupos", "url" =>""]
         ]);
-        return view('master.grupos', compact('breadcrumb'));
+        return view('master.grupo.index', compact('breadcrumb'));
     }
     public function filtro($campo = 'idGrupo',$order = 'asc', $filter = null){
         return Grupo::orderBy($campo, $order)->where('nomeGrupo', 'like', '%'.$filter.'%')->paginate(5);
@@ -35,7 +35,7 @@ class GruposController extends Controller
             ["titulo"=>"Grupos", "url" =>route('grupos.index')],
             ["titulo"=>"Criar Grupo", "url" =>""]
         ]);
-        return view('master.grupos_create', compact('breadcrumb'));
+        return view('master.grupo.grupos_create', compact('breadcrumb'));
     }
     /**
      * Store a newly created resource in storage.

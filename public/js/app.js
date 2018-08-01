@@ -98256,9 +98256,50 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['linknovo', 'linkfiltro', 'titulo', "filtroinicial", 'columns', 'apagar', 'editar', 'token', 'icon'],
+    // props:[ 'linknovo', 'linkfiltro', 'titulo', "filtroinicial", 'columns','apagar', 'editar', 'token', 'icon', 'linkacoes'],
+    props: {
+        linknovo: {
+            required: true,
+            type: String
+        },
+        linkfiltro: {
+            required: true,
+            type: String
+        },
+        titulo: {
+            required: true,
+            type: String
+        },
+        filtroinicial: {
+            type: String
+        },
+        columns: {
+            required: true,
+            type: Array
+        },
+        apagar: {
+            type: Boolean,
+            default: false
+        },
+        editar: {
+            type: Boolean,
+            default: false
+        },
+        token: {
+            type: String
+        },
+        icon: {
+            type: String
+        },
+        linkacoes: {
+            type: String
+        }
+    },
     data: function data() {
         return {
             pages: [],
@@ -98395,7 +98436,7 @@ var render = function() {
                     key: "table-row",
                     fn: function(props) {
                       return _c("span", {}, [
-                        props.column.field == "idGrupo" && _vm.apagar
+                        props.column.field == "deletar" && _vm.apagar
                           ? _c(
                               "span",
                               { staticClass: "btn-icon" },
@@ -98405,8 +98446,8 @@ var render = function() {
                                   {
                                     attrs: {
                                       action:
-                                        _vm.apagar +
-                                        props.formattedRow[props.column.field],
+                                        _vm.linkacoes +
+                                        Object.values(props.formattedRow)[0],
                                       token: _vm.token,
                                       method: "delete",
                                       id: props.row.originalIndex
@@ -98429,9 +98470,26 @@ var render = function() {
                               ],
                               1
                             )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        props.column.field == "editar" && _vm.editar
+                          ? _c("span", { staticClass: "btn-icon" }, [
+                              _c(
+                                "a",
+                                {
+                                  attrs: {
+                                    href:
+                                      _vm.linkacoes +
+                                      Object.values(props.formattedRow)[0] +
+                                      "/edit"
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-pen-alt" })]
+                              )
+                            ])
                           : _c("span", [
                               _vm._v(
-                                "\r\n                " +
+                                "\r\n                    " +
                                   _vm._s(
                                     props.formattedRow[props.column.field]
                                   ) +
@@ -98631,12 +98689,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["titulo", "link", "nomegrupo", "dadosselecionados", "method", "action", "token", 'icon', 'titulo'],
+  props: ["titulo", "nomegrupo", "dadosselecionados", "method", "action", "token", 'icon', 'titulo', 'idgrupo'],
   data: function data() {
     return {
-      dadosSelect: this.dadosselecionados || [],
+      dadosSelect: [],
       idTelas: [],
       columns: [],
       busca: "",
@@ -98645,21 +98704,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       sortDirection: "asc",
       pagination: [],
       pages: [],
-      grupo: this.nomegrupo || ''
+      grupo: this.nomegrupo || '',
+      link: 'http://projetosara.meu/master/permissoes'
     };
   },
   mounted: function mounted() {
-    console.log(this.nomegrupo);
-    if (this.dadosselecionados) this.idTelas = this.dadosselecionados.map(function (e) {
-      return e.idTelas;
-    });
+    var _this = this;
+
+    if (this.dadosselecionados) {
+      this.dadosselecionados.forEach(function (param) {
+        var item = _this.novoItem(param);
+        _this.dadosSelect.push(item);
+        _this.idTelas.push(item.idTelas);
+      });
+      // console.log(typeof this.dadosSelect ); // Object
+    }
+    this.columns = [{ field: "idTelas", label: "", width: "50px" }, { field: "nomeTela", label: "Permissões" }, { field: "siglaTela", label: "Sigla", hidden: true }];
   },
   methods: {
     validaForm: function validaForm(event) {
-      var _this = this;
+      var _this2 = this;
 
       this.$validator.validateAll().then(function (result) {
-        if (result) _this.$refs.form.$el.submit(); // Acessa o form que está em outro componente e faz o submit
+        if (result) _this2.$refs.form.$el.submit(); // Acessa o form que está em outro componente e faz o submit
       });
     },
     reset: function reset() {
@@ -98675,7 +98742,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.$modal.hide("permissoes");
     },
     openModal: function openModal() {
-      this.columns = [{ field: "idTelas", label: "", width: "50px" }, { field: "nomeTela", label: "Permissões" }, { field: "siglaTela", label: "Sigla", hidden: true }];
       this.sortProperty = "nomeTela";
       this.buscaDados();
     },
@@ -98685,15 +98751,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.buscaDados();
     },
     buscaDados: function buscaDados() {
-      var _this2 = this;
+      var _this3 = this;
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
       var url = this.busca === "" ? this.link + "/" + this.sortProperty + "/" + this.sortDirection + "?page=" + page : this.link + "/" + this.sortProperty + "/" + this.sortDirection + "/" + this.busca + "?page=" + page;
       axios.get(url).then(function (res) {
-        _this2.rows = res.data.data;
-        _this2.pagination = res.data;
-        _this2.pages = _.range(1, _this2.pagination.last_page + 1);
+        _this3.rows = res.data.data;
+        _this3.pagination = res.data;
+        _this3.pages = _.range(1, _this3.pagination.last_page + 1);
       });
     },
     filtrar: function filtrar() {
@@ -98784,6 +98850,11 @@ var render = function() {
                       _vm.idTelas = $event.target.value
                     }
                   }
+                }),
+                _vm._v(" "),
+                _c("input", {
+                  attrs: { type: "hidden", name: "idGrupo" },
+                  domProps: { value: _vm.idgrupo }
                 }),
                 _vm._v(" "),
                 _c(
