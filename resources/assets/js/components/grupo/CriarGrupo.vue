@@ -86,20 +86,39 @@
 
 <script>
 export default {
-  props: [
-    "titulo",
-    "link",
-    "nomegrupo",
-    "dadosselecionados",
-    "method",
-    "action",
-    "token",
-    'icon',
-    'titulo'
-  ],
+  props: {
+    titulo: {
+        required: true,
+        type: String
+    },
+    nomegrupo: {
+        type: String
+    },
+    dadosselecionados: {
+        type: Array
+    },
+    method: {
+        required: true,
+        type: String
+    },
+    action: {
+        required: true,
+        type: String
+    },
+    token: {
+        required: true,
+        type: String
+    },
+    icon: {
+        type: String
+    },
+    idgrupo: {
+        type: String
+    }
+  },
   data: function() {
     return {
-      dadosSelect: this.dadosselecionados || [],
+      dadosSelect: [],
       idTelas: [],
       columns: [],
       busca: "",

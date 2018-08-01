@@ -26,14 +26,17 @@
             :sort-options="{ enabled: true }"
             styleClass="table table-hover">
             <span slot="table-row" slot-scope="props">
-                <span v-if="(props.column.field == 'idGrupo') && apagar" class="btn-icon">
-                    <s-formulario @submit="executaForm"  :action="apagar + props.formattedRow[props.column.field]" 
+                <span v-if="(props.column.field == 'deletar') && apagar" class="btn-icon">
+                    <s-formulario @submit="executaForm"  :action="linkacoes + Object.values(props.formattedRow)[0]" 
                                             :token="token"  method="delete" :id="props.row.originalIndex">
                         <i  class="fas fa-trash-alt" @click="executaForm(props.row.originalIndex)"></i>
                     </s-formulario>
                 </span>
+                <span v-if="(props.column.field == 'editar') && editar" class="btn-icon">
+                        <a :href="linkacoes + Object.values(props.formattedRow)[0] +'/edit'"><i  class="fas fa-pen-alt"></i></a>
+                </span>
                 <span v-else>
-                {{props.formattedRow[props.column.field]}}
+                    {{props.formattedRow[props.column.field]}}
                 </span>
             </span>
             <div slot="emptystate">
@@ -52,7 +55,44 @@
 
 <script>
     export default {
-        props:[ 'linknovo', 'linkfiltro', 'titulo', "filtroinicial", 'columns','apagar', 'editar', 'token', 'icon'],
+        props: {
+            linknovo: {
+                required: true,
+                type: String
+            },
+            linkfiltro: {
+                required: true,
+                type: String
+            },
+            titulo: {
+                required: true,
+                type: String
+            },
+            filtroinicial: {
+                type: String
+            },
+            columns: {
+                required: true,
+                type: Array
+            },
+            apagar: {
+                type: Boolean,
+                default: false
+            },
+            editar: {
+                type: Boolean,
+                default: false
+            },
+            token: {
+                type: String
+            },
+            icon: {
+                type: String
+            },
+            linkacoes: {
+                type: String
+            }
+        },
         data: function () {
             return {
                 pages: [],
