@@ -98261,7 +98261,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    // props:[ 'linknovo', 'linkfiltro', 'titulo', "filtroinicial", 'columns','apagar', 'editar', 'token', 'icon', 'linkacoes'],
     props: {
         linknovo: {
             required: true,
@@ -98692,7 +98691,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["titulo", "nomegrupo", "dadosselecionados", "method", "action", "token", 'icon', 'titulo', 'idgrupo'],
+  props: {
+    titulo: {
+      required: true,
+      type: String
+    },
+    nomegrupo: {
+      type: String
+    },
+    dadosselecionados: {
+      type: Array
+    },
+    method: {
+      required: true,
+      type: String
+    },
+    action: {
+      required: true,
+      type: String
+    },
+    token: {
+      required: true,
+      type: String
+    },
+    icon: {
+      type: String
+    },
+    idgrupo: {
+      type: String
+    }
+  },
   data: function data() {
     return {
       dadosSelect: [],
