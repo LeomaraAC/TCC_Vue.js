@@ -18,7 +18,7 @@
                 </a>
                 <ul class="collapse list-unstyled" id="pageSubmenu">
                     <li>
-                        <a href="/master/grupos">Grupos</a>
+                        <a href="/master/grupos"> <i class="fas fa-shapes"></i> Grupos</a>
                     </li>
                 </ul>
             </li>
