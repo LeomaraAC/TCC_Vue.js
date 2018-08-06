@@ -28139,7 +28139,7 @@ Vue.component('s-select', __webpack_require__(325));
 Vue.component('s-snackbar', __webpack_require__(228));
 Vue.component('s-pagination', __webpack_require__(236));
 Vue.component('s-listagem', __webpack_require__(285));
-Vue.component('s-tabelaremote', __webpack_require__(308));
+Vue.component('s-tabelaremote', __webpack_require__(333));
 Vue.component('s-modal', __webpack_require__(239));
 Vue.component('s-formulario', __webpack_require__(288));
 Vue.component('s-formcard', __webpack_require__(291));
@@ -99088,367 +99088,9 @@ if (false) {
 }
 
 /***/ }),
-/* 308 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(309)
-/* template */
-var __vue_template__ = __webpack_require__(310)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources\\assets\\js\\components\\shared\\tabela\\TabelaRemote.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-30a66062", Component.options)
-  } else {
-    hotAPI.reload("data-v-30a66062", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 309 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    props: {
-        pagination: {
-            type: [Array, Object]
-        },
-        columns: {
-            type: [Array, Object],
-            required: true
-        },
-        rows: {
-            type: [Array, Object],
-            required: true
-        },
-        apagar: {
-            type: Boolean,
-            default: false
-        },
-        editar: {
-            type: Boolean,
-            default: false
-        },
-        linkacoes: {
-            type: String
-        },
-        token: {
-            type: String
-        },
-        sortProperty: {
-            type: String
-        },
-        selecionados: {
-            type: [Array, Object]
-        },
-        ckeck: {
-            type: Boolean,
-            default: false
-        },
-        sortDirection: {
-            type: String
-        },
-        remoto: {
-            type: Boolean,
-            required: true
-        }
-    },
-    data: function data() {
-        return {
-            remote: this.remoto ? 'remote' : ''
-        };
-    },
-    methods: {
-        sort: function sort(params) {
-            this.$emit('ordenar', params);
-        },
-        deletarItem: function deletarItem(index, id) {
-            this.remoto ? document.getElementById(index).submit() : this.$emit('apagar', id);
-        },
-        paginar: function paginar(params) {
-            this.$emit('paginar', params);
-        },
-        checked: function checked(item) {
-            this.$emit('checked', item);
-        },
-        getIndex: function getIndex(item) {
-            return this.selecionados.map(function (e) {
-                return Object.values(e)[0];
-            }).indexOf(item);
-        }
-    }
-});
-
-/***/ }),
-/* 310 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c(
-        "vue-good-table",
-        {
-          attrs: {
-            mode: _vm.remote,
-            columns: _vm.columns,
-            rows: _vm.rows,
-            "sort-options": { enabled: true },
-            styleClass: "table table-hover"
-          },
-          on: { "on-sort-change": _vm.sort },
-          scopedSlots: _vm._u([
-            {
-              key: "table-row",
-              fn: function(props) {
-                return _c(
-                  "span",
-                  {},
-                  [
-                    props.column.field == "check" && _vm.ckeck
-                      ? _c("s-checkbox", {
-                          attrs: {
-                            name: Object.values(props.formattedRow)[0],
-                            ischecked:
-                              _vm.getIndex(
-                                Object.values(props.formattedRow)[0]
-                              ) > -1,
-                            item: props.row
-                          },
-                          on: { checked: _vm.checked }
-                        })
-                      : _vm._e(),
-                    _vm._v(" "),
-                    props.column.field == "deletar" && _vm.apagar
-                      ? _c(
-                          "span",
-                          { staticClass: "btn-icon" },
-                          [
-                            _c(
-                              "s-formulario",
-                              {
-                                attrs: {
-                                  action:
-                                    _vm.linkacoes +
-                                    "/" +
-                                    Object.values(props.formattedRow)[0],
-                                  token: _vm.token,
-                                  method: "delete",
-                                  id: props.row.originalIndex
-                                },
-                                on: { submit: _vm.deletarItem }
-                              },
-                              [
-                                _c("i", {
-                                  staticClass: "fas fa-trash-alt",
-                                  on: {
-                                    click: function($event) {
-                                      _vm.deletarItem(
-                                        props.row.originalIndex,
-                                        Object.values(props.formattedRow)[0]
-                                      )
-                                    }
-                                  }
-                                })
-                              ]
-                            )
-                          ],
-                          1
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    props.column.field == "editar" && _vm.editar
-                      ? _c("span", { staticClass: "btn-icon" }, [
-                          _c(
-                            "a",
-                            {
-                              attrs: {
-                                href:
-                                  _vm.linkacoes +
-                                  "/" +
-                                  Object.values(props.formattedRow)[0] +
-                                  "/edit"
-                              }
-                            },
-                            [_c("i", { staticClass: "fas fa-pen-alt" })]
-                          )
-                        ])
-                      : _c("span", [
-                          _vm._v(
-                            "\n                 " +
-                              _vm._s(props.formattedRow[props.column.field]) +
-                              "\n             "
-                          )
-                        ])
-                  ],
-                  1
-                )
-              }
-            },
-            {
-              key: "table-column",
-              fn: function(props) {
-                return _c("span", {}, [
-                  props.column.label != ""
-                    ? _c("span", { staticClass: "hover" }, [
-                        _vm.sortProperty == props.column.field
-                          ? _c("i", {
-                              class: {
-                                "fas fa-sort-alpha-down":
-                                  _vm.sortDirection == "asc",
-                                "fas fa-sort-alpha-up":
-                                  _vm.sortDirection == "desc"
-                              }
-                            })
-                          : _vm._e(),
-                        _vm._v(
-                          " " + _vm._s(props.column.label) + "\n             "
-                        )
-                      ])
-                    : _c("span", [
-                        _vm._v(
-                          "\n                 " +
-                            _vm._s(props.column.label) +
-                            "\n             "
-                        )
-                      ])
-                ])
-              }
-            }
-          ])
-        },
-        [
-          _c(
-            "div",
-            { attrs: { slot: "emptystate" }, slot: "emptystate" },
-            [
-              _c(
-                "v-alert",
-                { attrs: { value: true, color: "red", icon: "warning" } },
-                [
-                  _vm._v(
-                    "\n                 Nenhum dado encontrado :(\n             "
-                  )
-                ]
-              )
-            ],
-            1
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _vm.pagination && _vm.pagination.last_page > 1
-        ? _c(
-            "div",
-            { staticClass: "text-left" },
-            [
-              _c("s-pagination", {
-                attrs: { pages: _vm.pagination.last_page },
-                on: { navigate: _vm.paginar }
-              })
-            ],
-            1
-          )
-        : _vm._e()
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-30a66062", module.exports)
-  }
-}
-
-/***/ }),
+/* 308 */,
+/* 309 */,
+/* 310 */,
 /* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -100344,6 +99986,367 @@ exports.push([module.i, "\n.invalid .typo__label {\n    color:crimson;\n}\n.inva
 
 // exports
 
+
+/***/ }),
+/* 333 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(334)
+/* template */
+var __vue_template__ = __webpack_require__(335)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\shared\\tabela\\Tabela.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5d3d39fc", Component.options)
+  } else {
+    hotAPI.reload("data-v-5d3d39fc", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 334 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        pagination: {
+            type: [Array, Object]
+        },
+        columns: {
+            type: [Array, Object],
+            required: true
+        },
+        rows: {
+            type: [Array, Object],
+            required: true
+        },
+        apagar: {
+            type: Boolean,
+            default: false
+        },
+        editar: {
+            type: Boolean,
+            default: false
+        },
+        linkacoes: {
+            type: String
+        },
+        token: {
+            type: String
+        },
+        sortProperty: {
+            type: String
+        },
+        selecionados: {
+            type: [Array, Object]
+        },
+        ckeck: {
+            type: Boolean,
+            default: false
+        },
+        sortDirection: {
+            type: String
+        },
+        remoto: {
+            type: Boolean,
+            required: true
+        }
+    },
+    data: function data() {
+        return {
+            remote: this.remoto ? 'remote' : ''
+        };
+    },
+    methods: {
+        sort: function sort(params) {
+            this.$emit('ordenar', params);
+        },
+        deletarItem: function deletarItem(index, id) {
+            this.remoto ? document.getElementById(index).submit() : this.$emit('apagar', id);
+        },
+        paginar: function paginar(params) {
+            this.$emit('paginar', params);
+        },
+        checked: function checked(item) {
+            this.$emit('checked', item);
+        },
+        getIndex: function getIndex(item) {
+            return this.selecionados.map(function (e) {
+                return Object.values(e)[0];
+            }).indexOf(item);
+        }
+    }
+});
+
+/***/ }),
+/* 335 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "vue-good-table",
+        {
+          attrs: {
+            mode: _vm.remote,
+            columns: _vm.columns,
+            rows: _vm.rows,
+            "sort-options": { enabled: true },
+            styleClass: "table table-hover"
+          },
+          on: { "on-sort-change": _vm.sort },
+          scopedSlots: _vm._u([
+            {
+              key: "table-row",
+              fn: function(props) {
+                return _c(
+                  "span",
+                  {},
+                  [
+                    props.column.field == "check" && _vm.ckeck
+                      ? _c("s-checkbox", {
+                          attrs: {
+                            name: Object.values(props.formattedRow)[0],
+                            ischecked:
+                              _vm.getIndex(
+                                Object.values(props.formattedRow)[0]
+                              ) > -1,
+                            item: props.row
+                          },
+                          on: { checked: _vm.checked }
+                        })
+                      : _vm._e(),
+                    _vm._v(" "),
+                    props.column.field == "deletar" && _vm.apagar
+                      ? _c(
+                          "span",
+                          { staticClass: "btn-icon" },
+                          [
+                            _c(
+                              "s-formulario",
+                              {
+                                attrs: {
+                                  action:
+                                    _vm.linkacoes +
+                                    "/" +
+                                    Object.values(props.formattedRow)[0],
+                                  token: _vm.token,
+                                  method: "delete",
+                                  id: props.row.originalIndex
+                                },
+                                on: { submit: _vm.deletarItem }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "fas fa-trash-alt",
+                                  on: {
+                                    click: function($event) {
+                                      _vm.deletarItem(
+                                        props.row.originalIndex,
+                                        Object.values(props.formattedRow)[0]
+                                      )
+                                    }
+                                  }
+                                })
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    props.column.field == "editar" && _vm.editar
+                      ? _c("span", { staticClass: "btn-icon" }, [
+                          _c(
+                            "a",
+                            {
+                              attrs: {
+                                href:
+                                  _vm.linkacoes +
+                                  "/" +
+                                  Object.values(props.formattedRow)[0] +
+                                  "/edit"
+                              }
+                            },
+                            [_c("i", { staticClass: "fas fa-pen-alt" })]
+                          )
+                        ])
+                      : _c("span", [
+                          _vm._v(
+                            "\n                 " +
+                              _vm._s(props.formattedRow[props.column.field]) +
+                              "\n             "
+                          )
+                        ])
+                  ],
+                  1
+                )
+              }
+            },
+            {
+              key: "table-column",
+              fn: function(props) {
+                return _c("span", {}, [
+                  props.column.label != ""
+                    ? _c("span", { staticClass: "hover" }, [
+                        _vm.sortProperty == props.column.field
+                          ? _c("i", {
+                              class: {
+                                "fas fa-sort-alpha-down":
+                                  _vm.sortDirection == "asc",
+                                "fas fa-sort-alpha-up":
+                                  _vm.sortDirection == "desc"
+                              }
+                            })
+                          : _vm._e(),
+                        _vm._v(
+                          " " + _vm._s(props.column.label) + "\n             "
+                        )
+                      ])
+                    : _c("span", [
+                        _vm._v(
+                          "\n                 " +
+                            _vm._s(props.column.label) +
+                            "\n             "
+                        )
+                      ])
+                ])
+              }
+            }
+          ])
+        },
+        [
+          _c(
+            "div",
+            { attrs: { slot: "emptystate" }, slot: "emptystate" },
+            [
+              _c(
+                "v-alert",
+                { attrs: { value: true, color: "red", icon: "warning" } },
+                [
+                  _vm._v(
+                    "\n                 Nenhum dado encontrado :(\n             "
+                  )
+                ]
+              )
+            ],
+            1
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _vm.pagination && _vm.pagination.last_page > 1
+        ? _c(
+            "div",
+            { staticClass: "text-left" },
+            [
+              _c("s-pagination", {
+                attrs: { pages: _vm.pagination.last_page },
+                on: { navigate: _vm.paginar }
+              })
+            ],
+            1
+          )
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-5d3d39fc", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

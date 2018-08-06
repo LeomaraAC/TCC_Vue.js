@@ -39,7 +39,7 @@ Vue.component('s-select', require('./components/shared/inputs/Select.vue'));
 Vue.component('s-snackbar', require('./components/shared/Snackbar.vue'));
 Vue.component('s-pagination', require('./components/shared/tabela/Pagination.vue'));
 Vue.component('s-listagem', require('./components/shared/tabela/Listagem.vue'));
-Vue.component('s-tabelaremote', require('./components/shared/tabela/TabelaRemote.vue'));
+Vue.component('s-tabelaremote', require('./components/shared/tabela/Tabela.vue'));
 Vue.component('s-modal', require('./components/shared/Modal.vue'));
 Vue.component('s-formulario', require('./components/shared/form/Formulario.vue'));
 Vue.component('s-formcard', require('./components/shared/form/FormCard.vue'));
