@@ -20,6 +20,9 @@
                     <li>
                         <a href="/master/grupos"> <i class="fas fa-shapes"></i> Grupos</a>
                     </li>
+                    <li>
+                        <a href="/master/usuarios"> <i class="fas fa-users-cog"></i> Usuários</a>
+                    </li>
                 </ul>
             </li>
         </ul>
