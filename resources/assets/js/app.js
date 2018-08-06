@@ -20,8 +20,11 @@ window.VueGoodTablePlugin = require('vue-good-table');
 window.Vue.use(VueGoodTablePlugin);
 import 'vue-good-table/dist/vue-good-table.css';
 
-import VModal from 'vue-js-modal'
-Vue.use(VModal)
+import VModal from 'vue-js-modal';
+Vue.use(VModal);
+
+import Multiselect from 'vue-multiselect';
+Vue.component('multiselect', Multiselect);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
