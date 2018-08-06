@@ -25,3 +25,11 @@
         }
     }
 </script>
+<style>
+    li button.v-pagination__item {
+        outline: none;
+    }
+    li button.v-pagination__item::-moz-focus-inner {
+        border: 0;
+    }
+</style>
