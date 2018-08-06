@@ -1,7 +1,7 @@
 <template>
     <label class="check ">
         {{label}}
-        <input type="checkbox" name="name" @click="checked"  :checked="ischecked ? 'checked' : ''">
+        <input type="checkbox" :name="name" @click="checked"  :checked="ischecked ? 'checked' : ''">
         <span class="checkmark"></span>
     </label>
 </template>
