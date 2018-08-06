@@ -7,7 +7,10 @@
 @import "variables";
 
 // Bootstrap
+@import '~vue-multiselect/dist/vue-multiselect.min.css';
 @import '~bootstrap/scss/bootstrap';
+@import '~vuetify/dist/vuetify.min.css';
+@import '~@fortawesome/fontawesome-free/css/all.css';
 
 // main.styl
 // @import '~vuetify/dist/vuetify.min';
