@@ -9,7 +9,7 @@
                         <input ref="grupo" name="grupo" type="text" placeholder="Nome do grupo"  
                                 v-validate="'required|regex:^[a-zA-Z0-9\\- áÁéÉíÍóÓúÚçÇ`àÀãÃõÕôÔêÊ_]+$|min:3|max:60'"
                                 :class="{'form-control form-control-warning': true, 'is-invalid': errors.has('grupo') }"
-                                data-vv-validate-on="focusout|input" autofocus v-model="grupo" 
+                                data-vv-validate-on="focusout|input" autofocus v-model="grupo" maxlength="60"
                         >
                         <span slot="error">
                             {{ errors.first('grupo') }}
