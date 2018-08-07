@@ -164,6 +164,7 @@ export default {
       var url = this.busca === "" ? this.link + "/" + this.sortProperty + "/" + this.sortDirection + "?page=" + page
                                 : this.link + "/" + this.sortProperty + "/" + this.sortDirection + "/" + this.busca + "?page=" + page;
       axios.get(url).then(res => {
+         this.empty = true;
         this.rows = res.data.data;
         this.pagination = res.data;
       });
