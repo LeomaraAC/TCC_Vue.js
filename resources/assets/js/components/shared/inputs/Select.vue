@@ -1,5 +1,5 @@
 <template>
-    <div :class="{ 'invalid': isInvalid && required }">
+    <div :class="{ 'mb-3':true,'invalid': isInvalid && required }">
             <multiselect  
                 v-model="value"
                 :id="id"
