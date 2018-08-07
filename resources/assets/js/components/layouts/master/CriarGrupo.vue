@@ -4,7 +4,7 @@
             <s-formulario @submit="validaForm"  :action="action" :token="token"  ref="form"
                                     :method="method" id="criarGrupo">
                 <input type="hidden"  name="idTelas" v-model="idTelas">
-                <div class="offset-md-2 col-md-8 col-sm-12">
+                <div class="offset-md-3 col-md-6 col-sm-12">
                     <s-input>
                         <input ref="grupo" name="grupo" type="text" placeholder="Nome do grupo"  
                                 v-validate="'required|regex:^[a-zA-Z0-9\\- áÁéÉíÍóÓúÚçÇ`àÀãÃõÕôÔêÊ_]+$|min:3|max:60'"

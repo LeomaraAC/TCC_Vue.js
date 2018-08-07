@@ -28139,7 +28139,7 @@ Vue.component('s-select', __webpack_require__(325));
 Vue.component('s-snackbar', __webpack_require__(228));
 Vue.component('s-pagination', __webpack_require__(236));
 Vue.component('s-listagem', __webpack_require__(285));
-Vue.component('s-tabelaremote', __webpack_require__(333));
+Vue.component('s-tabela', __webpack_require__(333));
 Vue.component('s-modal', __webpack_require__(239));
 Vue.component('s-formulario', __webpack_require__(288));
 Vue.component('s-formcard', __webpack_require__(291));
@@ -96424,6 +96424,10 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(336)
+}
 var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(237)
@@ -96432,7 +96436,7 @@ var __vue_template__ = __webpack_require__(238)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -96495,6 +96499,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         navigate: function navigate(page) {
             this.$emit("navigate", page);
+        },
+        resetPage: function resetPage() {
+            this.page = 1;
         }
     }
 });
@@ -96516,7 +96523,7 @@ var render = function() {
           length: _vm.pages,
           circle: "",
           color: "green",
-          "total-visible": 8
+          "total-visible": 7
         },
         on: { input: _vm.navigate },
         model: {
@@ -97439,7 +97446,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             busca: '',
             sortProperty: this.filtroinicial,
             sortDirection: 'asc',
-            rows: []
+            rows: [],
+            empty: false
         };
     },
     mounted: function mounted() {
@@ -97458,6 +97466,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var url = this.busca === '' ? this.linkfiltro + '/' + this.sortProperty + '/' + this.sortDirection + '?page=' + page : this.linkfiltro + '/' + this.sortProperty + '/' + this.sortDirection + '/' + this.busca + '?page=' + page;
 
             axios.get(url).then(function (res) {
+                _this.empty = true;
                 _this.rows = res.data.data;
                 _this.pagination = res.data;
             });
@@ -97469,6 +97478,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         filtrar: function filtrar() {
             this.buscaDados();
+            this.$refs.tabela.resetPage();
         }
     }
 });
@@ -97550,7 +97560,8 @@ var render = function() {
           "span",
           { attrs: { slot: "body" }, slot: "body" },
           [
-            _c("s-tabelaremote", {
+            _c("s-tabela", {
+              ref: "tabela",
               attrs: {
                 pagination: _vm.pagination,
                 columns: _vm.columns,
@@ -97561,7 +97572,8 @@ var render = function() {
                 apagar: _vm.apagar,
                 editar: _vm.editar,
                 token: _vm.token,
-                linkacoes: _vm.linkacoes
+                linkacoes: _vm.linkacoes,
+                empty: _vm.empty
               },
               on: { ordenar: _vm.sort, paginar: _vm.buscaDados }
             })
@@ -98290,6 +98302,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -98301,7 +98314,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       type: String
     },
     dadosselecionados: {
-      type: Array
+      // type: Array
     },
     method: {
       required: true,
@@ -98334,19 +98347,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       sortDirection: "asc",
       pagination: [],
       grupo: this.nomegrupo || '',
-      link: 'http://projetosara.meu/master/permissoes'
+      link: 'http://projetosara.meu/master/permissoes',
+      empty: false
     };
   },
   mounted: function mounted() {
     var _this = this;
 
     if (this.dadosselecionados) {
-      this.dadosselecionados.forEach(function (param) {
-        var item = _this.novoItem(param);
-        _this.dadosSelect.push(item);
-        _this.idTelas.push(item.idTelas);
-      });
+      if (typeof this.dadosselecionados === "string") {
+        var dados = this.dadosselecionados.split(",");
+        var url = 'http://projetosara.meu/master/find_ids';
+        axios.get(url, {
+          params: {
+            ids: dados
+          }
+        }).then(function (res) {
+          var dados = res.data;
+          _this.dadosSelect = dados;
+          dados.forEach(function (item) {
+            return _this.idTelas.push(item.idTelas);
+          });
+          console.log(_this.idTelas);
+        });
+      } else {
+        this.dadosselecionados.forEach(function (param) {
+          var item = _this.novoItem(param);
+          _this.dadosSelect.push(item);
+          _this.idTelas.push(item.idTelas);
+        });
+      }
     }
+
     this.columns = [{ field: "idTelas", label: "", hidden: true }, { field: "check", label: '', width: '50px', sortable: false }, { field: "nomeTela", label: "Permissões" }, { field: "siglaTela", label: "Sigla", hidden: true }];
     this.columnsSelect = [{ field: "idTelas", label: "", hidden: true }, { field: "deletar", label: '', width: '50px', sortable: false }, { field: "nomeTela", label: "Permissões" }, { field: "siglaTela", label: "Sigla", hidden: true }];
   },
@@ -98386,6 +98418,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       var url = this.busca === "" ? this.link + "/" + this.sortProperty + "/" + this.sortDirection + "?page=" + page : this.link + "/" + this.sortProperty + "/" + this.sortDirection + "/" + this.busca + "?page=" + page;
       axios.get(url).then(function (res) {
+        _this3.empty = true;
         _this3.rows = res.data.data;
         _this3.pagination = res.data;
       });
@@ -98484,7 +98517,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "offset-md-2 col-md-8 col-sm-12" },
+                { staticClass: "offset-md-3 col-md-6 col-sm-12" },
                 [
                   _c("s-input", [
                     _c("input", {
@@ -98596,7 +98629,7 @@ var render = function() {
                     })
                   ]),
                   _vm._v(" "),
-                  _c("s-tabelaremote", {
+                  _c("s-tabela", {
                     attrs: {
                       pagination: _vm.pagination,
                       columns: _vm.columns,
@@ -98605,7 +98638,8 @@ var render = function() {
                       sortProperty: _vm.sortProperty,
                       selecionados: _vm.dadosSelect,
                       ckeck: true,
-                      sortDirection: _vm.sortDirection
+                      sortDirection: _vm.sortDirection,
+                      empty: _vm.empty
                     },
                     on: {
                       ordenar: _vm.sort,
@@ -98643,6 +98677,7 @@ var render = function() {
                     attrs: {
                       columns: _vm.columnsSelect,
                       rows: _vm.dadosSelect,
+                      empty: true,
                       remoto: false,
                       apagar: true
                     },
@@ -98761,15 +98796,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
         titulo: {
             required: true,
-            type: String
-        },
-        icon: {
             type: String
         },
         grupos: {
@@ -98802,30 +98864,67 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     data: function data() {
         return {
-            select: {}
+            select: {},
+            campoValido: {
+                prontuario: false,
+                nome: false,
+                email: false
+            },
+            clickSubmit: false,
+            senha: '',
+            confSenha: ''
         };
     },
     methods: {
-        setNome: function setNome(value) {
-            this.nome = value;
-        },
         setSelect: function setSelect(value) {
             this.select = value;
         },
-        enviarForm: function enviarForm(params) {
-            if (params && Object.keys(this.select).length != 0) this.$refs.form.$el.submit(); // Acessa o form que está em outro componente e faz o submit
+        enviarForm: function enviarForm() {
+            this.$refs.form.$el.submit(); // Acessa o form que está em outro componente e faz o submit
         },
         validaForm: function validaForm() {
             this.$refs.selectGrupo.onTouch();
+            this.$refs.campoProntuario.isValid();
             this.$refs.campoNome.isValid();
+            this.$refs.campoEmail.isValid();
+            this.clickSubmit = true;
         },
         resetForm: function resetForm() {
+            //Prontuário
             this.$refs.campoProntuario.clear();
             this.$refs.campoProntuario.$validator.reset();
+            //Nome
             this.$refs.campoNome.clear();
-            this.$refs.campoNome.$validator.reset(); // Reseta os erros
+            this.$refs.campoNome.$validator.reset();
+            //Email
+            this.$refs.campoEmail.clear();
+            this.$refs.campoEmail.$validator.reset();
+            // //Senha
+            this.senha = '';
+            // //Confirmar Senha
+            this.confSenha = '';
+            // Resetar a validação da senha e confirma senha
+            this.$validator.reset();
+            //Grupo
             this.$refs.selectGrupo.reset();
+            //Focus no campo Prontuário
             this.$refs.campoProntuario.setFocus();
+        },
+        isValid: function isValid() {
+            var _this = this;
+
+            if (this.clickSubmit && this.campoValido.prontuario && this.campoValido.nome && this.campoValido.email && Object.keys(this.select).length != 0) {
+                this.$validator.validateAll().then(function (result) {
+                    if (result) _this.enviarForm();
+                });
+            }
+
+            this.clickSubmit = false;
+        }
+    },
+    watch: {
+        clickSubmit: function clickSubmit() {
+            if (this.clickSubmit) this.isValid();
         }
     }
 });
@@ -98841,7 +98940,7 @@ var render = function() {
   return _c(
     "s-formcard",
     {
-      attrs: { titulo: _vm.titulo, icon: _vm.icon },
+      attrs: { titulo: _vm.titulo, icon: "fas fa-users-cog" },
       on: { submitForm: _vm.validaForm, resetForm: _vm.resetForm }
     },
     [
@@ -98878,7 +98977,11 @@ var render = function() {
                         valor: this.valores.prontuario,
                         autofocus: true
                       },
-                      on: { validado: _vm.enviarForm }
+                      on: {
+                        validado: function($event) {
+                          _vm.campoValido.prontuario = $event
+                        }
+                      }
                     })
                   ],
                   1
@@ -98898,7 +99001,11 @@ var render = function() {
                         valor: this.valores.nome,
                         maxlength: 60
                       },
-                      on: { validado: _vm.enviarForm }
+                      on: {
+                        validado: function($event) {
+                          _vm.campoValido.nome = $event
+                        }
+                      }
                     })
                   ],
                   1
@@ -98911,14 +99018,18 @@ var render = function() {
                     _c("s-input", {
                       ref: "campoEmail",
                       attrs: {
-                        id: "nome",
+                        id: "email",
                         type: "email",
                         placeholder: "Email do usuário",
-                        validate: "required|alpha_spaces|min:3|max:60",
+                        validate: "required|email|max:60",
                         valor: this.valores.email,
                         maxlength: 60
                       },
-                      on: { validado: _vm.enviarForm }
+                      on: {
+                        validado: function($event) {
+                          _vm.campoValido.email = $event
+                        }
+                      }
                     })
                   ],
                   1
@@ -98928,7 +99039,7 @@ var render = function() {
               _c("div", { staticClass: "row" }, [
                 _c(
                   "div",
-                  { staticClass: "col-md-5 col-sm-12" },
+                  { staticClass: "col-md-4 col-sm-12" },
                   [
                     _c("s-select", {
                       ref: "selectGrupo",
@@ -98936,8 +99047,6 @@ var render = function() {
                         id: "grupos",
                         options: _vm.grupos,
                         placeholder: "Grupos",
-                        "deselect-label": "Remover grupo",
-                        "select-label": "Selecionar grupo",
                         "track-by": "idGrupo",
                         label: "nomeGrupo",
                         campo: "grupo",
@@ -98946,6 +99055,118 @@ var render = function() {
                       },
                       on: { selected: _vm.setSelect }
                     })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-md-4 col-sm-12" },
+                  [
+                    _c("s-input", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.senha,
+                            expression: "senha"
+                          },
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: "required|min:6|max:100",
+                            expression: "'required|min:6|max:100'"
+                          }
+                        ],
+                        ref: "campoSenha",
+                        class: {
+                          "form-control form-control-warning": true,
+                          "is-invalid": _vm.errors.has("senha")
+                        },
+                        attrs: {
+                          id: "senha",
+                          name: "senha",
+                          type: "password",
+                          placeholder: "Senha",
+                          "data-vv-validate-on": "focusout|input",
+                          maxlength: "100"
+                        },
+                        domProps: { value: _vm.senha },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.senha = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("div", { attrs: { slot: "error" }, slot: "error" }, [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(_vm.errors.first("senha")) +
+                            "\n                        "
+                        )
+                      ])
+                    ])
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-md-4 col-sm-12" },
+                  [
+                    _c("s-input", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.confSenha,
+                            expression: "confSenha"
+                          },
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: "confirmed:campoSenha|required",
+                            expression: "'confirmed:campoSenha|required'"
+                          }
+                        ],
+                        ref: "campoConfirmarSenha",
+                        class: {
+                          "form-control form-control-warning": true,
+                          "is-invalid": _vm.errors.has("senha_confirmation")
+                        },
+                        attrs: {
+                          id: "senha_confirmation",
+                          name: "senha_confirmation",
+                          type: "password",
+                          placeholder: "Confirmar senha",
+                          "data-vv-validate-on": "focusout|input",
+                          maxlength: "100"
+                        },
+                        domProps: { value: _vm.confSenha },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.confSenha = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("div", { attrs: { slot: "error" }, slot: "error" }, [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(_vm.errors.first("senha_confirmation")) +
+                            "\n                        "
+                        )
+                      ])
+                    ])
                   ],
                   1
                 )
@@ -99334,7 +99555,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         maxlength: {
             type: Number
-        }
+        },
+        igual: {}
     },
     data: function data() {
         return {
@@ -99768,6 +99990,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -99777,7 +100000,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         deselectLabel: {
             type: String,
-            default: ''
+            default: 'Remover'
         },
         id: {
             type: String,
@@ -99801,7 +100024,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         selectLabel: {
             type: String,
-            default: ''
+            default: 'Selecionar'
         },
         showl: {
             type: Boolean,
@@ -99814,6 +100037,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         selected: {
             type: String,
             default: ''
+        },
+        selectedLabel: {
+            type: String,
+            default: 'Selecionado'
         }
     },
     data: function data() {
@@ -99863,7 +100090,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { class: { invalid: _vm.isInvalid && _vm.required } },
+    { class: { "mb-3": true, invalid: _vm.isInvalid && _vm.required } },
     [
       _c(
         "multiselect",
@@ -99875,6 +100102,7 @@ var render = function() {
             placeholder: _vm.placeholder,
             "deselect-label": _vm.deselectLabel,
             "track-by": _vm.trackBy,
+            "selected-label": _vm.selectedLabel,
             label: _vm.label,
             "select-label": _vm.selectLabel
           },
@@ -100090,6 +100318,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
+        empty: {
+            type: Boolean,
+            required: true
+        },
         pagination: {
             type: [Array, Object]
         },
@@ -100141,6 +100373,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         sort: function sort(params) {
             this.$emit('ordenar', params);
+            this.resetPage();
         },
         deletarItem: function deletarItem(index, id) {
             this.remoto ? document.getElementById(index).submit() : this.$emit('apagar', id);
@@ -100155,6 +100388,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.selecionados.map(function (e) {
                 return Object.values(e)[0];
             }).indexOf(item);
+        },
+
+        resetPage: function resetPage() {
+            if (this.pagination.last_page > 1) this.$refs.paginacao.resetPage();
         }
     }
 });
@@ -100167,176 +100404,183 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c(
-        "vue-good-table",
-        {
-          attrs: {
-            mode: _vm.remote,
-            columns: _vm.columns,
-            rows: _vm.rows,
-            "sort-options": { enabled: true },
-            styleClass: "table table-hover"
-          },
-          on: { "on-sort-change": _vm.sort },
-          scopedSlots: _vm._u([
-            {
-              key: "table-row",
-              fn: function(props) {
-                return _c(
-                  "span",
-                  {},
-                  [
-                    props.column.field == "check" && _vm.ckeck
-                      ? _c("s-checkbox", {
-                          attrs: {
-                            name: Object.values(props.formattedRow)[0],
-                            ischecked:
-                              _vm.getIndex(
-                                Object.values(props.formattedRow)[0]
-                              ) > -1,
-                            item: props.row
-                          },
-                          on: { checked: _vm.checked }
-                        })
-                      : _vm._e(),
-                    _vm._v(" "),
-                    props.column.field == "deletar" && _vm.apagar
-                      ? _c(
-                          "span",
-                          { staticClass: "btn-icon" },
-                          [
-                            _c(
-                              "s-formulario",
-                              {
-                                attrs: {
-                                  action:
-                                    _vm.linkacoes +
-                                    "/" +
-                                    Object.values(props.formattedRow)[0],
-                                  token: _vm.token,
-                                  method: "delete",
-                                  id: props.row.originalIndex
-                                },
-                                on: { submit: _vm.deletarItem }
-                              },
-                              [
-                                _c("i", {
-                                  staticClass: "fas fa-trash-alt",
-                                  on: {
-                                    click: function($event) {
-                                      _vm.deletarItem(
-                                        props.row.originalIndex,
-                                        Object.values(props.formattedRow)[0]
-                                      )
-                                    }
-                                  }
-                                })
-                              ]
-                            )
-                          ],
-                          1
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    props.column.field == "editar" && _vm.editar
-                      ? _c("span", { staticClass: "btn-icon" }, [
-                          _c(
-                            "a",
-                            {
-                              attrs: {
-                                href:
-                                  _vm.linkacoes +
-                                  "/" +
-                                  Object.values(props.formattedRow)[0] +
-                                  "/edit"
-                              }
-                            },
-                            [_c("i", { staticClass: "fas fa-pen-alt" })]
-                          )
-                        ])
-                      : _c("span", [
-                          _vm._v(
-                            "\n                 " +
-                              _vm._s(props.formattedRow[props.column.field]) +
-                              "\n             "
-                          )
-                        ])
-                  ],
-                  1
-                )
-              }
-            },
-            {
-              key: "table-column",
-              fn: function(props) {
-                return _c("span", {}, [
-                  props.column.label != ""
-                    ? _c("span", { staticClass: "hover" }, [
-                        _vm.sortProperty == props.column.field
-                          ? _c("i", {
-                              class: {
-                                "fas fa-sort-alpha-down":
-                                  _vm.sortDirection == "asc",
-                                "fas fa-sort-alpha-up":
-                                  _vm.sortDirection == "desc"
-                              }
-                            })
-                          : _vm._e(),
-                        _vm._v(
-                          " " + _vm._s(props.column.label) + "\n             "
-                        )
-                      ])
-                    : _c("span", [
-                        _vm._v(
-                          "\n                 " +
-                            _vm._s(props.column.label) +
-                            "\n             "
-                        )
-                      ])
-                ])
-              }
-            }
-          ])
-        },
+  return _vm.empty
+    ? _c(
+        "div",
         [
           _c(
-            "div",
-            { attrs: { slot: "emptystate" }, slot: "emptystate" },
+            "vue-good-table",
+            {
+              attrs: {
+                mode: _vm.remote,
+                columns: _vm.columns,
+                rows: _vm.rows,
+                "sort-options": { enabled: true },
+                styleClass: "table table-hover"
+              },
+              on: { "on-sort-change": _vm.sort },
+              scopedSlots: _vm._u([
+                {
+                  key: "table-row",
+                  fn: function(props) {
+                    return _c(
+                      "span",
+                      {},
+                      [
+                        props.column.field == "check" && _vm.ckeck
+                          ? _c("s-checkbox", {
+                              attrs: {
+                                name: Object.values(props.formattedRow)[0],
+                                ischecked:
+                                  _vm.getIndex(
+                                    Object.values(props.formattedRow)[0]
+                                  ) > -1,
+                                item: props.row
+                              },
+                              on: { checked: _vm.checked }
+                            })
+                          : _vm._e(),
+                        _vm._v(" "),
+                        props.column.field == "deletar" && _vm.apagar
+                          ? _c(
+                              "span",
+                              { staticClass: "btn-icon" },
+                              [
+                                _c(
+                                  "s-formulario",
+                                  {
+                                    attrs: {
+                                      action:
+                                        _vm.linkacoes +
+                                        "/" +
+                                        Object.values(props.formattedRow)[0],
+                                      token: _vm.token,
+                                      method: "delete",
+                                      id: props.row.originalIndex
+                                    },
+                                    on: { submit: _vm.deletarItem }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "fas fa-trash-alt",
+                                      on: {
+                                        click: function($event) {
+                                          _vm.deletarItem(
+                                            props.row.originalIndex,
+                                            Object.values(props.formattedRow)[0]
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ]
+                                )
+                              ],
+                              1
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        props.column.field == "editar" && _vm.editar
+                          ? _c("span", { staticClass: "btn-icon" }, [
+                              _c(
+                                "a",
+                                {
+                                  attrs: {
+                                    href:
+                                      _vm.linkacoes +
+                                      "/" +
+                                      Object.values(props.formattedRow)[0] +
+                                      "/edit"
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-pen-alt" })]
+                              )
+                            ])
+                          : _c("span", [
+                              _vm._v(
+                                "\n                 " +
+                                  _vm._s(
+                                    props.formattedRow[props.column.field]
+                                  ) +
+                                  "\n             "
+                              )
+                            ])
+                      ],
+                      1
+                    )
+                  }
+                },
+                {
+                  key: "table-column",
+                  fn: function(props) {
+                    return _c("span", {}, [
+                      props.column.label != ""
+                        ? _c("span", { staticClass: "hover" }, [
+                            _vm.sortProperty == props.column.field
+                              ? _c("i", {
+                                  class: {
+                                    "fas fa-sort-alpha-down":
+                                      _vm.sortDirection == "asc",
+                                    "fas fa-sort-alpha-up":
+                                      _vm.sortDirection == "desc"
+                                  }
+                                })
+                              : _vm._e(),
+                            _vm._v(
+                              " " +
+                                _vm._s(props.column.label) +
+                                "\n             "
+                            )
+                          ])
+                        : _c("span", [
+                            _vm._v(
+                              "\n                 " +
+                                _vm._s(props.column.label) +
+                                "\n             "
+                            )
+                          ])
+                    ])
+                  }
+                }
+              ])
+            },
             [
               _c(
-                "v-alert",
-                { attrs: { value: true, color: "red", icon: "warning" } },
+                "div",
+                { attrs: { slot: "emptystate" }, slot: "emptystate" },
                 [
-                  _vm._v(
-                    "\n                 Nenhum dado encontrado :(\n             "
+                  _c(
+                    "v-alert",
+                    { attrs: { value: true, color: "red", icon: "warning" } },
+                    [
+                      _vm._v(
+                        "\n                 Nenhum dado encontrado :(\n             "
+                      )
+                    ]
                   )
-                ]
+                ],
+                1
               )
-            ],
-            1
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _vm.pagination && _vm.pagination.last_page > 1
-        ? _c(
-            "div",
-            { staticClass: "text-left" },
-            [
-              _c("s-pagination", {
-                attrs: { pages: _vm.pagination.last_page },
-                on: { navigate: _vm.paginar }
-              })
-            ],
-            1
-          )
-        : _vm._e()
-    ],
-    1
-  )
+            ]
+          ),
+          _vm._v(" "),
+          _vm.pagination && _vm.pagination.last_page > 1
+            ? _c(
+                "div",
+                { staticClass: "text-left" },
+                [
+                  _c("s-pagination", {
+                    ref: "paginacao",
+                    attrs: { pages: _vm.pagination.last_page },
+                    on: { navigate: _vm.paginar }
+                  })
+                ],
+                1
+              )
+            : _vm._e()
+        ],
+        1
+      )
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -100347,6 +100591,46 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-5d3d39fc", module.exports)
   }
 }
+
+/***/ }),
+/* 336 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(337);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(9)("78c2c010", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-313852b1\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Pagination.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-313852b1\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Pagination.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 337 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(7)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* class=\" v-pagination__navigation--disabled\"*/\nli button.v-pagination__item,\r\n    li button.v-pagination__navigation {\r\n        outline: none;\n}\nli button.v-pagination__item::-moz-focus-inner,\r\n    li button.v-pagination__navigation::-moz-focus-inner {\r\n        border: 0;\n}\r\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);
