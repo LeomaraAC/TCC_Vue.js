@@ -18,11 +18,11 @@
     <hr>
     <s-card :footer='false'>
         <span slot="body">
-            <s-tabelaremote :pagination="pagination" :columns="columns" :rows="rows" :remoto="true"
+            <s-tabela :pagination="pagination" :columns="columns" :rows="rows" :remoto="true"
                     :sortProperty="sortProperty" :sortDirection="sortDirection" :apagar="apagar" :editar="editar" :token="token"
-                    :linkacoes="linkacoes"
-                    @ordenar="sort" @paginar="buscaDados">
-            </s-tabelaremote>
+                    :linkacoes="linkacoes" :empty="empty"
+                    @ordenar="sort" @paginar="buscaDados" ref="tabela">
+            </s-tabela>
         </span>
     </s-card>
 </div>
