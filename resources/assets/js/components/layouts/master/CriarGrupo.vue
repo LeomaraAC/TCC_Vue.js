@@ -56,7 +56,7 @@ export default {
         type: String
     },
     dadosselecionados: {
-        type: Array
+        type: [String, Array]
     },
     method: {
         required: true,
