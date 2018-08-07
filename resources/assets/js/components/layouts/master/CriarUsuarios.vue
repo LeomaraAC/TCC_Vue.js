@@ -120,8 +120,7 @@ export default {
         setSelect: function (value) {
             this.select = value;
         },
-        enviarForm: function (params) {
-            if(params && Object.keys(this.select).length != 0)
+        enviarForm: function () {  
                 this.$refs.form.$el.submit(); // Acessa o form que está em outro componente e faz o submit
         },
         validaForm: function () { 
