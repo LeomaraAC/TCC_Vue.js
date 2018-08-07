@@ -26,10 +26,13 @@
     }
 </script>
 <style>
-    li button.v-pagination__item {
+/* class=" v-pagination__navigation--disabled"*/
+    li button.v-pagination__item,
+    li button.v-pagination__navigation {
         outline: none;
     }
-    li button.v-pagination__item::-moz-focus-inner {
+    li button.v-pagination__item::-moz-focus-inner,
+    li button.v-pagination__navigation::-moz-focus-inner {
         border: 0;
     }
 </style>
