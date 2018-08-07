@@ -76,6 +76,7 @@
                 sortProperty: this.filtroinicial,
                 sortDirection: 'asc',
                 rows: [],
+                empty: false
             }
         },
         mounted() {
