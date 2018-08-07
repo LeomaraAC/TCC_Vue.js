@@ -24,8 +24,6 @@
                             id="grupos"
                             :options="grupos"
                             placeholder="Grupos"
-                            deselect-label="Remover grupo"
-                            select-label="Selecionar grupo"
                             track-by="idGrupo"
                             label="nomeGrupo"
                             campo="grupo"
