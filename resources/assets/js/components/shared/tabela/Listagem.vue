@@ -103,6 +103,7 @@
             },
             filtrar () {
                 this.buscaDados();
+                this.$refs.tabela.resetPage()
             }
         }
     }
