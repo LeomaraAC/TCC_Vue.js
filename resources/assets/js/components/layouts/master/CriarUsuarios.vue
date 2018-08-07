@@ -125,7 +125,10 @@ export default {
         },
         validaForm: function () { 
             this.$refs.selectGrupo.onTouch();   
-            this.$refs.campoNome.isValid();
+            this.$refs.campoProntuario.isValid();   
+            this.$refs.campoNome.isValid();   
+            this.$refs.campoEmail.isValid(); 
+            this.clickSubmit = true;
         },
         resetForm: function () {
              this.$refs.campoProntuario.clear();
