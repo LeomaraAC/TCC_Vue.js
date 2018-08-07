@@ -41,7 +41,7 @@
             </div>
         </vue-good-table>
         <div v-if="pagination && pagination.last_page > 1"  class="text-left">
-            <s-pagination @navigate="paginar" :pages="pagination.last_page "></s-pagination>
+            <s-pagination @navigate="paginar" :pages="pagination.last_page " ref="paginacao"></s-pagination>
         </div>
    </div>
 </template>
@@ -103,6 +103,7 @@ export default {
     methods: {
         sort: function (params) {
             this.$emit('ordenar', params)
+            this.resetPage();
         },
         deletarItem: function (index, id) {
             this.remoto ? document.getElementById(index).submit() : this.$emit('apagar', id)
@@ -116,6 +117,10 @@ export default {
         getIndex(item) {
             return this.selecionados.map(e => Object.values(e)[0]).indexOf(item);
         },
+        resetPage: function () {
+            if(this.pagination.last_page > 1)
+                this.$refs.paginacao.resetPage();
+        }
     }
 }
 </script>
