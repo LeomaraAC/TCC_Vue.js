@@ -151,6 +151,18 @@ export default {
             //Focus no campo Prontuário
             this.$refs.campoProntuario.setFocus();           
         },
+        isValid() {
+            if(this.clickSubmit && this.campoValido.prontuario && this.campoValido.nome &&
+                this.campoValido.email && Object.keys(this.select).length != 0) {
+                    this.$validator.validateAll().then(result => {
+                        if (result) 
+                            this.enviarForm();
+                    });   
+                }
+                     
+            this.clickSubmit = false;
+        }
+    },
         }
     }
 }
