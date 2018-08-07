@@ -19,8 +19,11 @@
             }
         },
         methods: {
-            navigate( page) {
+            navigate: function( page) {
                 this.$emit("navigate", page);
+            },
+            resetPage: function () {
+                this.page = 1;
             }
         }
     }
