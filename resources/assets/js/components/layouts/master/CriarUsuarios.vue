@@ -117,9 +117,6 @@ export default {
         }
     },
     methods: {
-        setNome: function (value) {
-            this.nome = value;
-        },
         setSelect: function (value) {
             this.select = value;
         },
