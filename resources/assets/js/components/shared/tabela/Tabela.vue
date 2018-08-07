@@ -48,6 +48,10 @@
 <script>
 export default {
     props: {
+        empty: {
+            type: Boolean,
+            required: true
+        },
         pagination: {
             type: [Array, Object]
         },
