@@ -94,13 +94,31 @@ export default {
     };
   },
   mounted: function() {
+      
     if (this.dadosselecionados) {
-        this.dadosselecionados.forEach( param => {
-            var item = this.novoItem(param);
-            this.dadosSelect.push(item);
-            this.idTelas.push(item.idTelas);
-        });
+        if (typeof this.dadosselecionados === "string")  {
+            const dados = this.dadosselecionados.split(",");
+            const url = 'http://projetosara.meu/master/find_ids';
+            axios.get(url, {
+                params: {
+                    ids: dados
+                }
+            }).then(res => {
+                const dados = res.data
+                this.dadosSelect = dados;
+                dados.forEach(item => this.idTelas.push(item.idTelas));
+                console.log(this.idTelas);
+                
+            });
+        }else {
+            this.dadosselecionados.forEach( param => {
+                var item = this.novoItem(param);
+                this.dadosSelect.push(item);
+                this.idTelas.push(item.idTelas);
+            });
+        }
     }
+
     this.columns = [
         { field: "idTelas", label: "",  hidden: true },
         { field: "check", label: '', width: '50px', sortable: false}, 
