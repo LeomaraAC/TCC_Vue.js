@@ -163,6 +163,10 @@ export default {
             this.clickSubmit = false;
         }
     },
+    watch: {
+        clickSubmit: function() {
+            if(this.clickSubmit)
+                this.isValid()
         }
     }
 }
