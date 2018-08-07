@@ -107,7 +107,14 @@ class UsuariosController extends Controller
      */
     public function edit($id)
     {
-        return 'edit';
+        $usuario = User::findOrFail($id);
+        $breadcrumb = json_encode([
+            ["titulo"=>"Home", "url" =>route('home')],
+            ["titulo"=>"Usuários", "url" =>route('usuarios.index')],
+            ["titulo"=>"Editar Usuários", "url" =>""]
+        ]);
+        $grupos = $this->getGrupo();
+        return view('master.usuario.usuarios_edit', compact('breadcrumb', 'usuario','grupos'));
     }
 
     /**
