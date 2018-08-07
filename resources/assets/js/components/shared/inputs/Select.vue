@@ -27,7 +27,7 @@ export default {
         },
         deselectLabel:{
             type: String,
-            default: ''
+            default: 'Remover'
         },
         id: {
             type: String,
@@ -51,7 +51,7 @@ export default {
         },
         selectLabel: {
             type: String,
-            default: ''
+            default: 'Selecionar'
         },
         showl: {
             type: Boolean,
@@ -64,6 +64,10 @@ export default {
         selected: {
             type: String,
             default: ''
+        },
+        selectedLabel: {
+            type: String,
+            default: 'Selecionado'
         }
     },
     data: function () {
