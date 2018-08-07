@@ -28,7 +28,9 @@ Route::middleware('auth')->prefix('master')->group(function(){
     Route::resource('grupos', 'Admin\GruposController');
     Route::resource('usuarios', 'Admin\UsuariosController');
     Route::get('/grupos/filtro/{campo?}/{sort?}/{filter?}', 'Admin\GruposController@filtro')->name('grupos.filtro');
+    Route::get('/find_ids', 'Admin\GruposController@getByIds');
     Route::get('/usuarios/filtro/{campo?}/{sort?}/{filter?}', 'Admin\UsuariosController@filtro')->name('usuarios.filtro');
     Route::get('/permissoes/{campo?}/{sort?}/{filter?}', 'Admin\PermissoesController@index')->name('permissoes');
 });
+
 // ['except' => 'logout']
