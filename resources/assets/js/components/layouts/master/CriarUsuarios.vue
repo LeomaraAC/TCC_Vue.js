@@ -47,6 +47,21 @@
                             </div>
                         </s-input>
                     </div>
+                    <div class="col-md-4 col-sm-12">
+                        <s-input>
+                            <input ref="campoConfirmarSenha" id="senha_confirmation" name="senha_confirmation"
+                                    type="password" v-model="confSenha"
+                                    placeholder="Confirmar senha"  
+                                    v-validate="'confirmed:campoSenha|required'"
+                                    :class="{'form-control form-control-warning': true, 'is-invalid': errors.has('senha_confirmation') }"
+                                    data-vv-validate-on="focusout|input"
+                                    maxlength="100"
+                            >
+                            <div slot="error">
+                                {{ errors.first('senha_confirmation') }}
+                            </div>
+                        </s-input>
+                    </div>
                 </div>
             </s-formulario>
         </span>
