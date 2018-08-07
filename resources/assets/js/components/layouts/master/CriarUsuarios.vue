@@ -131,12 +131,26 @@ export default {
             this.clickSubmit = true;
         },
         resetForm: function () {
-             this.$refs.campoProntuario.clear();
+            //Prontuário
+            this.$refs.campoProntuario.clear();
             this.$refs.campoProntuario.$validator.reset(); 
+            //Nome
             this.$refs.campoNome.clear();
-            this.$refs.campoNome.$validator.reset(); // Reseta os erros
+            this.$refs.campoNome.$validator.reset();
+            //Email
+            this.$refs.campoEmail.clear();
+            this.$refs.campoEmail.$validator.reset(); 
+            // //Senha
+            this.senha = '';
+            // //Confirmar Senha
+            this.confSenha = '';
+            // Resetar a validação da senha e confirma senha
+            this.$validator.reset(); 
+            //Grupo
             this.$refs.selectGrupo.reset();
-            this.$refs.campoProntuario.setFocus();
+            //Focus no campo Prontuário
+            this.$refs.campoProntuario.setFocus();           
+        },
         }
     }
 }
