@@ -5,7 +5,7 @@
         :length="pages"
         circle
         color='green'
-        :total-visible="8"
+        :total-visible="7"
         @input="navigate"
       ></v-pagination>
     </div>
