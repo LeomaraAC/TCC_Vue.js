@@ -1,5 +1,5 @@
 <template>
-    <s-formcard :titulo="titulo" :icon="icon" @submitForm="validaForm" @resetForm="resetForm">
+    <s-formcard :titulo="titulo" icon="fas fa-users-cog" @submitForm="validaForm" @resetForm="resetForm">
         <span slot="form">
             <s-formulario @submit="validaForm"  :action="action" :token="token"  ref="form"
                                     :method="method" id="criarUsuario">
