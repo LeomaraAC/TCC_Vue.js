@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Grupo;
 
@@ -53,7 +54,16 @@ class UsuariosController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        $this->valida($request);
+        User::create([
+            'nome' => $request->nome,
+            'prontuario' => $request->prontuario,
+            'email' => $request->email,
+            'password' => Hash::make($request->senha),
+            'idGrupo' => $request->grupos
+        ]);
+       // Redireciona para a página da listagem dos grupos juntamente com a mensagem de sucesso.
+        return redirect()->route('usuarios.index')->with('success', 'Usuário criado com sucesso!');
     }
 
     /**
