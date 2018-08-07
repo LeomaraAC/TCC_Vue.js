@@ -105,7 +105,15 @@ export default {
     },
     data: function () {
         return { 
-            select: {}
+            select: {},
+            campoValido: {
+                prontuario: false,
+                nome: false,
+                email: false
+            },
+            clickSubmit: false,
+            senha:'',
+            confSenha:''
         }
     },
     methods: {
