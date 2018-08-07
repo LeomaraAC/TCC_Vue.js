@@ -91,6 +91,7 @@
                                           : this.linkfiltro+'/'+this.sortProperty+'/'+this.sortDirection+'/'+this.busca+'?page='+page;
                 
                 axios.get(url).then (res => {
+                    this.empty = true;
                     this.rows = res.data.data;
                     this.pagination = res.data;
                 });
