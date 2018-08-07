@@ -8,6 +8,7 @@
                 :placeholder="placeholder"
                 :deselect-label="deselectLabel"
                 :track-by="trackBy"
+                :selected-label="selectedLabel"
                 :label="label"
                 :select-label="selectLabel"
                 @close="onTouch">
