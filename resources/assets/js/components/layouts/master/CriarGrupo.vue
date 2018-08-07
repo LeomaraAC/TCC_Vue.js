@@ -26,17 +26,18 @@
                         <input name="busca" type="text" placeholder="Buscar...." class="form-control" autofocus 
                             v-model="busca" @keyup="buscaDados" >
                     </s-input>
-                    <s-tabelaremote :pagination="pagination" :columns="columns" :rows="rows" :remoto="true"
+                    <s-tabela :pagination="pagination" :columns="columns" :rows="rows" :remoto="true"
                             :sortProperty="sortProperty" :selecionados="dadosSelect" :ckeck="true" :sortDirection="sortDirection"
-                            @ordenar="sort" @paginar="buscaDados" @checked="checked">
-                    </s-tabelaremote>
+                            @ordenar="sort" @paginar="buscaDados" @checked="checked" :empty="empty">
+                    </s-tabela>
                 </span>
                 <span slot="modal-footer">
                     <button type="button" class="btn btn-outline-primary" @click="closeModal">Fechar</button>
                 </span>
             </s-modal>
+            
             <div v-if="this.dadosSelect.length > 0">
-                <s-tabelaremote :columns="columnsSelect" :rows="dadosSelect" 
+                <s-tabelaremote :columns="columnsSelect" :rows="dadosSelect" :empty="true"
                                         :remoto="false"  :apagar="true" @apagar="removeItem">
                 </s-tabelaremote>
             </div>
