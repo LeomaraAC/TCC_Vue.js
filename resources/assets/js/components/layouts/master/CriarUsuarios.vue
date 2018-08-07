@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <div class="row">
-                     <div class="col-md-5 col-sm-12">
+                     <div class="col-md-4 col-sm-12">
                         <s-select ref="selectGrupo"
                             id="grupos"
                             :options="grupos"
@@ -30,6 +30,22 @@
                             :required="true"
                             :selected = this.valores.grupo
                             @selected="setSelect"></s-select>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <s-input>
+                            <input ref="campoSenha" id="senha"
+                                        name="senha" v-model="senha"
+                                        type="password"
+                                        placeholder="Senha"  
+                                        v-validate="'required|min:6|max:100'"
+                                        :class="{'form-control form-control-warning': true, 'is-invalid': errors.has('senha') }"
+                                        data-vv-validate-on="focusout|input"
+                                        maxlength="100"
+                            >
+                            <div slot="error">
+                                {{ errors.first('senha') }}
+                            </div>
+                        </s-input>
                     </div>
                 </div>
             </s-formulario>
