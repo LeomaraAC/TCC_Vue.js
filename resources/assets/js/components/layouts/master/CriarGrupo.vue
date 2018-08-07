@@ -37,9 +37,9 @@
             </s-modal>
             
             <div v-if="this.dadosSelect.length > 0">
-                <s-tabelaremote :columns="columnsSelect" :rows="dadosSelect" :empty="true"
+                <s-tabela :columns="columnsSelect" :rows="dadosSelect" :empty="true"
                                         :remoto="false"  :apagar="true" @apagar="removeItem">
-                </s-tabelaremote>
+                </s-tabela>
             </div>
         </span>
     </s-formcard>
