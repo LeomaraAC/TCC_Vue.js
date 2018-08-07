@@ -89,7 +89,8 @@ export default {
       sortDirection: "asc",
       pagination: [],
       grupo: this.nomegrupo || '',
-      link: 'http://projetosara.meu/master/permissoes'
+      link: 'http://projetosara.meu/master/permissoes',
+       empty: false
     };
   },
   mounted: function() {
