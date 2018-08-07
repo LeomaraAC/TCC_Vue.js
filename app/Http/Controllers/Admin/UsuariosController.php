@@ -42,10 +42,32 @@ class UsuariosController extends Controller
             ["titulo"=>"Usuários", "url" =>route('usuarios.index')],
             ["titulo"=>"Criar Usuário", "url" =>""]
         ]);
-        $grupos = Grupo::orderBy('nomeGrupo', 'asc')->get();
+        $grupos = $this->getGrupo();
         return view('master.usuario.usuarios_create', compact('breadcrumb', 'grupos'));
     }
-
+    private function getGrupo() {
+        return $grupos = Grupo::orderBy('nomeGrupo', 'asc')->get();
+    }
+    private function valida($request, $id = null)
+    {
+        if ($id == null) {
+            $request->validate([
+                'nome' => 'required|string|max:60|min:3',
+                'prontuario' => 'required|alpha_num|max:10|min:5|unique:users,prontuario',
+                'email' => 'required|string|email|max:60|unique:users,email',
+                'senha' => 'required|string|min:6|confirmed',
+                'grupos'=>''
+            ]);
+        } else {
+            $request->validate([
+                'nome' => 'required|string|max:60|min:3',
+                'prontuario' => 'required|alpha_num|max:10|min:5|unique:users,prontuario,'.$id.',idUser',
+                'email' => 'required|string|email|max:60|unique:users,email,'.$id.',idUser',
+                'senha' => 'required|string|min:6|confirmed',
+                'grupos'=>'required|numeric'
+            ]);
+        }
+    }
     /**
      * Store a newly created resource in storage.
      *
