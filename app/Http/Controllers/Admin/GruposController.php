@@ -135,4 +135,8 @@ class GruposController extends Controller
         else
             return redirect()->route('grupos.index')->with('error', 'Ops! O grupo a ser excluído  não foi encontrado.');
     }
+    
+    public function getByIds (Request $request) {
+        return  Permissao::whereIn('idTelas', $request->ids)->get();
+    }
 }
