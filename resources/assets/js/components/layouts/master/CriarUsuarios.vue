@@ -75,9 +75,6 @@ export default {
             required: true,
             type: String
         },
-        icon: {
-            type: String
-        },
         grupos: {
             type: [Object, Array],
             required: true
