@@ -4,11 +4,17 @@ namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Grupo;
-use App\Permissao;
+use App\Repositories\GrupoRepository;
 
 class GruposController extends Controller
 {
+    /**
+     * Construtor recebe a instancia do repositório
+     */
+    public function __construct(GrupoRepository $grupoRepository) {
+        $this->grupoRepository = $grupoRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,9 +27,17 @@ class GruposController extends Controller
         ]);
         return view('master.grupo.indexGrupo', compact('breadcrumb'));
     }
+
+    /**
+     * Retorna os dados paginados e com filtro
+     * @param String $campo
+     * @param String $order
+     * @param String $filter
+     */
     public function filtro($campo = 'idGrupo',$order = 'asc', $filter = null){
-        return Grupo::orderBy($campo, $order)->where('nomeGrupo', 'like', '%'.$filter.'%')->paginate(5);
+        return $this->grupoRepository->allPaginate($campo, $order,'nomeGrupo', $filter);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -37,6 +51,7 @@ class GruposController extends Controller
         ]);
         return view('master.grupo.grupos_create', compact('breadcrumb'));
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -46,13 +61,7 @@ class GruposController extends Controller
     public function store(Request $request)
     {
         $this->valida($request);
-        $permissoes = explode(',', $request->idTelas);
-        $grupo = new Grupo;
-        $grupo->nomeGrupo = $request->grupo;
-        $grupo->save();
-        // Removendo possíveis  duplicidade de funções e cria o relacionamento
-        $grupo->funcoes()->attach(array_unique($permissoes));
-       // Redireciona para a página da listagem dos grupos juntamente com a mensagem de sucesso.
+        $this->grupoRepository->createGrupo($request->all());
         return redirect()->route('grupos.index')->with('success', 'Grupo criado com sucesso!');
     }
 
@@ -88,7 +97,7 @@ class GruposController extends Controller
      */
     public function edit($id)
     {
-        $grupo = Grupo::findOrFail($id)->load('funcoes');
+        $grupo = $this->grupoRepository->find($id, 'funcoes');
         $breadcrumb = json_encode([
             ["titulo"=>"Home", "url" =>route('home')],
             ["titulo"=>"Grupos", "url" =>route('grupos.index')],
@@ -108,12 +117,7 @@ class GruposController extends Controller
     {
         
         $this->valida($request,$id);
-        $permissoes = explode(',', $request->idTelas);
-        $grupo = Grupo::find($id);
-        $grupo->nomeGrupo = $request->grupo;
-        $grupo->save();
-        // Atualiza as permissoes
-        $grupo->funcoes()->sync(array_unique($permissoes));
+        $this->grupoRepository->updateGrupo($request->all(), $id);
        // Redireciona para a página da listagem dos grupos juntamente com a mensagem de sucesso.
         return redirect()->route('grupos.index')->with('success', 'Grupo editado com sucesso!');
     }
@@ -126,17 +130,10 @@ class GruposController extends Controller
      */
     public function destroy($id)
     {
-        $grupo = Grupo::find($id);
-        if($grupo != null) {
-            $grupo->funcoes()->detach();
-            $grupo->delete();
+        if($this->grupoRepository->delete($id)) {
             return redirect()->route('grupos.index')->with('success', 'Grupo excluído  com sucesso!');
         }
         else
             return redirect()->route('grupos.index')->with('error', 'Ops! O grupo a ser excluído  não foi encontrado.');
-    }
-    
-    public function getByIds (Request $request) {
-        return  Permissao::whereIn('idTelas', $request->ids)->get();
     }
 }

@@ -6,10 +6,17 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\User;
+use App\Repositories\UserRepository;
 use App\Grupo;
 
 class UsuariosController extends Controller
 {
+    /**
+     * Construtor recebe a instancia do repositório
+     */
+    public function __construct(UserRepository $userRepository) {
+        $this->userRepository = $userRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -24,11 +31,7 @@ class UsuariosController extends Controller
         return view('master.usuario.indexUsuario', compact('breadcrumb'));
     }
     public function filtro($campo = 'idUser',$order = 'asc', $filter = null){
-        return User::orderBy($campo, $order)
-                            ->where('nome', 'like', '%'.$filter.'%')
-                            ->orWhere('prontuario', 'like', '%'.$filter.'%')
-                            ->orWhere('email', 'like', '%'.$filter.'%')
-                            ->paginate(5);
+        return $this->userRepository->filtro($campo,$order, $filter);
     }
     /**
      * Show the form for creating a new resource.
@@ -77,7 +80,7 @@ class UsuariosController extends Controller
     public function store(Request $request)
     {
         $this->valida($request);
-        User::create([
+        $this->userRepository->create([
             'nome' => $request->nome,
             'prontuario' => $request->prontuario,
             'email' => $request->email,
@@ -107,7 +110,7 @@ class UsuariosController extends Controller
      */
     public function edit($id)
     {
-        $usuario = User::findOrFail($id);
+        $usuario = $this->userRepository->findOrFail($id);
         $breadcrumb = json_encode([
             ["titulo"=>"Home", "url" =>route('home')],
             ["titulo"=>"Usuários", "url" =>route('usuarios.index')],
@@ -126,7 +129,15 @@ class UsuariosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return 'update';
+        $this->valida($request, $id);
+        $this->userRepository->update([
+            'nome' => $request->nome,
+            'prontuario' => $request->prontuario,
+            'email' => $request->email,
+            'password' => Hash::make($request->senha),
+            'idGrupo' => $request->grupos
+        ], $id);
+        return redirect()->route('usuarios.index')->with('success', 'Usuário '.$request->nome.' editado com sucesso!');
     }
 
     /**
@@ -137,9 +148,7 @@ class UsuariosController extends Controller
      */
     public function destroy($id)
     {
-        $usuario = User::find($id);
-        if($usuario != null) {
-            $usuario->delete();
+        if($this->userRepository->delete($id)) {
             return redirect()->route('usuarios.index')->with('success', 'Usuário '.$usuario->nome.' excluído  com sucesso!');
         }else
             return redirect()->route('usuarios.index')->with('error', 'Ops! O usuário a ser excluído  não foi encontrado.');
