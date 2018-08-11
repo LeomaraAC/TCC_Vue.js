@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('content')
     <s-breadcrumb :caminhos="{{$breadcrumb}}"></s-breadcrumb>
-    {{$usuario}}
     <s-criarusuario titulo="Editar Usuário"
                             :grupos="{{$grupos}}"
                             method="PUT"

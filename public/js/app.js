@@ -96453,8 +96453,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         maxlength: {
             type: Number
-        },
-        igual: {}
+        }
     },
     data: function data() {
         return {
@@ -99475,7 +99474,6 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
 //
 //
 //
