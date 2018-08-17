@@ -31,7 +31,7 @@
                             :selected = this.valores.grupo
                             @selected="setSelect"></s-select>
                     </div>
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-4 col-sm-12" v-if="!editar">
                         <s-input>
                             <input ref="campoSenha" id="senha"
                                         name="senha" v-model="senha"
@@ -47,7 +47,7 @@
                             </div>
                         </s-input>
                     </div>
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-4 col-sm-12" v-if="!editar">
                         <s-input>
                             <input ref="campoConfirmarSenha" id="senha_confirmation" name="senha_confirmation"
                                     type="password" v-model="confSenha"

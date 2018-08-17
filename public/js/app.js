@@ -99544,7 +99544,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
         titulo: {
@@ -99562,6 +99561,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         token: {
             type: String,
             required: true
+        },
+        editar: {
+            type: Boolean,
+            default: false
         },
         method: {
             type: String,
@@ -99591,6 +99594,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             senha: '',
             confSenha: ''
         };
+    },
+    mounted: function mounted() {
+        var dict = {
+            custom: {
+                senha_confirmation: {
+                    required: 'Essas senhas não coincidem.',
+                    is: 'Essas senhas não coincidem.'
+                }
+            }
+        };
+
+        this.$validator.localize('pt_BR', dict);
     },
     methods: {
         setSelect: function setSelect(value) {
@@ -99776,117 +99791,131 @@ var render = function() {
                   1
                 ),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "col-md-4 col-sm-12" },
-                  [
-                    _c("s-input", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.senha,
-                            expression: "senha"
-                          },
-                          {
-                            name: "validate",
-                            rawName: "v-validate",
-                            value: "required|min:6|max:100",
-                            expression: "'required|min:6|max:100'"
-                          }
-                        ],
-                        ref: "campoSenha",
-                        class: {
-                          "form-control form-control-warning": true,
-                          "is-invalid": _vm.errors.has("senha")
-                        },
-                        attrs: {
-                          id: "senha",
-                          name: "senha",
-                          type: "password",
-                          placeholder: "Senha",
-                          "data-vv-validate-on": "focusout|input",
-                          maxlength: "100"
-                        },
-                        domProps: { value: _vm.senha },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
+                !_vm.editar
+                  ? _c(
+                      "div",
+                      { staticClass: "col-md-4 col-sm-12" },
+                      [
+                        _c("s-input", [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.senha,
+                                expression: "senha"
+                              },
+                              {
+                                name: "validate",
+                                rawName: "v-validate",
+                                value: "required|min:6|max:100",
+                                expression: "'required|min:6|max:100'"
+                              }
+                            ],
+                            ref: "campoSenha",
+                            class: {
+                              "form-control form-control-warning": true,
+                              "is-invalid": _vm.errors.has("senha")
+                            },
+                            attrs: {
+                              id: "senha",
+                              name: "senha",
+                              type: "password",
+                              placeholder: "Senha",
+                              "data-vv-validate-on": "focusout|input",
+                              maxlength: "100"
+                            },
+                            domProps: { value: _vm.senha },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.senha = $event.target.value
+                              }
                             }
-                            _vm.senha = $event.target.value
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { attrs: { slot: "error" }, slot: "error" }, [
-                        _vm._v(
-                          "\n                            " +
-                            _vm._s(_vm.errors.first("senha")) +
-                            "\n                        "
-                        )
-                      ])
-                    ])
-                  ],
-                  1
-                ),
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { attrs: { slot: "error" }, slot: "error" },
+                            [
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(_vm.errors.first("senha")) +
+                                  "\n                        "
+                              )
+                            ]
+                          )
+                        ])
+                      ],
+                      1
+                    )
+                  : _vm._e(),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "col-md-4 col-sm-12" },
-                  [
-                    _c("s-input", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.confSenha,
-                            expression: "confSenha"
-                          },
-                          {
-                            name: "validate",
-                            rawName: "v-validate",
-                            value: "confirmed:campoSenha|required",
-                            expression: "'confirmed:campoSenha|required'"
-                          }
-                        ],
-                        ref: "campoConfirmarSenha",
-                        class: {
-                          "form-control form-control-warning": true,
-                          "is-invalid": _vm.errors.has("senha_confirmation")
-                        },
-                        attrs: {
-                          id: "senha_confirmation",
-                          name: "senha_confirmation",
-                          type: "password",
-                          placeholder: "Confirmar senha",
-                          "data-vv-validate-on": "focusout|input",
-                          maxlength: "100"
-                        },
-                        domProps: { value: _vm.confSenha },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
+                !_vm.editar
+                  ? _c(
+                      "div",
+                      { staticClass: "col-md-4 col-sm-12" },
+                      [
+                        _c("s-input", [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.confSenha,
+                                expression: "confSenha"
+                              },
+                              {
+                                name: "validate",
+                                rawName: "v-validate",
+                                value: { required: true, is: _vm.senha },
+                                expression: "{ required: true, is: senha }"
+                              }
+                            ],
+                            ref: "campoConfirmarSenha",
+                            class: {
+                              "form-control form-control-warning": true,
+                              "is-invalid": _vm.errors.has("senha_confirmation")
+                            },
+                            attrs: {
+                              id: "senha_confirmation",
+                              name: "senha_confirmation",
+                              type: "password",
+                              placeholder: "Confirmar senha",
+                              "data-vv-validate-on": "focusout|input",
+                              maxlength: "100"
+                            },
+                            domProps: { value: _vm.confSenha },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.confSenha = $event.target.value
+                              }
                             }
-                            _vm.confSenha = $event.target.value
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { attrs: { slot: "error" }, slot: "error" }, [
-                        _vm._v(
-                          "\n                            " +
-                            _vm._s(_vm.errors.first("senha_confirmation")) +
-                            "\n                        "
-                        )
-                      ])
-                    ])
-                  ],
-                  1
-                )
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { attrs: { slot: "error" }, slot: "error" },
+                            [
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(
+                                    _vm.errors.first("senha_confirmation")
+                                  ) +
+                                  "\n                        "
+                              )
+                            ]
+                          )
+                        ])
+                      ],
+                      1
+                    )
+                  : _vm._e()
               ])
             ]
           )
