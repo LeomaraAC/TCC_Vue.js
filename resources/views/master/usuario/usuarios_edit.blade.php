@@ -6,6 +6,7 @@
                             method="PUT"
                             action="/master/usuarios/{{$usuario->idUser}}"
                             token="{{ csrf_token() }}"
+                            :editar="true"
                             :valores="{
                                                 nome: '{{$usuario->nome}}', 
                                                 prontuario: '{{$usuario->prontuario}}',
