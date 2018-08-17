@@ -52,7 +52,7 @@
                             <input ref="campoConfirmarSenha" id="senha_confirmation" name="senha_confirmation"
                                     type="password" v-model="confSenha"
                                     placeholder="Confirmar senha"  
-                                    v-validate="'confirmed:campoSenha|required'"
+                                    v-validate="{ required: true, is: senha }"
                                     :class="{'form-control form-control-warning': true, 'is-invalid': errors.has('senha_confirmation') }"
                                     data-vv-validate-on="focusout|input"
                                     maxlength="100"
@@ -87,6 +87,10 @@ export default {
             type: String,
             required: true
         },
+        editar: {
+            type: Boolean,
+            default: false
+        },
         method: {
             type: String,
             required: true
@@ -115,6 +119,18 @@ export default {
             senha:'',
             confSenha:''
         }
+    },
+    mounted: function () {
+        const dict = {
+            custom: {
+                senha_confirmation: {
+                required: 'Essas senhas não coincidem.',
+                is: 'Essas senhas não coincidem.'
+                }
+            }
+        };
+
+        this.$validator.localize('pt_BR', dict);
     },
     methods: {
         setSelect: function (value) {
