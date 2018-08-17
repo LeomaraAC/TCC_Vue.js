@@ -15,10 +15,29 @@ class UsersTest extends TestCase
 {
     use WithFaker;
     protected $userRepository;
+    protected $usuarioAuxiliar;
+    protected $usuarioEditar;
+    protected $usuarioExcluir;
+    protected $usuarioInserido;
+    protected $usuario;
 
+    
     public function setUp() {
-        $this->userRepository = new UserRepository(new User());
         parent::setUp();
+        $this->userRepository = new UserRepository(new User());
+        $this->usuarioAuxiliar = $this->createUserFactory();
+        $this->usuarioEditar = $this->createUserFactory();
+        $this->usuarioExcluir = $this->createUserFactory();
+        $this->usuarioInserido['idUser'] = -1;
+        
+    }
+    public function tearDown() {
+        $this->findUserId($this->usuarioAuxiliar['idUser'])->forceDelete();
+        $this->findUserId($this->usuarioEditar['idUser'])->forceDelete();
+        User::where('idUser', '=', $this->usuarioExcluir['idUser'])->forceDelete();
+        if($this->usuarioInserido['idUser'] != -1)
+            $this->findUserId($this->usuarioInserido['idUser'])->forceDelete();
+        parent::tearDown();
     }
     
     protected function createUserFactory()
@@ -61,10 +80,10 @@ class UsersTest extends TestCase
      */
     public function teste_inserir_usuario() {
         $novo_usuario = $this->getUserFactory();     
-       $usuario_salvo = $this->inserir_dados($novo_usuario);
+       $this->usuarioInserido = $this->inserir_dados($novo_usuario);
         
-        $this->assertInstanceOf(\App\User::class, $usuario_salvo);
-        $usuario_salvo = $usuario_salvo->toArray();
+        $this->assertInstanceOf(\App\User::class, $this->usuarioInserido);
+        $usuario_salvo = $this->usuarioInserido->toArray();
         $this->assertEquals($novo_usuario['nome'], $usuario_salvo['nome']);
         $this->assertEquals($novo_usuario['prontuario'], $usuario_salvo['prontuario']);
         $this->assertEquals($novo_usuario['email'], $usuario_salvo['email']);
@@ -112,19 +131,15 @@ class UsersTest extends TestCase
 
     public function teste_inserir_usuario_prontuario_repetido() {
         $this->expectException(\Illuminate\Validation\ValidationException::class);
-        $usuario_existente = $this->createUserFactory();
-
         $novo_usuario = $this->getUserFactory();
-        $novo_usuario['prontuario'] = $usuario_existente['prontuario'];
+        $novo_usuario['prontuario'] = $this->usuarioAuxiliar['prontuario'];
         $usuario_salvo = $this->inserir_dados($novo_usuario);
     }
 
     public function teste_inserir_usuario_email_repetido() {
         $this->expectException(\Illuminate\Validation\ValidationException::class);
-        $usuario_existente = $this->createUserFactory();
-
         $novo_usuario = $this->getUserFactory();
-        $novo_usuario['email'] = $usuario_existente['email'];
+        $novo_usuario['email'] = $this->usuarioAuxiliar['email'];
         $usuario_salvo = $this->inserir_dados($novo_usuario);
     }
 
@@ -181,96 +196,73 @@ class UsersTest extends TestCase
     */
 
     public function teste_editar_todos_dados_usuario () {
-        $old_usuario = $this->createUserFactory();
         $usuario_atualizado = $this->getUserFactory();
         
-        $update = $this->editar_dados($usuario_atualizado,$old_usuario['idUser']);
-        $usuario_salvo = $this->findUserId($old_usuario['idUser']);
+        $update = $this->editar_dados($usuario_atualizado,$this->usuarioEditar['idUser']);
+        $usuario_salvo = $this->findUserId($this->usuarioEditar['idUser']);
         
         $this->assertTrue($update);
-        $this->assertNotEquals($old_usuario['nome'],$usuario_salvo['nome']);
+        $this->assertNotEquals($this->usuarioEditar['nome'],$usuario_salvo['nome']);
     }
 
     public function teste_editar_usuario_sem_nome() {
         $this->expectException(\Illuminate\Validation\ValidationException::class);
-
-        $old_usuario = $this->createUserFactory();
-        $old_usuario['nome'] = '';
-        $usuario_salvo = $this->editar_dados($old_usuario,$old_usuario['idUser']);
+        $this->usuarioEditar['nome'] = '';
+        $usuario_salvo = $this->editar_dados($this->usuarioEditar,$this->usuarioEditar['idUser']);
     }
 
     public function teste_editar_usuario_maximo_nome() {
         $this->expectException(\Illuminate\Validation\ValidationException::class);
-
-        $old_usuario = $this->createUserFactory();
-        $old_usuario['nome'] = 'kkkkkkkkkkpopopopopopopopopopopopopopopopopopopopopopppoookokjjkkjjj';
-        $usuario_salvo = $this->editar_dados($old_usuario,$old_usuario['idUser']);
+        $this->usuarioEditar['nome'] = 'kkkkkkkkkkpopopopopopopopopopopopopopopopopopopopopopppoookokjjkkjjj';
+        $usuario_salvo = $this->editar_dados($this->usuarioEditar,$this->usuarioEditar['idUser']);
     }
 
     public function teste_editar_usuario_sem_prontuario() {
         $this->expectException(\Illuminate\Validation\ValidationException::class);
-
-        $old_usuario = $this->createUserFactory();
-        $old_usuario['prontuario'] = '';
-        $usuario_salvo = $this->editar_dados($old_usuario,$old_usuario['idUser']);
+        $this->usuarioEditar['prontuario'] = '';
+        $usuario_salvo = $this->editar_dados($this->usuarioEditar,$this->usuarioEditar['idUser']);
     }
 
     public function teste_editar_usuario_prontuario_caract_espec() {
         $this->expectException(\Illuminate\Validation\ValidationException::class);
-
-        $old_usuario = $this->createUserFactory();
-        $old_usuario['prontuario'] = 'cv12345*';
-        $usuario_salvo = $this->editar_dados($old_usuario,$old_usuario['idUser']);
+        $this->usuarioEditar['prontuario'] = 'cv12345*';
+        $usuario_salvo = $this->editar_dados($this->usuarioEditar,$this->usuarioEditar['idUser']);
     }
 
     public function teste_editar_usuario_maximo_prontuario() {
         $this->expectException(\Illuminate\Validation\ValidationException::class);
-
-        $old_usuario = $this->createUserFactory();
-        $old_usuario['prontuario'] = 'cv1234567890';
-        $usuario_salvo = $this->editar_dados($old_usuario,$old_usuario['idUser']);
+        $this->usuarioEditar['prontuario'] = 'cv1234567890';
+        $usuario_salvo = $this->editar_dados($this->usuarioEditar,$this->usuarioEditar['idUser']);
     }
 
     public function teste_editar_usuario_prontuario_repetido() {
         $this->expectException(\Illuminate\Validation\ValidationException::class);
-        $usuario_existente = $this->createUserFactory();
-
-        $old_usuario = $this->createUserFactory();
-        $old_usuario['prontuario'] = $usuario_existente['prontuario'];
-        $usuario_salvo = $this->editar_dados($old_usuario,$old_usuario['idUser']);
+        $this->usuarioEditar['prontuario'] = $this->usuarioAuxiliar['prontuario'];
+        $usuario_salvo = $this->editar_dados($this->usuarioEditar,$this->usuarioEditar['idUser']);
     }
 
     public function teste_editar_usuario_email_repetido() {
         $this->expectException(\Illuminate\Validation\ValidationException::class);
-        $usuario_existente = $this->createUserFactory();
-
-        $old_usuario = $this->createUserFactory();
-        $old_usuario['email'] = $usuario_existente['email'];
-        $usuario_salvo = $this->editar_dados($old_usuario,$old_usuario['idUser']);
+        $this->usuarioEditar['email'] = $this->usuarioAuxiliar['email'];
+        $usuario_salvo = $this->editar_dados($this->usuarioEditar,$this->usuarioEditar['idUser']);
     }
 
     public function teste_editar_usuario_sem_email() {
         $this->expectException(\Illuminate\Validation\ValidationException::class);
-
-        $old_usuario = $this->createUserFactory();
-        $old_usuario['email'] = '';
-        $usuario_salvo = $this->editar_dados($old_usuario,$old_usuario['idUser']);
+        $this->usuarioEditar['email'] = '';
+        $usuario_salvo = $this->editar_dados($this->usuarioEditar,$this->usuarioEditar['idUser']);
     }
 
     public function teste_editar_usuario_sem_tipo_email() {
         $this->expectException(\Illuminate\Validation\ValidationException::class);
-
-        $old_usuario = $this->createUserFactory();
-        $old_usuario['email'] = 'adscvmsd';
-        $usuario_salvo = $this->editar_dados($old_usuario,$old_usuario['idUser']);
+        $this->usuarioEditar['email'] = 'adscvmsd';
+        $usuario_salvo = $this->editar_dados($this->usuarioEditar,$this->usuarioEditar['idUser']);
     }
 
     public function teste_editar_usuario_sem_grupo() {
         $this->expectException(\Illuminate\Validation\ValidationException::class);
-
-        $old_usuario = $this->createUserFactory();
-        $old_usuario['grupos'] = '';
-        $usuario_salvo = $this->editar_dados($old_usuario,$old_usuario['idUser']);
+        $this->usuarioEditar['grupos'] = '';
+        $usuario_salvo = $this->editar_dados($this->usuarioEditar,$this->usuarioEditar['idUser']);
     }
 
     /*
@@ -287,8 +279,7 @@ class UsersTest extends TestCase
     }
 
     public function teste_listar_usuarios_com_filtro() {
-        $novo_usuario = $this->createUserFactory();
-        $page = $this->userRepository->filtro('idUser', 'asc',  substr($novo_usuario['nome'], 0, 2));
+        $page = $this->userRepository->filtro('idUser', 'asc',  substr($this->usuarioAuxiliar['nome'], 0, 2));
         $filtro = $page->toArray();
 
         $this->assertInstanceOf(LengthAwarePaginator::class, $page);
@@ -300,15 +291,13 @@ class UsersTest extends TestCase
     */
 
     public function teste_apagar_usuarios_safe_delete() {
-        $novo_usuario = $this->createUserFactory();
-        $delete = $this->userRepository->delete($novo_usuario['idUser']);
+        $delete = $this->userRepository->delete($this->usuarioExcluir['idUser']);
         $this->assertTrue($delete);
-        $this->assertSoftDeleted('users', $novo_usuario);
+        $this->assertSoftDeleted('users', $this->usuarioExcluir);
     }
 
     public function teste_apagar_usuarios_id_invalido() {
         $this->expectException(\Illuminate\Database\Eloquent\ModelNotFoundException::class);
-        $novo_usuario = $this->createUserFactory();
         $delete = $this->userRepository->delete(2222222222222222222222222222222);
     }
 }
