@@ -51,26 +51,7 @@ class UsuariosController extends Controller
     private function getGrupo() {
         return $grupos = Grupo::orderBy('nomeGrupo', 'asc')->get();
     }
-    private function valida($request, $id = null)
-    {
-        if ($id == null) {
-            $request->validate([
-                'nome' => 'required|string|max:60|min:3',
-                'prontuario' => 'required|alpha_num|max:10|min:5|unique:users,prontuario',
-                'email' => 'required|string|email|max:60|unique:users,email',
-                'senha' => 'required|string|min:6|confirmed',
-                'grupos'=>''
-            ]);
-        } else {
-            $request->validate([
-                'nome' => 'required|string|max:60|min:3',
-                'prontuario' => 'required|alpha_num|max:10|min:5|unique:users,prontuario,'.$id.',idUser',
-                'email' => 'required|string|email|max:60|unique:users,email,'.$id.',idUser',
-                'senha' => 'required|string|min:6|confirmed',
-                'grupos'=>'required|numeric'
-            ]);
-        }
-    }
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -79,14 +60,7 @@ class UsuariosController extends Controller
      */
     public function store(Request $request)
     {
-        $this->valida($request);
-        $this->userRepository->create([
-            'nome' => $request->nome,
-            'prontuario' => $request->prontuario,
-            'email' => $request->email,
-            'password' => Hash::make($request->senha),
-            'idGrupo' => $request->grupos
-        ]);
+        $this->userRepository->salvarUsuario($request);
        // Redireciona para a página da listagem dos grupos juntamente com a mensagem de sucesso.
         return redirect()->route('usuarios.index')->with('success', 'Usuário criado com sucesso!');
     }
@@ -118,14 +92,7 @@ class UsuariosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->valida($request, $id);
-        $this->userRepository->update([
-            'nome' => $request->nome,
-            'prontuario' => $request->prontuario,
-            'email' => $request->email,
-            'password' => Hash::make($request->senha),
-            'idGrupo' => $request->grupos
-        ], $id);
+        $this->userRepository->atualizaUsuario($request, $id);
         return redirect()->route('usuarios.index')->with('success', 'Usuário '.$request->nome.' editado com sucesso!');
     }
 
