@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Repositories\UserRepository;
 use App\Grupo;
+use Illuminate\Support\Facades\Gate;
 
 class UsuariosController extends Controller
 {
@@ -24,6 +25,8 @@ class UsuariosController extends Controller
      */
     public function index()
     {
+        if(Gate::denies('usuario'))
+            return redirect()->back()->with('error', 'Ops! Acesso negado.');
         $breadcrumb = json_encode([
             ["titulo"=>"Home", "url" =>route('home')],
             ["titulo"=>"Usuários", "url" =>""]
@@ -40,6 +43,9 @@ class UsuariosController extends Controller
      */
     public function create()
     {
+        if(Gate::denies('incluir_User'))
+            return redirect()->back()->with('error', 'Ops! Acesso negado.');
+    
         $breadcrumb = json_encode([
             ["titulo"=>"Home", "url" =>route('home')],
             ["titulo"=>"Usuários", "url" =>route('usuarios.index')],
@@ -60,8 +66,11 @@ class UsuariosController extends Controller
      */
     public function store(Request $request)
     {
+        if(Gate::denies('incluir_User'))
+            return redirect()->back()->with('error', 'Ops! Acesso negado.');
+        
         $this->userRepository->salvarUsuario($request);
-       // Redireciona para a página da listagem dos grupos juntamente com a mensagem de sucesso.
+        // Redireciona para a página da listagem dos grupos juntamente com a mensagem de sucesso.
         return redirect()->route('usuarios.index')->with('success', 'Usuário criado com sucesso!');
     }
 
@@ -73,6 +82,9 @@ class UsuariosController extends Controller
      */
     public function edit($id)
     {
+        if(Gate::denies('editar_User'))
+            return redirect()->back()->with('error', 'Ops! Acesso negado.');
+
         $usuario = $this->userRepository->findOrFail($id);
         $breadcrumb = json_encode([
             ["titulo"=>"Home", "url" =>route('home')],
@@ -92,6 +104,9 @@ class UsuariosController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(Gate::denies('editar_User'))
+            return redirect()->back()->with('error', 'Ops! Acesso negado.');
+            
         $this->userRepository->atualizaUsuario($request, $id);
         return redirect()->route('usuarios.index')->with('success', 'Usuário '.$request->nome.' editado com sucesso!');
     }
@@ -104,6 +119,9 @@ class UsuariosController extends Controller
      */
     public function destroy($id)
     {
+        if(Gate::denies('excluir_User'))
+            return redirect()->back()->with('error', 'Ops! Acesso negado.');
+        
         if($this->userRepository->delete($id)) {
             return redirect()->route('usuarios.index')->with('success', 'Usuário '.$usuario->nome.' excluído  com sucesso!');
         }else
