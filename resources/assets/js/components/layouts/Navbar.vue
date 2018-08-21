@@ -40,7 +40,6 @@
             },
             executaLogout: function () {
                 document.getElementById('logout-form').submit();
-                // console.log(this.logout);
             }
         }
     }
