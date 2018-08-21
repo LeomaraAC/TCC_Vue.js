@@ -3,12 +3,10 @@
 <s-breadcrumb :caminhos="{{$breadcrumb}}"></s-breadcrumb>
 <s-listagem  linknovo="{{ route('grupos.create') }}" linkfiltro="{{route('grupos.filtro')}}" 
     titulo="Grupos" filtroinicial="nomeGrupo" 
-    :columns="[
-        {field:'idGrupo',hidden: true}, 
-        {field:'deletar', label: '', width: '50px', sortable: false}, 
-        {field:'editar', label: '', width: '50px', sortable: false}, 
-        {field:'nomeGrupo', label: 'Grupo'}]"
-    :apagar="true" :editar="true" linkacoes="{{ route('grupos.index') }}" token="{{ csrf_token() }}" icon="fas fa-shapes"></s-listagem>    
+    :columns="{{$columns}}"
+    :apagar="{{Auth::user()->can('excluir_Grupo') == true ? 'true' : 'false'}}" 
+    :editar="{{Auth::user()->can('editar_Grupo') == true ? 'true' : 'false'}}" 
+    linkacoes="{{ route('grupos.index') }}" token="{{ csrf_token() }}" icon="fas fa-shapes"></s-listagem>    
 @if (session('success'))
     <s-snackbar cor="green" msg="{{ session('success') }}"></s-snackbar>
 @endif         
