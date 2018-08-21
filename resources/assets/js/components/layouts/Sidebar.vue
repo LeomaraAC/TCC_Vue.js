@@ -10,7 +10,14 @@
 
 <script>
     export default {
-        props:['toggled']
+        data: function() {
+            return {
+                toggled: false
+            }
+        },
+        mounted: function() {
+            Event.listen('toggled', e => this.toggled = e);
+        }
     }
 </script>
 <style scoped>
