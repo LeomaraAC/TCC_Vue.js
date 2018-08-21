@@ -5,7 +5,7 @@
             <div class="offset-md-2 col-md-8 col-sm-12">
                 <s-input  icon="fas fa-search">
                     <input name="busca" type="text" placeholder="Buscar...." class="form-control" autofocus 
-                    v-model="busca" @keyup="filtrar">
+                    v-model="busca" @keyup.enter="filtrar">
                 </s-input>
             </div>
         </span>

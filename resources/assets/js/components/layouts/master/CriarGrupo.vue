@@ -24,7 +24,7 @@
                 <span slot="modal-body">
                     <s-input  icon="fas fa-search">
                         <input name="busca" type="text" placeholder="Buscar...." class="form-control" autofocus 
-                            v-model="busca" @keyup="buscaDados" >
+                            v-model="busca" @keyup.enter="buscaDados" >
                     </s-input>
                     <s-tabela :pagination="pagination" :columns="columns" :rows="rows" :remoto="true"
                             :sortProperty="sortProperty" :selecionados="dadosSelect" :ckeck="true" :sortDirection="sortDirection"
