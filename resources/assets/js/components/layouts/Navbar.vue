@@ -36,7 +36,7 @@
         methods: {
             toogled: function () {
                 this.ativo = !this.ativo;
-                this.$emit("toggled", this.ativo);
+                Event.fire('toggled', this.ativo);
             },
             executaLogout: function () {
                 document.getElementById('logout-form').submit();
