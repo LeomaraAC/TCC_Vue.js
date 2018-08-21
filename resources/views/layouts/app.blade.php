@@ -19,18 +19,31 @@
 <body>
     <div id="app" style="visibility:hidden">
         @auth
-            <s-app login=true logout="{{ route('logout') }}"  token= "{{ csrf_token() }}" user="{{ Auth::user()->nome }}">
-                <div class="ml-3 mr-3">
-                    @yield('content')
-                </div> 
-            </s-app>      
+            <div class="wrapper application ">
+                <s-sidebar>
+                    @include('layouts.menuSidebar')
+                </s-sidebar>
+                <div id="content">
+                    <s-navbar logout="{{ route('logout') }}" 
+                        token="{{ csrf_token() }}" user="{{ Auth::user()->nome }}"></s-navbar>
+                    <main class="py-4">
+                        <div class="ml-3 mr-3">
+                            @yield('content')
+                        </div> 
+                    </main>
+                </div>
+            </div> 
         @endauth
         @guest
-            <s-app login=false logout="{{ route('logout') }}"  token= "{{ csrf_token() }}">
-                <div class="ml-3 mr-3">
-                    @yield('content')
-                </div>
-            </s-app>   
+        <div class="wrapper application ">
+            <div id="content">
+                <main class="py-4">
+                    <div class="ml-3 mr-3">
+                        @yield('content')
+                    </div>
+                </main>
+            </div>
+        </div>
         @endguest
     </div>
 </body>
