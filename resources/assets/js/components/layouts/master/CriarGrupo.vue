@@ -35,7 +35,6 @@
                     <button type="button" class="btn btn-outline-primary" @click="closeModal">Fechar</button>
                 </span>
             </s-modal>
-            
             <div v-if="this.dadosSelect.length > 0">
                 <s-tabela :columns="columnsSelect" :rows="dadosSelect" :empty="true"
                                         :remoto="false"  :apagar="true" @apagar="removeItem">
@@ -90,11 +89,10 @@ export default {
       pagination: [],
       grupo: this.nomegrupo || '',
       link: 'http://projetosara.meu/master/permissoes',
-       empty: false
+      empty: false
     };
   },
   mounted: function() {
-      
     if (this.dadosselecionados) {
         if (typeof this.dadosselecionados === "string")  {
             const dados = this.dadosselecionados.split(",");
@@ -122,14 +120,14 @@ export default {
     this.columns = [
         { field: "idTelas", label: "",  hidden: true },
         { field: "check", label: '', width: '50px', sortable: false}, 
-        { field: "nomeTela", label: "Permissões" },
-        { field: "siglaTela", label: "Sigla", hidden: true }
+        { field: "descricao", label: "Permissões" },
+        { field: "nome", label: "Nome", hidden: true }
     ];
     this.columnsSelect = [
         { field: "idTelas", label: "",  hidden: true },
         { field: "deletar", label: '', width: '50px', sortable: false}, 
-        { field: "nomeTela", label: "Permissões" },
-        { field: "siglaTela", label: "Sigla", hidden: true }
+        { field: "descricao", label: "Permissões" },
+        { field: "nome", label: "Nome", hidden: true }
     ];
   },
   methods: {
@@ -152,7 +150,7 @@ export default {
       this.$modal.hide("permissoes");
     },
     openModal() {
-      this.sortProperty = "nomeTela";
+      this.sortProperty = "descricao";
       this.buscaDados();
     },
     sort(params) {
@@ -186,8 +184,8 @@ export default {
     novoItem(params) {
       var item = {
         idTelas: params.idTelas,
-        nomeTela: params.nomeTela,
-        siglaTela: params.siglaTela
+        descricao: params.descricao,
+        nome: params.nome
       };
       return item;
     },
