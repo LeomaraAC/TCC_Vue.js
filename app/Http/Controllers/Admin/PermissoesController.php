@@ -18,7 +18,7 @@ class PermissoesController extends Controller
      * Retorna a lista de permissões de forma paginada, ordenada e oferece possibilidade de filtro
      */
     public function index($campo = 'idTelas',$order = 'asc', $filter = null) {
-        return $this->permissoesRepository->allPaginate($campo, $order,'nomeTela', $filter);
+        return $this->permissoesRepository->allPaginate($campo, $order,'descricao', $filter);
     }
 
     /**
