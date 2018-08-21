@@ -4,28 +4,7 @@
             <h3><span class="font">SARA</span><small> Campus Capivari</small></h3>
             <strong class="font">S</strong>
         </div>
-        <ul class="list-unstyled components">
-            <li>
-                <a href="/">
-                    <i class="fas fa-tachometer-alt"></i>
-                    Dashboard
-                </a>
-            </li>
-            <li>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <i class="fas fa-university"></i>
-                    Administração
-                </a>
-                <ul class="collapse list-unstyled" id="pageSubmenu">
-                    <li>
-                        <a href="/master/grupos"> <i class="fas fa-shapes"></i> Grupos</a>
-                    </li>
-                    <li>
-                        <a href="/master/usuarios"> <i class="fas fa-users-cog"></i> Usuários</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+        <slot></slot>
     </nav>
 </template>
 
