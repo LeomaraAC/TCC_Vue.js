@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Permissao;
 
 class User extends Authenticatable
 {
@@ -31,5 +32,19 @@ class User extends Authenticatable
 
     public function grupo () {
         return $this->belongsTo(Grupo::class, 'idGrupo');
+    }
+
+    public function hasPermission(Permissao $permissao) {
+       return $this->hasGrupo($permissao->grupos);
+    }
+    public function hasModulo($modulo) {
+        return $this->grupo->funcoes->contains('modulo', $modulo);
+    }
+
+    public function hasGrupo($grupos) {
+       if(is_array($grupos) || is_object($grupos)) {
+           return !! $grupos->intersect([$this->grupo])->count();
+       }
+       return $this->grupo->contains('nome', $grupos);
     }
 }
