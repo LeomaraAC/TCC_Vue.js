@@ -14148,6 +14148,7 @@ a.text-dark:focus {
 
 body {
   background-image: url(/images/fundo3.jpg?96b05bdac8a85e2f6da6e3ddbca004e5) !important;
+  background-color: #fff !important;
   background-repeat: repeat-x;
   font-size: 13px;
 }
