@@ -31,7 +31,7 @@ class UserRepository  extends  BaseRepository
     }
 
     public function salvarUsuario(Request $request) {
-        $this->valida($request);
+        $this->validaInserir($request);
         return $this->create([
             'nome' => $request->nome,
             'prontuario' => $request->prontuario,
@@ -41,7 +41,7 @@ class UserRepository  extends  BaseRepository
         ]);
     }
     public function atualizaUsuario(Request $request, $id) {
-        $this->valida($request, $id);
+        $this->validaEditar($request, $id);
         return $this->update([
             'nome' => $request->nome,
             'prontuario' => $request->prontuario,
@@ -50,23 +50,23 @@ class UserRepository  extends  BaseRepository
             'idGrupo' => $request->grupos
         ], $id);
     }
-    private function valida(Request $request, $id = null)
+    private function validaInserir(Request $request)
     {
-        if ($id == null) {
-            $request->validate([
-                'nome' => 'required|string|max:60|min:3',
-                'prontuario' => 'required|alpha_num|max:10|min:5|unique:users,prontuario',
-                'email' => 'required|string|email|max:60|unique:users,email',
-                'senha' => 'required|string|min:6|confirmed',
-                'grupos'=>'required'
-            ]);
-        } else {
-            $request->validate([
-                'nome' => 'required|string|max:60|min:3',
-                'prontuario' => 'required|alpha_num|max:10|min:5|unique:users,prontuario,'.$id.',idUser',
-                'email' => 'required|string|email|max:60|unique:users,email,'.$id.',idUser',
-                'grupos'=>'required|numeric'
-            ]);
-        }
+        $request->validate([
+            'nome' => 'bail|required|string|max:60|min:3',
+            'prontuario' => 'bail|required|alpha_num|max:10|min:5|unique:users,prontuario',
+            'email' => 'bail|required|string|email|max:60|unique:users,email',
+            'senha' => 'bail|required|string|min:6|confirmed',
+            'grupos'=>'bail|required'
+        ]);
+    }
+    private function validaEditar(Request $request, $id)
+    {
+        $request->validate([
+            'nome' => 'bail|required|string|max:60|min:3',
+            'prontuario' => 'bail|required|alpha_num|max:10|min:5|unique:users,prontuario,'.$id.',idUser',
+            'email' => 'bail|required|string|email|max:60|unique:users,email,'.$id.',idUser',
+            'grupos'=>'bail|required|numeric'
+        ]);
     }
 }
