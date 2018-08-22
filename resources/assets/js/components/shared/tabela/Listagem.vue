@@ -83,9 +83,6 @@
             this.buscaDados();
         },
         methods: {
-            executaForm: function(index){
-                document.getElementById(index).submit();
-            },
             buscaDados(page = 1) {
                 var url = this.busca === '' ? this.linkfiltro+'/'+this.sortProperty+'/'+this.sortDirection+'?page='+page
                                           : this.linkfiltro+'/'+this.sortProperty+'/'+this.sortDirection+'/'+this.busca+'?page='+page;
