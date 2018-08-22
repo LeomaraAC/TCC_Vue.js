@@ -15,7 +15,10 @@
                 :maxlength="maxlength"
             >
         </slot>
-        <div class="input-group-append" v-if="icon">
+        <div class="input-group-append" v-if="icon && btn" id="btn" @click="cliqueBtn">
+            <span class="input-group-text"><i v-bind:class="icon"></i></span>
+        </div>
+        <div class="input-group-append" v-if="icon && !btn">
             <span class="input-group-text"><i v-bind:class="icon"></i></span>
         </div>
     </div>
@@ -60,6 +63,10 @@
             },
             maxlength: {
                 type: Number
+            },
+            btn: {
+                type: Boolean,
+                default: false
             }
         },
         data: function () {
@@ -81,6 +88,9 @@
             },
             setFocus: function () {
                 this.$refs.input.focus();
+            },
+            cliqueBtn: function () {
+                Event.fire('btnInput');
             }
         },
          watch: {
@@ -94,4 +104,7 @@
     .input-group-text {
         background-color: white;
     }    
+    #btn:hover{
+        cursor: pointer;
+    }
 </style>
