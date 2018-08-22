@@ -53,7 +53,8 @@ Vue.component('s-sidebar', require('./components/layouts/Sidebar.vue'));
 Vue.component('s-navbar', require('./components/layouts/Navbar.vue'));
 
 
-Vue.component('s-teste', require('./components/ExampleComponent.vue'));
+Vue.component('s-listagemalunos', require('./components/alunos/listagemAlunos.vue'));
+// Vue.component('s-teste', require('./components/ExampleComponent.vue'));
 
 //
 
