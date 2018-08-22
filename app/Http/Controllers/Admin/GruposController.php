@@ -41,7 +41,7 @@ class GruposController extends Controller
         if (Gate::allows('editar_Grupo'))
             array_push($columns,["field"=>"editar", "label" =>'', "width"=> '50px', "sortable"=>false]);
             
-        array_push($columns,["field"=>"nomeGrupo", "label" =>"Grupo abc"]);
+        array_push($columns,["field"=>"nomeGrupo", "label" =>"Grupo"]);
         return $columns;
     }
     /**
