@@ -11,8 +11,8 @@ class GrupoTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Grupo::class,1)->create()->each(function($a) {
-            $a->funcoes()->attach(App\Permissao::all()->random(3));
+        factory(App\Grupo::class)->create()->each(function($a) {
+            $a->funcoes()->attach(App\Permissao::all()->random(12));
         });
     }
 }
