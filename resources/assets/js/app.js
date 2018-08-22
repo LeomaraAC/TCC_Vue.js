@@ -63,7 +63,6 @@ window.Event = new class {
     }
 
     fire(event, data = null) {
-        console.log('fire event');
         this.vue.$emit(event,data);
     }
 
