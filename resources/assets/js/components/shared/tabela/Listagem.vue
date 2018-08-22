@@ -96,11 +96,12 @@
             sort(params) {
                 this.sortDirection = params.sortType == 'asc' ? 'desc' : 'asc';
                 this.sortProperty = this.columns[params.columnIndex].field;
+                this.$refs.tabela.resetPage();
                 this.buscaDados();
             },
             filtrar () {
                 this.buscaDados();
-                this.$refs.tabela.resetPage()
+                this.$refs.tabela.resetPage();
             }
         }
     }
