@@ -1,6 +1,6 @@
 <template>
 <div class="text-left">
-    <s-card :titulo="titulo" :footer="true" :icon="icon">
+    <s-card :titulo="titulo" :footer="adicionar" :icon="icon">
         <span slot="body">
             <div class="offset-md-2 col-md-8 col-sm-12">
                 <s-input  icon="fas fa-search">
@@ -9,7 +9,7 @@
                 </s-input>
             </div>
         </span>
-        <span slot="footer">
+        <span slot="footer" v-if="adicionar">
             <div class="text-left">
                 <a :href="linknovo" class="btn btn-outline-info"><i class="fas fa-plus"></i> Novo</a>
             </div>
@@ -34,6 +34,10 @@
             linknovo: {
                 required: true,
                 type: String
+            },
+            adicionar: {
+                required: true,
+                type: Boolean
             },
             linkfiltro: {
                 required: true,
