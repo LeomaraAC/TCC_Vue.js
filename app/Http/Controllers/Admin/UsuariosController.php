@@ -27,12 +27,29 @@ class UsuariosController extends Controller
     {
         if(Gate::denies('usuario'))
             return redirect()->back()->with('error', 'Ops! Acesso negado.');
+        
+        $columns = json_encode($this->getColunas());
         $breadcrumb = json_encode([
             ["titulo"=>"Home", "url" =>route('home')],
             ["titulo"=>"Usuários", "url" =>""]
         ]);
-        return view('master.usuario.indexUsuario', compact('breadcrumb'));
+        return view('master.usuario.indexUsuario', compact('breadcrumb', 'columns'));
     }
+
+    private function getColunas() {
+        $columns = array(["field"=>"idUser", "hidden" =>true]);
+        if (Gate::allows('excluir_User'))
+            array_push($columns,["field"=>"deletar", "label" =>'', "width"=> '50px', "sortable"=>false]);
+
+        if (Gate::allows('editar_User'))
+            array_push($columns,["field"=>"editar", "label" =>'', "width"=> '50px', "sortable"=>false]);
+            
+        array_push($columns,["field"=>"nome", "label" =>"Usuário"]);
+        array_push($columns,["field"=>"prontuario", "label" =>"Prontuário"]);
+        array_push($columns,["field"=>"email", "label" =>"Email"]);
+        return $columns;
+    }
+
     public function filtro($campo = 'idUser',$order = 'asc', $filter = null){
         return $this->userRepository->filtro($campo,$order, $filter);
     }
