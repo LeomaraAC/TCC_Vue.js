@@ -24,13 +24,17 @@ Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
-Route::middleware('auth')->prefix('master')->group(function(){
-    Route::resource('grupos', 'Admin\GruposController')->except('show');
-    Route::resource('usuarios', 'Admin\UsuariosController')->except('show');
-    Route::get('/grupos/filtro/{campo?}/{sort?}/{filter?}', 'Admin\GruposController@filtro')->name('grupos.filtro');
-    Route::get('/find_ids', 'Admin\PermissoesController@getByIds');
-    Route::get('/usuarios/filtro/{campo?}/{sort?}/{filter?}', 'Admin\UsuariosController@filtro')->name('usuarios.filtro');
-    Route::get('/permissoes/{campo?}/{sort?}/{filter?}', 'Admin\PermissoesController@index')->name('permissoes');
-});
 
-// ['except' => 'logout']
+Route::middleware('auth')->group(function(){
+    Route::prefix('master')->group(function(){
+        Route::resource('grupos', 'Admin\GruposController')->except('show');
+        Route::resource('usuarios', 'Admin\UsuariosController')->except('show');
+        Route::get('/grupos/filtro/{campo?}/{sort?}/{filter?}', 'Admin\GruposController@filtro')->name('grupos.filtro');
+        Route::get('/find_ids', 'Admin\PermissoesController@getByIds');
+        Route::get('/usuarios/filtro/{campo?}/{sort?}/{filter?}', 'Admin\UsuariosController@filtro')->name('usuarios.filtro');
+        Route::get('/permissoes/{campo?}/{sort?}/{filter?}', 'Admin\PermissoesController@index')->name('permissoes');
+    });
+
+    Route::resource('alunos', 'AlunoController')->except('show');
+    Route::get('/alunos/filtro/{campo?}/{sort?}/{filter?}', 'AlunoController@filtro')->name('alunos.filtro');
+});
