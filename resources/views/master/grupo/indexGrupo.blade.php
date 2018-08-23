@@ -2,8 +2,8 @@
 @section('content')
 <s-breadcrumb :caminhos="{{$breadcrumb}}"></s-breadcrumb>
 <s-listagem  linknovo="{{ route('grupos.create') }}" linkfiltro="{{route('grupos.filtro')}}" 
-    titulo="Grupos" filtroinicial="nomeGrupo" 
-    :columns="{{$columns}}"
+    titulo="Grupos" filtroinicial="nomeGrupo" :columns="{{$columns}}"
+    :adicionar="{{Auth::user()->can('incluir_Grupo') == true ? 'true' : 'false'}}"
     :apagar="{{Auth::user()->can('excluir_Grupo') == true ? 'true' : 'false'}}" 
     :editar="{{Auth::user()->can('editar_Grupo') == true ? 'true' : 'false'}}" 
     linkacoes="{{ route('grupos.index') }}" token="{{ csrf_token() }}" icon="fas fa-shapes"></s-listagem>    
