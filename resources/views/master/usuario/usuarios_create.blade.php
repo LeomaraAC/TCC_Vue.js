@@ -7,11 +7,11 @@
                             action="{{ route('usuarios.store') }}"
                             token="{{ csrf_token() }}"
                             :valores="{
-                                                nome: '{{old('nome')}}', 
-                                                prontuario: '{{old('prontuario')}}',
-                                                email: '{{old('email')}}',
-                                                grupo:  '{{old('grupos')}}'
-                                            }"
+                                        nome: '{{old('nome')}}', 
+                                        prontuario: '{{old('prontuario')}}',
+                                        email: '{{old('email')}}',
+                                        grupo:  '{{old('grupos')}}'
+                                    }"
                             ></s-criarusuario>
     @foreach ($errors->all() as $error)
     <s-snackbar cor="red" msg="{{ $error }}"></s-snackbar>
