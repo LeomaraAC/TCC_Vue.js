@@ -36,5 +36,6 @@ Route::middleware('auth')->group(function(){
     });
 
     Route::resource('alunos', 'AlunoController')->except('show');
+    Route::get('/cursos', 'CursoController@getCursos');
     Route::get('/alunos/filtro/{campo?}/{sort?}/{filter?}', 'AlunoController@filtro')->name('alunos.filtro');
 });
