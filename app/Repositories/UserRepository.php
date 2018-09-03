@@ -23,10 +23,12 @@ class UserRepository  extends  BaseRepository
      * @param String $filter
      */
     public function filtro($orderBy = 'idUser',$sortBy = 'asc', $filter = null){
-        return $this->model->orderBy($orderBy, $sortBy)
+        return $this->model->join('grupo','users.idGrupo', '=', 'grupo.idGrupo')
+                            ->orderBy($orderBy, $sortBy)
                             ->where('nome', 'like', '%'.$filter.'%')
                             ->orWhere('prontuario', 'like', '%'.$filter.'%')
                             ->orWhere('email', 'like', '%'.$filter.'%')
+                            ->select('users.idUser','users.nome', 'users.prontuario', 'users.email', 'grupo.nomeGrupo')
                             ->paginate(5);
     }
 
