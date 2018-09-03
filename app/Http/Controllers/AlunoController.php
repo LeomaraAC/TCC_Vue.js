@@ -52,7 +52,15 @@ class AlunoController extends Controller
      */
     public function create()
     {
-        return 'create';
+        if(Gate::denies('incluir_Aluno'))
+            return redirect()->back()->with('error', 'Ops! Acesso negado.');
+        
+        $breadcrumb = json_encode([
+            ["titulo"=>"Home", "url" =>route('home')],
+            ["titulo"=>"Alunos", "url" =>route('alunos.index')],
+            ['titulo'=>'Criar Aluno', 'url' => '']
+        ]);
+        return view('alunos.alunos_create', compact('breadcrumb'));
     }
 
     /**
