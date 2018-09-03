@@ -63,7 +63,11 @@ class AlunoController extends Controller
      */
     public function store(Request $request)
     {
-        return 'store';
+        if(Gate::denies('incluir_Aluno'))
+            return redirect()->back()->with('error', 'Ops! Acesso negado.');
+        
+        $this->repository->inserirAluno($request);
+        return redirect()->route('alunos.index')->with('success', 'Aluno cadastrado com sucesso!');
     }
 
     /**
