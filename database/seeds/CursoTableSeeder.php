@@ -12,10 +12,10 @@ class CursoTableSeeder extends Seeder
     public function run()
     {
         $data = array(
-            array('descricao'=>'Análise e Desenvolvimento de Sistema','sigla'=>'ADS'),
-            array('descricao'=>'Processos Quimico','sigla'=>'PSQ'),
-            array('descricao'=>'Licenciatura Quimica','sigla'=>'LCQ'),
-            array('descricao'=>'Integrado de Quimica','sigla'=>'ITQ')
+            array('descricao'=>'Análise e Desenvolvimento de Sistema','sigla'=>'ADS','duracao' => '6'),
+            array('descricao'=>'Processos Quimico','sigla'=>'PSQ','duracao' => '4'),
+            array('descricao'=>'Licenciatura Quimica','sigla'=>'LCQ','duracao' => '7'),
+            array('descricao'=>'Integrado de Quimica','sigla'=>'ITQ','duracao' => '3')
         );
         DB::table('cursos')->insert($data);
     }
