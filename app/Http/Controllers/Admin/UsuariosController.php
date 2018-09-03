@@ -47,6 +47,7 @@ class UsuariosController extends Controller
         array_push($columns,["field"=>"nome", "label" =>"Usuário"]);
         array_push($columns,["field"=>"prontuario", "label" =>"Prontuário"]);
         array_push($columns,["field"=>"email", "label" =>"Email"]);
+        array_push($columns,["field"=>"nomeGrupo", "label" =>"Grupo"]);
         return $columns;
     }
 
