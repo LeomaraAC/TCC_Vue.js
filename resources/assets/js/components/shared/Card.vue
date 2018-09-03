@@ -3,7 +3,7 @@
         <div class="card-header text-left" v-if="titulo">
             <div class="row">
                 <h4 class="mr-3 ml-3"><i :class="icon"></i> </h4>
-                <h3><strong> {{titulo}}</strong></h3>
+                <h4> {{titulo}}</h4>
             </div>
         </div>
         <div class="card-body">
