@@ -17,6 +17,7 @@ class CreateCursosTable extends Migration
             $table->increments('idCurso');
             $table->string('descricao', 100);
             $table->string('sigla',10);
+            $table->integer('duracao');
             $table->softDeletes();
             $table->timestamps();
         });
