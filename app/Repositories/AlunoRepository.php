@@ -15,10 +15,12 @@ class AlunoRepository  extends  BaseRepository
         $this->model = $aluno;
     }
     public function filtro($orderBy = 'idAluno',$sortBy = 'asc', $filter = null){
-        return $this->model->orderBy($orderBy, $sortBy)
+        return $this->model->join('cursos','alunos.idCurso', '=', 'cursos.idCurso')
+                            ->orderBy($orderBy, $sortBy)
                             ->where('nome', 'like', '%'.$filter.'%')
                             ->orWhere('prontuario', 'like', '%'.$filter.'%')
                             ->orWhere('email', 'like', '%'.$filter.'%')
+                            ->select('alunos.idAluno','alunos.nome', 'alunos.prontuario', 'alunos.email', 'cursos.sigla')
                             ->paginate(5);
     }
 
