@@ -23,6 +23,9 @@ class PermissaoTableSeeder extends Seeder
             array('descricao'=>'Incluir aluno', 'modulo'=>'aluno','nome'=> 'incluir_Aluno'),
             array('descricao'=>'Editar aluno', 'modulo'=>'aluno','nome'=> 'editar_Aluno'),
             array('descricao'=>'Apagar aluno','modulo'=>'aluno', 'nome'=> 'excluir_Aluno'),
+            array('descricao'=>'Trancar matricula do aluno','modulo'=>'aluno', 'nome'=> 'trancar_Aluno'),
+            array('descricao'=>'Ativar matricula do aluno','modulo'=>'aluno', 'nome'=> 'ativar_Aluno'),
+            array('descricao'=>'Finalizar matricula do aluno','modulo'=>'aluno', 'nome'=> 'finalizar_Aluno'),
             array('descricao'=>'Visualizar aluno','modulo'=>'aluno', 'nome'=> 'visualizar_Aluno')
         );
         DB::table('Permissoes')->insert($data);
