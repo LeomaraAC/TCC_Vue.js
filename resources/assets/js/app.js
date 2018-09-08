@@ -39,6 +39,7 @@ Vue.use(VTooltip);
  */
 
 Vue.component('s-breadcrumb', require('./components/shared/Breadcrumb.vue'));
+Vue.component('s-import', require('./components/shared/inputs/Import.vue'));
 Vue.component('s-input', require('./components/shared/inputs/Input.vue'));
 Vue.component('s-pesquisa', require('./components/shared/inputs/Pesquisa.vue'));
 Vue.component('s-checkbox', require('./components/shared/inputs/Checkbox.vue'));
