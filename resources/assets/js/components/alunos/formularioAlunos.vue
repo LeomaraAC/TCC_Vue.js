@@ -1,5 +1,5 @@
 <template>
-    <s-formcard titulo="Cadastrar de Alunos" icon="fas fa-user-graduate" @submitForm="validaForm" @resetForm="resetForm">
+    <s-formcard titulo="Cadastro de Alunos" icon="fas fa-user-graduate" @submitForm="validaForm" @resetForm="resetForm">
         <span slot="form">
             <s-formulario @submit="validaForm"  :action="action" :token="token"  ref="form"
                                     :method="method" id="criarAluno">
