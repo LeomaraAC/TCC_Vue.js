@@ -29,6 +29,9 @@ Vue.component('multiselect', Multiselect);
 import VueTheMask from 'vue-the-mask';
 Vue.use(VueTheMask);
 
+import VTooltip from 'v-tooltip';
+Vue.use(VTooltip);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
