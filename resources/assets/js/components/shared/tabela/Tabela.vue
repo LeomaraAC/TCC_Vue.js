@@ -12,13 +12,13 @@
                             :name="Object.values(props.formattedRow)[0] " :ischecked="getIndex(Object.values(props.formattedRow)[0]) > -1" 
                             :item="props.row" @checked="checked">
                 </s-checkbox>
-                <span v-if="(props.column.field == 'deletar') && apagar" class="btn-icon">
+                <span v-if="(props.column.field == 'deletar') && apagar" class="btn-icon" v-tooltip.top-center="'Apagar'">
                     <s-formulario @submit="deletarItem"  :action="linkacoes + '/' + Object.values(props.formattedRow)[0]" 
                                             :token="token"  method="delete" :id="props.row.originalIndex">
                         <i  class="fas fa-trash-alt" @click="deletarItem(props.row.originalIndex, Object.values(props.formattedRow)[0])"></i>
                     </s-formulario>
                 </span>
-                <span v-if="(props.column.field == 'editar') && editar" class="btn-icon">
+                <span v-if="(props.column.field == 'editar') && editar" class="btn-icon"  v-tooltip.top-center="'Editar'">
                         <a :href="linkacoes + '/' + Object.values(props.formattedRow)[0] +'/edit'"><i  class="fas fa-pen-alt"></i></a>
                 </span>
                 <span v-else>
