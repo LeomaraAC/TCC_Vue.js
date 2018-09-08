@@ -7,7 +7,16 @@
 
 <script>
 export default {
-    props:['cor', 'msg'],
+    props:{
+      cor: {
+        type: String,
+        required: true
+      },
+      msg:{
+        type: String,
+        required: true
+      }
+    },
     data () {
         return {
         show: true,
