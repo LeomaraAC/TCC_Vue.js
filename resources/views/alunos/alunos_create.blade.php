@@ -6,7 +6,7 @@
         <s-snackbar cor="red" msg="{{ $error }}"></s-snackbar>
         @break
     @endforeach
-    <s-formularioalunos action="{{route('alunos.store')}}" token="{{csrf_token()}}"
+    <!-- <s-formularioalunos action="{{route('alunos.store')}}" token="{{csrf_token()}}"
     method="POST" :valores="{
                                 nome: '{{old('nome')}}', 
                                 prontuario: '{{old('prontuario')}}',
@@ -15,6 +15,6 @@
                                 semestre:  '{{old('semestre')}}',
                                 observacao:  '{{old('observacao')}}',
                                 curso:  '{{old('curso')}}',
-                            }"/>
+                            }"/> -->
 
 @endsection
