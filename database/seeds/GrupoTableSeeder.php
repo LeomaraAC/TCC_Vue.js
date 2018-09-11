@@ -12,7 +12,7 @@ class GrupoTableSeeder extends Seeder
     public function run()
     {
         factory(App\Grupo::class)->create()->each(function($a) {
-            $a->funcoes()->attach(App\Permissao::all()->random(12));
+            $a->funcoes()->attach(App\Permissao::all()->random(13));
         });
     }
 }
