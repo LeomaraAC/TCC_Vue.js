@@ -17,7 +17,6 @@ class CreateGrupoTable extends Migration
             $table->increments('idGrupo');
             $table->string('nomeGrupo',60);
             $table->softDeletes();
-            $table->timestamps();
         });
     }
 

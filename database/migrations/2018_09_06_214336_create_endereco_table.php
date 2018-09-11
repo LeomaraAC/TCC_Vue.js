@@ -22,7 +22,6 @@ class CreateEnderecoTable extends Migration
             $table->string('cidade', 100);
             $table->string('estado', 2);
             $table->softDeletes();
-            $table->timestamps();
         });
     }
 
