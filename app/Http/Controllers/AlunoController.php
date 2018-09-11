@@ -33,16 +33,21 @@ class AlunoController extends Controller
 
     private function getColunas() {
         $columns = array(["field"=>"idAluno", "hidden" =>true]);
-        if (Gate::allows('excluir_Aluno'))
-            array_push($columns,["field"=>"deletar", "label" =>'', "width"=> '50px', "sortable"=>false]);
-
+        array_push($columns,["field"=>"statusMatricula",  "hidden" =>true]);
         if (Gate::allows('editar_Aluno'))
             array_push($columns,["field"=>"editar", "label" =>'', "width"=> '50px', "sortable"=>false]);
-            
+        
+        if (Gate::allows('tran_dest_curso_Aluno'))
+            array_push($columns,["field"=>"trancar_destrancar", "label" =>'', "width"=> '50px', "sortable"=>false]);
+        
+        if (Gate::allows('finalizar_curso_Aluno'))
+            array_push($columns,["field"=>"finalizar", "label" =>'', "width"=> '50px', "sortable"=>false]);
+        
         array_push($columns,["field"=>"nome", "label" =>"Usuário"]);
         array_push($columns,["field"=>"prontuario", "label" =>"Prontuário"]);
         array_push($columns,["field"=>"email", "label" =>"Email"]);
         array_push($columns,["field"=>"sigla", "label" =>"Curso"]);
+        array_push($columns,["field"=>"statusMatricula", "label" =>"Status"]);
         return $columns;
     }
 
