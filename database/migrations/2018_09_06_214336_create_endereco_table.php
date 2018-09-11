@@ -19,8 +19,8 @@ class CreateEnderecoTable extends Migration
             $table->string('numero', 8);
             $table->string('bairro', 100);
             $table->integer('cep');
-            $table->string('cidade', 100);
-            $table->string('estado', 2);
+            $table->string('cidade', 100)->nullable();
+            $table->string('estado', 2)->nullable();
             $table->softDeletes();
         });
     }
