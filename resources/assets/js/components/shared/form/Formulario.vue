@@ -1,5 +1,5 @@
 <template>
-    <form :id="id" :action="action" :method="defineMethod" @submit.prevent="submit">
+    <form :id="id" :action="action" :method="defineMethod" enctype="multipart/form-data" @submit.prevent="submit">
     <input v-if="alterMethod" type="hidden" name="_method" :value="alterMethod">
     <input  type="hidden" name="_token" :value="token">
     <slot></slot>
