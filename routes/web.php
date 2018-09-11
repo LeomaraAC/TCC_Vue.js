@@ -39,6 +39,6 @@ Route::middleware('auth')->group(function(){
     Route::get('/cursos', 'CursoController@getCursos');
     Route::get('/alunos/filtro/{campo?}/{sort?}/{filter?}', 'AlunoController@filtro')->name('alunos.filtro');
     Route::prefix('import')->group(function(){
-        Route::post('/alunos', 'AlunoController@importAlunos');
+        Route::post('/alunos', 'ImportController@importAlunos');
     });
 });
