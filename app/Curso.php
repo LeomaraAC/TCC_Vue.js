@@ -9,12 +9,13 @@ class Curso extends Model
 {
     use SoftDeletes;
     protected $table = 'cursos';
-    protected $primaryKey = 'idCurso';
+    protected $primaryKey = 'codigo';
     protected $dates = ['deleted_at'];
     protected $hidden = ['deleted_at'];
-    protected $fillable = ['descricao', 'sigla'];
+    protected $fillable = ['codigo','descricao'];
+    public $timestamps = false;
 
-    public function aluno () {
-        return $this->hasMany(Aluno::class, 'idCurso');
+    public function matricula () {
+        return $this->hasMany(Matricula::class, 'codigo_curso');
     }
 }
