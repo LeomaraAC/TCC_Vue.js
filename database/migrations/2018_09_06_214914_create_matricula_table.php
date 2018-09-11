@@ -28,6 +28,7 @@ class CreateMatriculaTable extends Migration
             $table->string('email_academico')->nullable();
             $table->text('observacao_historico')->nullable();
             $table->text('Observacoes', 300)->nullable();
+            $table->softDeletes();
 
             $table->primary('prontuario');
             $table->foreign('cpf')->references('cpf')->on('alunos')->onDelete('cascade');

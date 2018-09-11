@@ -17,6 +17,7 @@ class CreateTelefoneTable extends Migration
             $table->increments('idTelefone');
             $table->integer('cpf');
             $table->string('numero', 20);
+            $table->softDeletes();
             $table->foreign('cpf')->references('cpf')->on('alunos')->onDelete('cascade');
         });
     }
