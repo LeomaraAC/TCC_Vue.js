@@ -15,7 +15,7 @@ class CreateCursosTable extends Migration
     {
         Schema::create('cursos', function (Blueprint $table) {
             $table->string('codigo');
-            $table->string('descricao', 100);
+            $table->string('descricao');
             $table->softDeletes();
             
             $table->primary('codigo');
