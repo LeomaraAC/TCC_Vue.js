@@ -15,7 +15,7 @@ class CreateTelefoneTable extends Migration
     {
         Schema::create('telefone', function (Blueprint $table) {
             $table->increments('idTelefone');
-            $table->integer('cpf');
+            $table->bigInteger('cpf');
             $table->string('numero', 20);
             $table->softDeletes();
             $table->foreign('cpf')->references('cpf')->on('alunos')->onDelete('cascade');

@@ -15,7 +15,7 @@ class CreateMatriculaTable extends Migration
     {
         Schema::create('matricula', function (Blueprint $table) {
             $table->string('prontuario');
-            $table->integer('cpf');
+            $table->bigInteger('cpf');
             $table->string('codigo_curso');
             $table->year('previsao_conclusao');
             $table->year('ano_ingresso');
