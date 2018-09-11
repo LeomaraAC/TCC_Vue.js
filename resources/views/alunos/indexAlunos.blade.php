@@ -14,7 +14,7 @@
                 <!-- <a href="{{route('alunos.create')}}" class="btn btn-outline-info mr-2"><i class="fas fa-plus"></i> Novo aluno</a> -->
             @endif
             @if(Auth::user()->can('importar_Alunos'))
-            <s-modalimport token="{{csrf_token()}}" />
+                <s-modalimport token="{{csrf_token()}}" />
             @endif
         </div>
     </s-card>
