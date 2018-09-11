@@ -13,6 +13,7 @@ class Grupo extends Model
     protected $dates = ['deleted_at'];
     protected $hidden = ['deleted_at', 'created_at', 'updated_at'];
     protected $fillable = ['nomeGrupo'];
+    public $timestamps = false;
 
     public function funcoes()
     {
