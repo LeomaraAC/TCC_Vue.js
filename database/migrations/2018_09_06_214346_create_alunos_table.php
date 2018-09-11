@@ -14,7 +14,7 @@ class CreateAlunosTable extends Migration
     public function up()
     {
         Schema::create('alunos', function (Blueprint $table) {
-            $table->integer('cpf');
+            $table->bigInteger('cpf');
             $table->string('rg',30)->nullable();
             $table->string('nome', 60);
             $table->date('data_nascimento');
@@ -33,13 +33,12 @@ class CreateAlunosTable extends Migration
             $table->float('renda_per_capta')->nullable();
             $table->string('superdotacao')->nullable();
             $table->string('escola_origem')->nullable();
+            $table->string('tipo_escola_origem')->nullable();
             $table->string('transtorno')->nullable();
-            $table->text('Observacoes', 300)->nullable();
 
             $table->integer('idEndereco')->unsigned();
             $table->foreign('idEndereco')->references('idEndereco')->on('endereco')->onDelete('cascade');
             $table->softDeletes();
-            $table->timestamps();
 
             $table->primary('cpf');
         });

@@ -9,13 +9,43 @@ class Aluno extends Model
 {
     use SoftDeletes;
     protected $table = 'alunos';
-    protected $primaryKey = 'idAluno';
+    protected $primaryKey = 'cpf';
     protected $dates = ['deleted_at'];
     protected $hidden = ['deleted_at'];
-    protected $fillable = ['prontuario', 'nome', 'email', 'telefone', 'semestreAno', 'Observacoes',
-    'statusMatricula', 'motivoCancelamento', 'idCurso'];
+    public $timestamps = false;
+    protected $fillable = [
+        'cpf', 
+        'rg', 
+        'nome', 
+        'data_nascimento', 
+        'nome_mae', 
+        'nome_pai', 
+        'sexo', 
+        'responsavel',
+        'email_pessoal', 
+        'email_responsavel', 
+        'estado_civil', 
+        'naturalidade',
+        'deficiencia',
+        'etnia',
+        'necessidades_especiais',
+        'renda_bruta',
+        'renda_per_capta',
+        'superdotacao',
+        'escola_origem',
+        'tipo_escola_origem',
+        'transtorno',
+        'idEndereco'
+    ];
 
-    public function curso () {
-        return $this->belongsTo(Curso::class, 'idCurso');
+    public function endereco () {
+        return $this->belongsTo(Endereco::class, 'idEndereco');
+    }
+    public function matricula()
+    {
+        return $this->hasMany(Matricula::class, 'cpf');
+    }
+    public function telefone() {
+        return $this->hasMany(Telefone::class, 'cpf');
     }
 }
