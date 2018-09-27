@@ -44,48 +44,48 @@ class ImportController extends Controller
         $aluno = [
                 'cpf' => $value->cpf,
                 'rg' => $value->rg,
-                'nome' => $value->nome,
+                'nome' => mb_convert_case($value->nome, MB_CASE_TITLE, "UTF-8"),
                 'data_nascimento' => $value->data_de_nascimento,
-                'nome_mae' => $value->nome_da_mae == '-' ? null : $value->nome_da_mae,
-                'nome_pai' => $value->nome_do_pai == '-' ? null : $value->nome_do_pai,
+                'nome_mae' => $value->nome_da_mae == '-' ? null : mb_convert_case($value->nome_da_mae, MB_CASE_TITLE, "UTF-8"),
+                'nome_pai' => $value->nome_do_pai == '-' ? null : mb_convert_case($value->nome_do_pai, MB_CASE_TITLE, "UTF-8"),
                 'sexo' => $value->sexo,
-                'responsavel' => $value->responsavel == '-' ? null : $value->responsavel,
+                'responsavel' => $value->responsavel == '-' ? null : mb_convert_case($value->responsavel, MB_CASE_TITLE, "UTF-8"),
                 'email_pessoal' => $value->email_pessoal == '-' ? null : $value->email_pessoal,
                 'email_responsavel' => $value->email_do_responsavel == '-' ? null : $value->email_do_responsavel,
-                'estado_civil' => $value->estado_civil == '-' ? 'Não Informado' : $value->estado_civil,
-                'naturalidade' => $value->naturalidade == '-' ? null : $value->naturalidade,
-                'deficiencia' => $value->deficiencia == '-' ? null : $value->deficiencia,
-                'etnia' => $value->etniaraca == '-' ? 'Não declarado' : $value->etniaraca,
-                'necessidades_especiais' => $value->necessidade_especial == '-' ? null : $value->necessidade_especial,
-                'renda_bruta' => $value->renda_bruta_familiar_r == '-' ? 0 : (double) $value->renda_bruta_familiar_r,
-                'renda_per_capta' => $value['renda_per_capta_qtd._salarios'] == '-' ? 0 : (double) $value['renda_per_capta_qtd._salarios'],
-                'superdotacao' => $value->superdotacao == '-' ? null : $value->superdotacao,
-                'escola_origem' => $value->instituicao_de_ensino_anterior == '-' ? null : $value->instituicao_de_ensino_anterior,
-                'tipo_escola_origem' => $value->tipo_de_escola_de_origem == '-' ? null : $value->tipo_de_escola_de_origem,
-                'transtorno' => $value->transtorno == '-' ? null : $value->transtorno,
-                'idEndereco' => $endereco,
+                'estado_civil' => $value->estado_civil == '-' ? 'Não Informado' : mb_convert_case($value->estado_civil, MB_CASE_TITLE, "UTF-8"),
+                'naturalidade' => $value->naturalidade == '-' ? null : mb_convert_case($value->naturalidade, MB_CASE_TITLE, "UTF-8"),
+                'deficiencia' => $value->deficiencia == '-' ? null : mb_convert_case($value->deficiencia, MB_CASE_TITLE, "UTF-8"),
+                'etnia' => $value->etniaraca == '-' ? 'Não declarado' : mb_convert_case($value->etniaraca, MB_CASE_TITLE, "UTF-8"),
+                'necessidades_especiais' => $value->necessidade_especial == '-' ? null : mb_convert_case($value->necessidade_especial, MB_CASE_TITLE, "UTF-8"),
+                'renda_bruta' => $this->toFloat($value->renda_bruta_familiar_r),
+                'renda_per_capta' => $this->toFloat($value['renda_per_capta_qtd._salarios']),
+                'superdotacao' => $value->superdotacao == '-' ? null : mb_convert_case($value->superdotacao, MB_CASE_TITLE, "UTF-8"),
+                'tipo_escola_origem' => $value->tipo_de_escola_de_origem == '-' ? null : mb_convert_case($value->tipo_de_escola_de_origem, MB_CASE_TITLE, "UTF-8"),
+                'transtorno' => $value->transtorno == '-' ? null : mb_convert_case($value->transtorno, MB_CASE_TITLE, "UTF-8"),
+                'endereco' => mb_convert_case($value->endereco, MB_CASE_TITLE, "UTF-8"),
             ];
         return $aluno;
     }
     private function arrayMatricula($value) {
         $arrCurso = explode('-', $value->curso);
         if($value->data_de_integralizacao != '-'){
-            $value->data_de_integralizacao = new DateTime($value->data_de_integralizacao);
+            $data = explode(' ', $value->data_de_integralizacao);
+            $value->data_de_integralizacao = $data[0];
         }
         $matricula = [
                         'prontuario' => $value->matricula,
                         'codigo_curso' => trim($arrCurso[0]),
                         'previsao_conclusao' => $value->ano_letivo_de_previsao_de_conclusao,
                         'ano_ingresso' => $value->ano_de_ingresso,
-                        'data_integralizacao' => $value->data_de_integralizacao == '-' ? null : $value->data_de_integralizacao->format('Y-m-d'),
-                        'forma_ingresso' => $value->forma_de_ingresso,
-                        'instituicao_anterior' => $value->instituicao_de_ensino_anterior == '-' ? null : $value->instituicao_de_ensino_anterior,
-                        'situacao_curso' => $value->situacao_no_curso,
-                        'situacao_periodo' => $value->situacao_no_periodo == '-' ? null : $value->situacao_no_periodo,
-                        'turma' => $value->turma == '-' ? null : $value->turma,
-                        'email_academico' => $value->email_academico == '-' ? null : $value->email_academico,
-                        'observacao_historico' => $value->observacao_historico == '-' ? null : $value->observacao_historico,
-                        'Observacoes' => $value->observacoes == '-' ? null : $value->observacoes,
+                        'data_integralizacao' => $value->data_de_integralizacao == '-' ? null : $value->data_de_integralizacao,
+                        'forma_ingresso' => mb_convert_case($value->forma_de_ingresso, MB_CASE_TITLE, "UTF-8"),
+                        'instituicao_anterior' => $value->instituicao_de_ensino_anterior == '-' ? null : mb_convert_case($value->instituicao_de_ensino_anterior, MB_CASE_TITLE, "UTF-8"),
+                        'situacao_curso' => mb_convert_case($value->situacao_no_curso, MB_CASE_TITLE, "UTF-8"),
+                        'situacao_periodo' => $value->situacao_no_periodo == '-' ? null : mb_convert_case($value->situacao_no_periodo, MB_CASE_TITLE, "UTF-8"),
+                        'turma' => $value->turma == '-' ? null : mb_convert_case($value->turma, MB_CASE_TITLE, "UTF-8"),
+                        'email_academico' => $value->email_academico == '-' ? null : mb_convert_case($value->email_academico, MB_CASE_TITLE, "UTF-8"),
+                        'observacao_historico' => $value->observacao_historico == '-' ? null : mb_convert_case($value->observacao_historico, MB_CASE_TITLE, "UTF-8"),
+                        'Observacoes' => $value->observacoes == '-' ? null : mb_convert_case($value->observacoes, MB_CASE_TITLE, "UTF-8"),
                         'cpf' => $value->cpf,
         ];
         return $matricula;
@@ -107,7 +107,7 @@ class ImportController extends Controller
         if(!$this->cursoRepo->find(trim($arrCurso[0]))){
             $this->cursoRepo->create([
                 'codigo' => trim($arrCurso[0]),
-                'descricao' => ucfirst($arrCurso[1])
+                'descricao' => mb_convert_case($arrCurso[1], MB_CASE_TITLE, "UTF-8")
             ]);
         }
     }
