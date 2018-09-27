@@ -11,4 +11,11 @@ class MatriculaRepository  extends  BaseRepository
     public function __construct(Matricula $matricula) {
         $this->model = $matricula;
     }
+
+    public function findByCpf($cpf) {
+        return $this->model
+                    ->orderBy('ano_ingresso', 'desc')
+                    ->where('cpf','=',$cpf)
+                    ->get();
+    }
 }
