@@ -30,6 +30,8 @@ class ImportController extends Controller
     private function soNumeros($str) {
         $str = preg_replace('/[^0-9]/i', '_', $str);
         $str = preg_replace('/_+/', '', $str);
+        if($str != '')
+            return (int) $str;
         return $str;
     }
     }
