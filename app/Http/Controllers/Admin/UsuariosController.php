@@ -39,10 +39,10 @@ class UsuariosController extends Controller
     private function getColunas() {
         $columns = array(["field"=>"idUser", "hidden" =>true]);
         if (Gate::allows('excluir_User'))
-            array_push($columns,["field"=>"deletar", "label" =>'', "width"=> '50px', "sortable"=>false]);
+            array_push($columns,["field"=>"deletar", "label" =>'', "width"=> '30px', "sortable"=>false]);
 
         if (Gate::allows('editar_User'))
-            array_push($columns,["field"=>"editar", "label" =>'', "width"=> '50px', "sortable"=>false]);
+            array_push($columns,["field"=>"editar", "label" =>'', "width"=> '30px', "sortable"=>false]);
             
         array_push($columns,["field"=>"nome", "label" =>"Usuário"]);
         array_push($columns,["field"=>"prontuario", "label" =>"Prontuário"]);

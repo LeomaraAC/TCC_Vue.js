@@ -36,10 +36,10 @@ class GruposController extends Controller
     private function getColunas() {
         $columns = array(["field"=>"idGrupo", "hidden" =>true]);
         if (Gate::allows('excluir_Grupo'))
-            array_push($columns,["field"=>"deletar", "label" =>'', "width"=> '50px', "sortable"=>false]);
+            array_push($columns,["field"=>"deletar", "label" =>'', "width"=> '30px', "sortable"=>false]);
 
         if (Gate::allows('editar_Grupo'))
-            array_push($columns,["field"=>"editar", "label" =>'', "width"=> '50px', "sortable"=>false]);
+            array_push($columns,["field"=>"editar", "label" =>'', "width"=> '30px', "sortable"=>false]);
             
         array_push($columns,["field"=>"nomeGrupo", "label" =>"Grupo"]);
         return $columns;
