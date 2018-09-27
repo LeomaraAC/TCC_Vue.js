@@ -34,6 +34,10 @@ class ImportController extends Controller
             return (int) $str;
         return $str;
     }
+    private function toFloat($valor) {
+        $valor = $valor == '-' ? 0 : str_replace('.', '',  $valor);
+        $valor = str_replace(',', '.',  $valor);
+        return (float) $valor;
     }
         $aluno = [
                 'cpf' => $value->cpf,
