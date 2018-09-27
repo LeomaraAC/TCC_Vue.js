@@ -15,12 +15,12 @@ class CreateAlunosTable extends Migration
     {
         Schema::create('alunos', function (Blueprint $table) {
             $table->bigInteger('cpf');
-            $table->string('rg',30)->nullable();
+            $table->string('rg')->nullable();
             $table->string('nome', 60);
-            $table->date('data_nascimento');
+            $table->string('data_nascimento');
             $table->string('nome_mae',60)->nullable();
             $table->string('nome_pai',60)->nullable();
-            $table->enum('sexo', ['f', 'm']);
+            $table->enum('sexo', ['F', 'M']);
             $table->string('responsavel',60)->nullable();
             $table->string('email_pessoal', 60)->nullable();
             $table->string('email_responsavel',60)->nullable();
@@ -32,12 +32,10 @@ class CreateAlunosTable extends Migration
             $table->float('renda_bruta')->nullable();
             $table->float('renda_per_capta')->nullable();
             $table->string('superdotacao')->nullable();
-            $table->string('escola_origem')->nullable();
             $table->string('tipo_escola_origem')->nullable();
             $table->string('transtorno')->nullable();
+            $table->string('endereco');
 
-            $table->integer('idEndereco')->unsigned();
-            $table->foreign('idEndereco')->references('idEndereco')->on('endereco')->onDelete('cascade');
             $table->softDeletes();
 
             $table->primary('cpf');
