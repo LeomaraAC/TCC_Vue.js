@@ -63,7 +63,7 @@ class AlunoController extends Controller
         return 'destroy';
     }
 
-    public function filtro($campo = 'idAluno',$order = 'asc', $filter = null){
+    public function filtro($campo = 'nome',$order = 'asc', $filter = null){
         return $this->repository->filtro($campo,$order, $filter);
     }
 }
