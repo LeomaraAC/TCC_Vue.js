@@ -32,9 +32,13 @@ abstract class BaseRepository implements BaseRepositoryInterface {
      * @param String $filter
      * @param int $page
      */
-    public function allPaginate($orderBy, $sortBy='asc',$filterBy, $filter=null, $page=5) {
+    public function allPaginate($orderBy, $sortBy='asc',$filterBy, $filter=null, $page=25) {
         $sortBy = $sortBy == 'asc' || $sortBy == 'desc' ? $sortBy : 'asc';
         return $this->model->orderBy($orderBy, $sortBy)->where($filterBy, 'like', '%'.$filter.'%')->paginate($page);
+    }
+
+    public function all() {
+        return $this->model->all();
     }
 
     /**
