@@ -7,10 +7,10 @@
         </span>
         <span slot="footer">
             <slot name="botoes">
-                <button  type="button" @click.prevent="validaForm" class="btn btn-outline-primary"> 
+                <button id="salvar" type="button" @click.prevent="validaForm" class="btn btn-outline-primary"> 
                     <i class="fas fa-save"></i> Salvar 
                 </button>
-                <button type="button" @click.prevent="resetForm" class="btn btn-outline-secondary">
+                <button id="limpar" type="button" @click.prevent="resetForm" class="btn btn-outline-secondary">
                     <i class="fas fa-eraser"></i> Limpar
                 </button>
             </slot>
