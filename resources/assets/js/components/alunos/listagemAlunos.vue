@@ -21,17 +21,9 @@ export default {
             required: true,
             type: Array
         },
-        permissao_apagar: {
+        permissao_visualizar: {
             type: Boolean,
             default: false
-        },
-        permissao_editar: {
-            type: Boolean,
-            default: false
-        },
-        token: {
-            type: String,
-            required: this.permissao_apagar
         },
     },
     data: function () {
