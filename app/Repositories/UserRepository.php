@@ -29,7 +29,7 @@ class UserRepository  extends  BaseRepository
                             ->orWhere('prontuario', 'like', '%'.$filter.'%')
                             ->orWhere('email', 'like', '%'.$filter.'%')
                             ->select('users.idUser','users.nome', 'users.prontuario', 'users.email', 'grupo.nomeGrupo')
-                            ->paginate(5);
+                            ->paginate(25);
     }
 
     public function salvarUsuario(Request $request) {
