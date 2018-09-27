@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\AlunoRepository;
-use App\Repositories\EnderecoRepository;
 use App\Repositories\MatriculaRepository;
 use App\Repositories\TelefoneRepository;
 use App\Repositories\CursoRepository;
@@ -14,18 +13,15 @@ use Excel;
 class ImportController extends Controller
 {
     protected $alunoRepo;
-    protected $enderecoRepo;
     protected $matriculaRepo;
     protected $telefoneRepo;
     protected $cursoRepo;
 
     public function __construct(AlunoRepository $alunoRepo,
-                                EnderecoRepository $enderecoRepo,
                                 MatriculaRepository $matriculaRepo,
                                 TelefoneRepository $telefoneRepo,
                                 CursoRepository $cursoRepo) {
         $this->alunoRepo = $alunoRepo;
-        $this->enderecoRepo = $enderecoRepo;
         $this->matriculaRepo = $matriculaRepo;
         $this->telefoneRepo = $telefoneRepo;
         $this->cursoRepo = $cursoRepo;
@@ -36,23 +32,7 @@ class ImportController extends Controller
         $str = preg_replace('/_+/', '', $str);
         return $str;
     }
-
-    private function arrayEndereco($value) {
-        $arrEndereco = explode(',', $value->endereco);
-        $arrCidade = explode('-', $value->cidade);
-        $endereco = [
-                        'rua' => $arrEndereco[0],
-                        'numero' => $arrEndereco[1],
-                        'bairro' => $arrEndereco[2],
-                        'cep' => $this->soNumeros($arrEndereco[3]),
-                        'cidade' => $arrCidade[0] == '' ? null : $arrCidade[0],
-                        'estado' => $arrCidade[1] == '' ? null : $arrCidade[1]  
-                    ];
-        return $endereco;
     }
-    private function arrayAluno($value, $endereco) {
-        $value->data_de_nascimento = DateTime::createFromFormat('d/m/Y',$value->data_de_nascimento)->format('Y-m-d');
-        $value->sexo = strtolower($value->sexo);
         $aluno = [
                 'cpf' => $value->cpf,
                 'rg' => $value->rg,
