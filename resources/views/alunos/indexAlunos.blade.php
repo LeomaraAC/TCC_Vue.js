@@ -19,12 +19,10 @@
         </div>
     </s-card>
     <hr>
-    <!-- <s-listagemalunos linkacoes="{{route('alunos.index')}}" linkfiltro="{{route('alunos.filtro')}}"
-    :permissao_apagar="{{Auth::user()->can('excluir_Aluno') == true ? 'true' : 'false'}}"
-    :permissao_editar="{{Auth::user()->can('editar_Aluno') == true ? 'true' : 'false'}}"
-    :columns="{{$columns}}" token="{{csrf_token()}}"
+    <s-listagemalunos linkacoes="{{route('alunos.index')}}" linkfiltro="{{route('alunos.filtro')}}"
+        :columns="{{$columns}}" :permissao_visualizar="true"
     >
-    </s-listagemalunos> -->
+    </s-listagemalunos>
 
 @if (session('success'))
     <s-snackbar cor="green" msg="{{ session('success') }}"></s-snackbar>
