@@ -39,6 +39,8 @@ class ImportController extends Controller
         $valor = str_replace(',', '.',  $valor);
         return (float) $valor;
     }
+    private function arrayAluno($value) {
+        $value->sexo = strtoupper($value->sexo);
         $aluno = [
                 'cpf' => $value->cpf,
                 'rg' => $value->rg,
