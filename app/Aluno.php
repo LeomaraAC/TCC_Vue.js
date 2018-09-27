@@ -32,15 +32,10 @@ class Aluno extends Model
         'renda_bruta',
         'renda_per_capta',
         'superdotacao',
-        'escola_origem',
         'tipo_escola_origem',
         'transtorno',
-        'idEndereco'
+        'endereco'
     ];
-
-    public function endereco () {
-        return $this->belongsTo(Endereco::class, 'idEndereco');
-    }
     public function matricula()
     {
         return $this->hasMany(Matricula::class, 'cpf');
