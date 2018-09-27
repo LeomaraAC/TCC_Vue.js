@@ -27,7 +27,7 @@ class CreateMatriculaTable extends Migration
             $table->string('turma')->nullable();
             $table->string('email_academico')->nullable();
             $table->text('observacao_historico')->nullable();
-            $table->text('Observacoes', 300)->nullable();
+            $table->text('observacoes', 300)->nullable();
             $table->softDeletes();
 
             $table->primary('prontuario');
