@@ -54,13 +54,12 @@ class AlunoController extends Controller
      * @param  \App\Aluno  $aluno
      * @return \Illuminate\Http\Response
      */
-    public function show(Aluno $aluno)
+    public function show($cpf)
     {
-        return 'show';
-    }
-
-    {
-        return 'destroy';
+        $matriculas = $this->repoMatricula->findByCpf($cpf);
+        $aluno = $this->repository->find($cpf);
+        $titulo = 'aluno_'.$aluno->cpf.'.pdf';
+        return PDF::loadView('alunos.aluno_pdf', compact('aluno','matriculas'))->stream($titulo);
     }
 
     public function filtro($campo = 'nome',$order = 'asc', $filter = null){
