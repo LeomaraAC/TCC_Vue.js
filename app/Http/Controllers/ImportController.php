@@ -120,64 +120,68 @@ class ImportController extends Controller
             // Recuperando os dados da planilha selecionada 
             $data = Excel::load($path)->get();
             if($data->count()){
-                foreach ($data as $key => $value) {
-                    //Procurar o aluno.Se ele existir os dados devem ser atualiizados, 
-                    //se não devem ser criados
-                    
-                    
-                    
-                    $value->cpf = $this->soNumeros($value->cpf);
-                    $dadosEndereco = $this->arrayEndereco($value);
-                    $dadosMatricula = $this->arrayMatricula($value);
-                    //Criar o curso caso não exista
-                    $this->salvarCurso($value);
-                    
-                    $findAluno = $this->alunoRepo->find($value->cpf);
-                    if($findAluno){
-                        //Atualizar os registros quando o usuário já existir
-                        
-                        //Atualizar o endereço
-                        $idEndereco = $findAluno->endereco->idEndereco;
-                        $this->enderecoRepo->update($dadosEndereco, $idEndereco);
+                //Verificando se a classe é a correspondente a linha
+                //Caso a classe não seja, significa que existe duas planilhas
+                if (get_class($data) == 'Maatwebsite\Excel\Collections\RowCollection') {
+                    $sem_cpf = 0;
+                    foreach ($data as $key => $value) {
+                        //Procurar o aluno.Se ele existir os dados devem ser atualiizados, 
+                        //se não devem ser criados
+                        $value->cpf = $this->soNumeros($value->cpf);
+                        if($value->cpf == '') {
+                            $sem_cpf++;
+                            $value->cpf = $sem_cpf;
+                        }
 
-                        //Atualizar o aluno
-                        $dadosAluno = $this->arrayAluno($value, $idEndereco );
-                        $this->alunoRepo->update($dadosAluno, $findAluno->cpf); 
+                        $dadosMatricula = $this->arrayMatricula($value);
+                        //Criar o curso caso não exista
+                        $this->salvarCurso($value);
+                        $findAluno = $this->alunoRepo->find($value->cpf);
+                        if($findAluno){
+                            //Atualizar os registros quando o usuário já existir
+                    
+                            //Atualizar o aluno
+                            $dadosAluno = $this->arrayAluno($value);
+                            $this->alunoRepo->update($dadosAluno, $findAluno->cpf); 
 
-                        //Atualizar o telefone
-                        //Apagar todos telefones que existe e...
-                        $findAluno->telefone()->delete();
-                        //inserir os novos.
-                        $this->salvarTelefones($value);
-                        
-                        //Atualizar a matricula caso ela exista...
-                        $findMatricula = $this->matriculaRepo->find($value->matricula);
-                        if($findMatricula)
-                            $this->matriculaRepo->update($dadosMatricula, $value->matricula);
-                        else
+                            //Atualizar o telefone
+                            //Apagar todos telefones que existe e...
+                            $findAluno->telefone()->delete();
+                            //inserir os novos.
+                            $this->salvarTelefones($value);
+                            
+                            //Atualizar a matricula caso ela exista...
+                            $findMatricula = $this->matriculaRepo->find($value->matricula);
+                            if($findMatricula)
+                                $this->matriculaRepo->update($dadosMatricula, $value->matricula);
+                            else
+                                $this->matriculaRepo->create($dadosMatricula);
+                            
+                            //Ou criar uma nova caso ela não exista...
+                        }
+                        else {
+                            // Inserindo os registros do aluno pela primeira vez.
+
+
+                            // Salvando o aluno
+                            $dadosAluno = $this->arrayAluno($value);
+                            $this->alunoRepo->create($dadosAluno);                       
+                
+                            // Salvando o Telefone
+                            $this->salvarTelefones($value);
+                            
+                            // Salvando a matricula
                             $this->matriculaRepo->create($dadosMatricula);
-                        
-                        //Ou criar uma nova caso ela não exista...
+
+                        }
                     }
-                    else {
-                        // Inserindo os registros do aluno pela primeira vez.
-
-                        // Salvando o Endereço
-                        $endereco = $this->enderecoRepo->create($dadosEndereco);
-
-                        // Salvando o aluno
-                        $dadosAluno = $this->arrayAluno($value, $endereco->idEndereco );
-                        $this->alunoRepo->create($dadosAluno);                       
-            
-                        // Salvando o Telefone
-                        $this->salvarTelefones($value);
-                        
-                        // Salvando a matricula
-                        $this->matriculaRepo->create($dadosMatricula);
-
-                    }
+                    if($sem_cpf != 0)
+                        return back()->with('error', $sem_cpf.' alunos foram importados com cpf inválido.');
+                    else
+                        return back()->with('success', 'Todos os dados importados com sucesso.');
+                } else {
+                    return back()->with('error', 'Erro ao importar os dados. Arquivo com duas planilhas.');
                 }
-                return back()->with('success', 'Dados importados com sucesso.');
             }
             else
                 return back()->with('error', 'Erro ao importar os dados. Planilha vazia.');
