@@ -3,7 +3,7 @@
     <s-card :titulo="titulo" :footer="adicionar" :icon="icon">
         <span slot="body">
             <div class="offset-md-2 col-md-8 col-sm-12">
-                <s-input  icon="fas fa-search">
+                <s-input  icon="fas fa-search" :btn="true">
                     <input name="busca" type="text" placeholder="Buscar...." class="form-control" autofocus 
                     v-model="busca" @keyup.enter="filtrar">
                 </s-input>
@@ -84,6 +84,9 @@
             }
         },
         mounted() {
+            Event.listen('btnInput', () => {
+                this.buscaDados();
+            })
             this.buscaDados();
         },
         methods: {
