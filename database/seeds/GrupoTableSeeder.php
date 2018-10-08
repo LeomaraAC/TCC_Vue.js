@@ -11,8 +11,21 @@ class GrupoTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Grupo::class)->create()->each(function($a) {
-            $a->funcoes()->attach(App\Permissao::all()->random(13));
-        });
+        $idGrupo = DB::table('grupo')->insertGetId(
+            ['nomeGrupo' => 'Master']
+        );
+
+        for ($i=1; $i <= 10 ; $i++) { 
+            DB::table('permissoes_grupo')->insert(
+                [
+                    'idGrupo' => $idGrupo,
+                    'idTelas' => $i
+                ]
+            );
+        }
+
+        // factory(App\Grupo::class)->create()->each(function($a) {
+        //     $a->funcoes()->attach(App\Permissao::all()->random(13));
+        // });
     }
 }
