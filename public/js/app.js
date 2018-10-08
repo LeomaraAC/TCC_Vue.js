@@ -103375,7 +103375,7 @@ var render = function() {
               "div",
               {
                 staticClass: "input-group-append",
-                attrs: { id: "btn" },
+                attrs: { id: "btnInput" },
                 on: { click: _vm.cliqueBtn }
               },
               [
@@ -104440,21 +104440,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     mounted: function mounted() {
+        var _this = this;
+
+        Event.listen('btnInput', function () {
+            _this.buscaDados();
+        });
         this.buscaDados();
     },
 
     methods: {
         buscaDados: function buscaDados() {
-            var _this = this;
+            var _this2 = this;
 
             var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
             var url = this.busca === '' ? this.linkfiltro + '/' + this.sortProperty + '/' + this.sortDirection + '?page=' + page : this.linkfiltro + '/' + this.sortProperty + '/' + this.sortDirection + '/' + this.busca + '?page=' + page;
 
             axios.get(url).then(function (res) {
-                _this.empty = true;
-                _this.rows = res.data.data;
-                _this.pagination = res.data;
+                _this2.empty = true;
+                _this2.rows = res.data.data;
+                _this2.pagination = res.data;
             });
         },
         sort: function sort(params) {
@@ -104493,7 +104498,7 @@ var render = function() {
               "div",
               { staticClass: "offset-md-2 col-md-8 col-sm-12" },
               [
-                _c("s-input", { attrs: { icon: "fas fa-search" } }, [
+                _c("s-input", { attrs: { icon: "fas fa-search", btn: true } }, [
                   _c("input", {
                     directives: [
                       {
@@ -104548,7 +104553,7 @@ var render = function() {
                     "a",
                     {
                       staticClass: "btn btn-outline-info",
-                      attrs: { href: _vm.linknovo }
+                      attrs: { id: "novo", href: _vm.linknovo }
                     },
                     [_c("i", { staticClass: "fas fa-plus" }), _vm._v(" Novo")]
                   )
@@ -104697,9 +104702,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -104797,6 +104799,7 @@ var render = function() {
             "vue-good-table",
             {
               attrs: {
+                id: "tabelaListagem",
                 mode: _vm.remote,
                 columns: _vm.columns,
                 rows: _vm.rows,
@@ -104936,19 +104939,9 @@ var render = function() {
                                   }
                                 })
                               : _vm._e(),
-                            _vm._v(
-                              " " +
-                                _vm._s(props.column.label) +
-                                "\n             "
-                            )
+                            _vm._v(" " + _vm._s(props.column.label))
                           ])
-                        : _c("span", [
-                            _vm._v(
-                              "\n                 " +
-                                _vm._s(props.column.label) +
-                                "\n             "
-                            )
-                          ])
+                        : _c("span", [_vm._v(_vm._s(props.column.label))])
                     ])
                   }
                 }
@@ -108201,7 +108194,7 @@ var render = function() {
         "button",
         {
           staticClass: "btn btn-outline-info",
-          attrs: { type: "button" },
+          attrs: { type: "button", id: "importar_alunos" },
           on: { click: _vm.show }
         },
         [

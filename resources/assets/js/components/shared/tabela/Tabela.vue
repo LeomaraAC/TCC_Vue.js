@@ -28,11 +28,8 @@
             <span slot="table-column" slot-scope="props">
                 <span v-if="props.column.label !=''" class="hover">
                     <i v-if="sortProperty == props.column.field" :class="{'fas fa-sort-alpha-down': sortDirection == 'asc' , 
-                                        'fas fa-sort-alpha-up': sortDirection == 'desc'}"></i> {{props.column.label}}
-                </span>
-                <span v-else>
-                    {{props.column.label}}
-                </span>
+                                        'fas fa-sort-alpha-up': sortDirection == 'desc'}"></i> {{props.column.label}}</span>
+                <span v-else>{{props.column.label}}</span>
             </span>
             <div slot="emptystate">
                 <v-alert :value="true" color="red" icon="warning">

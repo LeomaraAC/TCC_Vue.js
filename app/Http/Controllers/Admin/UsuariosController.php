@@ -126,7 +126,7 @@ class UsuariosController extends Controller
             return redirect()->back()->with('error', 'Ops! Acesso negado.');
             
         $this->userRepository->atualizaUsuario($request, $id);
-        return redirect()->route('usuarios.index')->with('success', 'Usuário '.$request->nome.' editado com sucesso!');
+        return redirect()->route('usuarios.index')->with('success', 'Usuário editado com sucesso!');
     }
 
     /**
@@ -141,7 +141,7 @@ class UsuariosController extends Controller
             return redirect()->back()->with('error', 'Ops! Acesso negado.');
         
         if($this->userRepository->delete($id)) {
-            return redirect()->route('usuarios.index')->with('success', 'Usuário '.$usuario->nome.' excluído  com sucesso!');
+            return redirect()->route('usuarios.index')->with('success', 'Usuário excluído com sucesso!');
         }else
             return redirect()->route('usuarios.index')->with('error', 'Ops! O usuário a ser excluído  não foi encontrado.');
     }
