@@ -11,7 +11,7 @@
         </span>
         <span slot="footer" v-if="adicionar">
             <div class="text-left">
-                <a :href="linknovo" class="btn btn-outline-info"><i class="fas fa-plus"></i> Novo</a>
+                <a id="novo" :href="linknovo" class="btn btn-outline-info"><i class="fas fa-plus"></i> Novo</a>
             </div>
         </span>
     </s-card>

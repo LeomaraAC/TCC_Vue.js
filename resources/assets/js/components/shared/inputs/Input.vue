@@ -15,7 +15,7 @@
                 :maxlength="maxlength"
             >
         </slot>
-        <div class="input-group-append" v-if="icon && btn" id="btn" @click="cliqueBtn">
+        <div class="input-group-append" v-if="icon && btn" id="btnInput" @click="cliqueBtn">
             <span class="input-group-text"><i v-bind:class="icon"></i></span>
         </div>
         <div class="input-group-append" v-if="icon && !btn">

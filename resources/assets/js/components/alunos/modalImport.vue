@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button type="button" class="btn btn-outline-info" @click="show"><i class="fas fa-file-import"></i> Importar dados</button>
+        <button type="button" id="importar_alunos" class="btn btn-outline-info" @click="show"><i class="fas fa-file-import"></i> Importar dados</button>
         <s-modal name="import" title="Importar dados dos alunos">
             <span slot="modal-body">
                 <s-formulario action="/import/alunos" :token="token"  ref="form"

@@ -1,6 +1,6 @@
 <template>
    <div  v-if="empty">
-        <vue-good-table 
+        <vue-good-table id="tabelaListagem"
             :mode="remote"
             :columns="columns"
             :rows="rows"
