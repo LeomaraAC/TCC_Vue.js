@@ -17,7 +17,7 @@ class CreateAlunosTable extends Migration
             $table->bigInteger('cpf');
             $table->string('rg')->nullable();
             $table->string('nome', 60);
-            $table->string('data_nascimento');
+            $table->string('data_nascimento',10);
             $table->string('nome_mae',60)->nullable();
             $table->string('nome_pai',60)->nullable();
             $table->enum('sexo', ['F', 'M']);

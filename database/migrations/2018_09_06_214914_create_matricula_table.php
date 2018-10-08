@@ -19,15 +19,15 @@ class CreateMatriculaTable extends Migration
             $table->string('codigo_curso');
             $table->year('previsao_conclusao');
             $table->year('ano_ingresso');
-            $table->string('data_integralizacao')->nullable();
+            $table->string('data_integralizacao',10)->nullable();
             $table->string('forma_ingresso');
             $table->string('instituicao_anterior')->nullable();
             $table->string('situacao_curso');
             $table->string('situacao_periodo')->nullable();
             $table->string('turma')->nullable();
-            $table->string('email_academico')->nullable();
+            $table->string('email_academico',60)->nullable();
             $table->text('observacao_historico')->nullable();
-            $table->text('observacoes', 300)->nullable();
+            $table->text('observacoes')->nullable();
             $table->softDeletes();
 
             $table->primary('prontuario');
