@@ -15,7 +15,8 @@ class GrupoTableSeeder extends Seeder
             ['nomeGrupo' => 'Master']
         );
 
-        for ($i=1; $i <= 10 ; $i++) { 
+        $count = DB::table('permissoes')->count();
+        for ($i=1; $i <= $count ; $i++) { 
             DB::table('permissoes_grupo')->insert(
                 [
                     'idGrupo' => $idGrupo,
