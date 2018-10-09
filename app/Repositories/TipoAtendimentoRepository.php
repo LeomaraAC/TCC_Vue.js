@@ -13,14 +13,16 @@ class TipoAtendimentoRepository extends BaseRepository {
     }
 
     public function salvarTipo(Request $request) {
-        $this->validacao($request);
+        $this->validaInserir($request);
         return $this->create([
             'descricao' => $request->descricao
         ]);
     }
 
-    private function validacao(Request $request) {
-        return true;
+    private function validaInserir(Request $request) {
+        $request->validate([
+            'descricao' => 'bail|required|string|max:100|min:3|unique:tipo_atendimento,descricao',
+        ]);
     }
 
     public function filtro($orderBy = 'descricao',$sortBy = 'asc', $filter = null){
