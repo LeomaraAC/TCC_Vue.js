@@ -18,7 +18,6 @@ export default {
     },
     mounted: function() {
         Event.listen('btnInput', () => {
-            console.log('ouvi');
             this.filtrar()
         });
     }
