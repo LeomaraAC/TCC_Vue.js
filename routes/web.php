@@ -35,6 +35,12 @@ Route::middleware('auth')->group(function(){
         Route::get('/permissoes/{campo?}/{sort?}/{filter?}', 'Admin\PermissoesController@index')->name('permissoes');
     });
 
+    Route::prefix('atendimento')->group(function() {
+        Route::resource('tipo', 'Atendimentos\TipoAtendimentoController');
+        Route::get('/tipo/filtro/{campo?}/{sort?}/{filter?}', 'Atendimentos\TipoAtendimentoController@filtro')
+                    ->name('tipo.filtro');
+    });
+
     Route::get('/alunos', 'AlunoController@index')->name('alunos.index');
     Route::get('/alunos/{aluno}', 'AlunoController@show')->name('alunos.show');
     Route::get('/cursos', 'CursoController@getCursos');
