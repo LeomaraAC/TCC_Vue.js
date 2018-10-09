@@ -66,8 +66,8 @@ Vue.component('s-modalimport', require('./components/layouts/alunos/modalImport.
 // Vue.component('s-teste', require('./components/ExampleComponent.vue'));
 
 Vue.component("s-listagemtipo", require('./components/layouts/atendimentos/tipos/ListagemTipo.vue'))
+Vue.component("s-formulariotipo", require('./components/layouts/atendimentos/tipos/formularioTipo.vue'))
 
-//
 
 window.Event = new class {
     constructor() {
