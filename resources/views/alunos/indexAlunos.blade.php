@@ -8,12 +8,13 @@
                 <s-pesquisa></s-pesquisa>
             </div>
         </span>
-        <div slot="footer" v-if="{{Auth::user()->can('importar_Alunos') == true ? 'true' : 'false'}}" class="row">
-            
+        <span slot="footer" v-if="{{Auth::user()->can('importar_Alunos') == true ? 'true' : 'false'}}">
             @if(Auth::user()->can('importar_Alunos'))
-                <s-modalimport token="{{csrf_token()}}" />
+                <div class="text-left">
+                    <s-modalimport token="{{csrf_token()}}" />
+                </div>
             @endif
-        </div>
+        </span>
     </s-card>
     <hr>
     <s-listagemalunos linkacoes="{{route('alunos.index')}}" linkfiltro="{{route('alunos.filtro')}}"
