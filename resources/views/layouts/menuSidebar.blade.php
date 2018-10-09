@@ -30,4 +30,19 @@
             <a class="nav-link" href="{{route('alunos.index')}}"><i class="fas fa-user-graduate"></i>Aluno</a>
         </li>
     @endcan
+
+    <!-- Atendimentos -->
+    @can('atendimento')
+        <li>
+            <a href="#pageSubmenuAtendimento" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fas fa-headset"></i>Atendimento</a>
+            <ul class="collapse list-unstyled" id="pageSubmenuAtendimento">
+                @can('tipo_atendimento')
+                    <li>
+                        <a href="/atendimento/tipo"><i class="fas fa-tag"></i>Tipos</a>
+                    </li>
+                @endcan
+            </ul>
+        </li>
+    @endcan
 </ul>
