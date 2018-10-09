@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button type="button" id="importar_alunos" class="btn btn-outline-info" @click="show"><i class="fas fa-file-import"></i> Importar dados</button>
+        <button type="button" id="importar_alunos" class="btn btn-outline-info" @click="show"><i class="fas fa-upload"></i> Importar dados</button>
         <s-modal name="import" title="Importar dados dos alunos">
             <span slot="modal-body">
                 <s-formulario action="/import/alunos" :token="token"  ref="form"
@@ -9,8 +9,8 @@
                 </s-formulario>
             </span>
             <span slot="modal-footer">
-                <button type="button" class="btn btn-outline-primary" @click="importar_dados">Importar</button>
-                <button type="button" class="btn btn-outline-danger" @click="closeModal">Fechar</button>
+                <button type="button" class="btn btn-outline-primary" @click="importar_dados"><i class="fas fa-file-upload"></i> Importar</button>
+                <button type="button" class="btn btn-outline-danger" @click="closeModal"><i class="fas fa-times"></i> Fechar</button>
             </span>
         </s-modal>
     </div>
