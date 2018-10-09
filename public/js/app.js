@@ -28170,6 +28170,8 @@ Vue.component('s-formularioalunos', __webpack_require__(299));
 Vue.component('s-modalimport', __webpack_require__(302));
 // Vue.component('s-teste', require('./components/ExampleComponent.vue'));
 
+Vue.component("s-listagemtipo", __webpack_require__(327));
+
 //
 
 window.Event = new (function () {
@@ -103498,7 +103500,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         Event.listen('btnInput', function () {
-            console.log('ouvi');
             _this.filtrar();
         });
     }
@@ -104442,7 +104443,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         var _this = this;
 
-        Event.listen('btnInput', function () {
+        Event.listen('filtrar', function () {
             _this.buscaDados();
         });
         this.buscaDados();
@@ -108197,10 +108198,7 @@ var render = function() {
           attrs: { type: "button", id: "importar_alunos" },
           on: { click: _vm.show }
         },
-        [
-          _c("i", { staticClass: "fas fa-file-import" }),
-          _vm._v(" Importar dados")
-        ]
+        [_c("i", { staticClass: "fas fa-upload" }), _vm._v(" Importar dados")]
       ),
       _vm._v(" "),
       _c(
@@ -108249,7 +108247,10 @@ var render = function() {
                   attrs: { type: "button" },
                   on: { click: _vm.importar_dados }
                 },
-                [_vm._v("Importar")]
+                [
+                  _c("i", { staticClass: "fas fa-file-upload" }),
+                  _vm._v(" Importar")
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -108259,7 +108260,7 @@ var render = function() {
                   attrs: { type: "button" },
                   on: { click: _vm.closeModal }
                 },
-                [_vm._v("Fechar")]
+                [_c("i", { staticClass: "fas fa-times" }), _vm._v(" Fechar")]
               )
             ]
           )
@@ -108284,6 +108285,202 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 306 */,
+/* 307 */,
+/* 308 */,
+/* 309 */,
+/* 310 */,
+/* 311 */,
+/* 312 */,
+/* 313 */,
+/* 314 */,
+/* 315 */,
+/* 316 */,
+/* 317 */,
+/* 318 */,
+/* 319 */,
+/* 320 */,
+/* 321 */,
+/* 322 */,
+/* 323 */,
+/* 324 */,
+/* 325 */,
+/* 326 */,
+/* 327 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(328)
+/* template */
+var __vue_template__ = __webpack_require__(329)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\atendimentos\\tipos\\ListagemTipo.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-dbbc07a2", Component.options)
+  } else {
+    hotAPI.reload("data-v-dbbc07a2", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 328 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        apagar: {
+            type: Boolean,
+            default: false
+        },
+        columns: {
+            required: true,
+            type: Array
+        },
+        editar: {
+            type: Boolean,
+            default: false
+        },
+        linkacoes: {
+            type: String
+        },
+        linkfiltro: {
+            required: true,
+            type: String
+        },
+        token: {
+            type: String
+        }
+    },
+    data: function data() {
+        return {
+            pagination: {},
+            rows: [],
+            sortProperty: "descricao",
+            sortDirection: "asc",
+            empty: false,
+            buscar: ''
+        };
+    },
+    mounted: function mounted() {
+        var _this = this;
+
+        Event.listen('filtrar', function (termoBusca) {
+            _this.buscar = termoBusca;
+            _this.resetPage();
+            _this.buscaDados();
+        });
+        this.buscaDados();
+    },
+
+    methods: {
+        sort: function sort(params) {
+            this.sortDirection = params.sortType == 'asc' ? 'desc' : 'asc';
+            this.sortProperty = this.columns[params.columnIndex].field;
+            this.resetPage();
+            this.buscaDados();
+        },
+
+
+        buscaDados: function buscaDados() {
+            var _this2 = this;
+
+            var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+
+            var url = this.buscar === '' ? this.linkfiltro + '/' + this.sortProperty + '/' + this.sortDirection + '?page=' + page : this.linkfiltro + '/' + this.sortProperty + '/' + this.sortDirection + '/' + this.buscar + '?page=' + page;
+
+            axios.get(url).then(function (res) {
+                _this2.empty = true;
+                _this2.rows = res.data.data;
+                _this2.pagination = res.data;
+            });
+        },
+        deletarItem: function deletarItem(index) {
+            document.getElementById(index).submit();
+        },
+        resetPage: function resetPage() {
+            if (this.pagination.last_page > 1) this.$refs.paginacao.resetPage();
+        }
+    }
+});
+
+/***/ }),
+/* 329 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("s-tabela", {
+    ref: "tabela",
+    attrs: {
+      pagination: _vm.pagination,
+      columns: _vm.columns,
+      rows: _vm.rows,
+      remoto: true,
+      sortProperty: _vm.sortProperty,
+      sortDirection: _vm.sortDirection,
+      apagar: _vm.apagar,
+      editar: _vm.editar,
+      token: _vm.token,
+      linkacoes: _vm.linkacoes,
+      empty: _vm.empty
+    },
+    on: { ordenar: _vm.sort, paginar: _vm.buscaDados }
+  })
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-dbbc07a2", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

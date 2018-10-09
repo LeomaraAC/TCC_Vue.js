@@ -65,6 +65,8 @@ Vue.component('s-formularioalunos', require('./components/alunos/formularioAluno
 Vue.component('s-modalimport', require('./components/alunos/modalImport.vue'));
 // Vue.component('s-teste', require('./components/ExampleComponent.vue'));
 
+Vue.component("s-listagemtipo", require('./components/atendimentos/tipos/ListagemTipo.vue'))
+
 //
 
 window.Event = new class {
