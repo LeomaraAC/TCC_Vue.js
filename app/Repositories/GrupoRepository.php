@@ -1,6 +1,6 @@
 <?php
 
-namespace App\ Repositories;
+namespace App\Repositories;
 
 use Illuminate\Http\Request;
 use App\Repositories\Contracts\Base\BaseRepository;

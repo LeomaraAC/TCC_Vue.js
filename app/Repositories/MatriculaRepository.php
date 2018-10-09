@@ -1,5 +1,5 @@
 <?php
-namespace App\ Repositories;
+namespace App\Repositories;
 
 use App\Repositories\Contracts\Base\BaseRepository;
 use App\Matricula;
