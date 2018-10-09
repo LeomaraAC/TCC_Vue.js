@@ -52,7 +52,15 @@ class TipoAtendimentoController extends Controller
      */
     public function create()
     {
-        return "Em construção";
+        if(Gate::denies('incluir_Tipo_Atendimento'))
+            return redirect()->back()->with('error', 'Ops! Acesso negado.');
+
+        $breadcrumb = json_encode([
+            ["titulo"=>"Home", "url" =>route('home')],
+            ["titulo"=>"Tipo de atendimento", "url" =>route('tipo.index')],
+            ["titulo"=>"Criar Tipo de atendimento", "url" =>""]
+        ]);
+        return view('atendimentos.tipos.tipo_create', compact('breadcrumb'));
     }
 
     /**
