@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function(){
     });
 
     Route::prefix('atendimento')->group(function() {
-        Route::resource('tipo', 'Atendimentos\TipoAtendimentoController');
+        Route::resource('tipo', 'Atendimentos\TipoAtendimentoController')->except('show');
         Route::get('/tipo/filtro/{campo?}/{sort?}/{filter?}', 'Atendimentos\TipoAtendimentoController@filtro')
                     ->name('tipo.filtro');
     });
