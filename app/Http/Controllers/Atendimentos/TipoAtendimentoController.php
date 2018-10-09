@@ -113,7 +113,13 @@ class TipoAtendimentoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(Gate::denies('excluir_Tipo_Atendimento'))
+            return redirect()->back()->with('error', 'Ops! Acesso negado.');
+        
+        if($this->repo->delete($id)) {
+            return redirect()->back()->with('success', 'Tipo de atendimento excluído com sucesso!');
+        }else
+            return redirect()->route('tipo.index')->with('error', 'Ops! O tipo de atendimento a ser excluído não foi encontrado.');
     }
 
     public function filtro($campo = 'descricao',$order = 'asc', $filter = null){
