@@ -84,7 +84,7 @@
             }
         },
         mounted() {
-            Event.listen('btnInput', () => {
+            Event.listen('filtrar', () => {
                 this.buscaDados();
             })
             this.buscaDados();
