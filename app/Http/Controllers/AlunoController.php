@@ -27,6 +27,9 @@ class AlunoController extends Controller
      */
     public function index()
     {
+        if(Gate::denies('aluno'))
+            return redirect()->back()->with('error', 'Ops! Acesso negado.');
+
         $breadcrumb = json_encode([
             ["titulo"=>"Home", "url" =>route('home')],
             ["titulo"=>"Alunos", "url" =>""]
@@ -56,6 +59,9 @@ class AlunoController extends Controller
      */
     public function show($cpf)
     {
+        if(Gate::denies('visualizar_Aluno'))
+            return redirect()->back()->with('error', 'Ops! Acesso negado');
+        
         $matriculas = $this->repoMatricula->findByCpf($cpf);
         $aluno = $this->repository->find($cpf);
         $titulo = 'aluno_'.$aluno->cpf.'.pdf';

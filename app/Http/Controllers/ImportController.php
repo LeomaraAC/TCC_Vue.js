@@ -7,6 +7,7 @@ use App\Repositories\AlunoRepository;
 use App\Repositories\MatriculaRepository;
 use App\Repositories\TelefoneRepository;
 use App\Repositories\CursoRepository;
+use Illuminate\Support\Facades\Gate;
 use DateTime;
 use Excel;
 
@@ -114,6 +115,9 @@ class ImportController extends Controller
 
     public function importAlunos(Request $request) {
 
+        if(Gate::denies('importar_Alunos'))
+            return redirect()->back()->with('error', 'Ops! Acesso negado.');
+        
         if($request->hasFile('files')){
             // Recuperando o caminho do arquivo
             $path = $request->file('files')->getRealPath();
