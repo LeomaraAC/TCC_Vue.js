@@ -2,7 +2,6 @@
 @section('content')
     <s-breadcrumb :caminhos="{{$breadcrumb}}"></s-breadcrumb>
     @foreach ($errors->all() as $error)
-        <h2>Finalmente</h2>
         <s-snackbar cor="red" msg="{{ $error }}"></s-snackbar>
         @break
     @endforeach
