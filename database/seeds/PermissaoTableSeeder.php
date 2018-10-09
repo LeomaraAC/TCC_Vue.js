@@ -21,8 +21,14 @@ class PermissaoTableSeeder extends Seeder
             array('descricao'=>'Apagar usuário','modulo'=>'usuario', 'nome'=> 'excluir_User'),
             array('descricao'=>'Visualizar usuário','modulo'=>'usuario', 'nome'=> 'visualizar_User'),
             array('descricao'=>'Importar dados dos alunos','modulo'=>'aluno', 'nome'=> 'importar_Alunos'),
-            array('descricao'=>'Visualizar aluno','modulo'=>'aluno', 'nome'=> 'visualizar_Aluno')
+            array('descricao'=>'Visualizar aluno','modulo'=>'aluno', 'nome'=> 'visualizar_Aluno'),
+            array('descricao'=>'incluir tipo de atendimento','modulo'=>'tipo_atendimento', 
+                  'nome'=> 'incluir_Tipo_Atendimento'),
+            array('descricao'=>'Editar tipo de atendimento','modulo'=>'tipo_atendimento', 
+                  'nome'=> 'editar_Tipo_Atendimento'),
+            array('descricao'=>'Apagar tipo de atendimento','modulo'=>'tipo_atendimento', 
+                  'nome'=> 'excluir_Tipo_Atendimento'),
         );
-        DB::table('Permissoes')->insert($data);
+        DB::table('permissoes')->insert($data);
     }
 }
