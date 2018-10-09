@@ -8,9 +8,9 @@
     <!-- Administração -->
     @can('administracao')
         <li>
-            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+            <a href="#pageSubmenuAdm" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                 <i class="fas fa-university"></i>Administração</a>
-            <ul class="collapse list-unstyled" id="pageSubmenu">
+            <ul class="collapse list-unstyled" id="pageSubmenuAdm">
                 @can('grupo')
                     <li>
                         <a href="/master/grupos"> <i class="fas fa-shapes"></i>Grupos</a>
