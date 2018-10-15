@@ -15,17 +15,15 @@
                 :maxlength="maxlength"
             >
         </slot>
-        <div class="input-group-append" v-if="icon && btn" id="btnInput" @click="cliqueBtn">
+        <div class="input-group-append" v-if="icon && btn" :id="idInput" @click="cliqueBtn">
             <span class="input-group-text"><i v-bind:class="icon"></i></span>
         </div>
         <div class="input-group-append" v-if="icon && !btn">
             <span class="input-group-text"><i v-bind:class="icon"></i></span>
         </div>
     </div>
-    <div class="erro pl-1">
-        <slot name="error">
-            {{ errors.first(id) }}
-        </slot>
+    <div class="erro">
+        <slot name="error">{{errors.first(id)}}</slot>
     </div>
     </div>
 </template>
@@ -44,6 +42,10 @@
             id: {
                 type: [String, Number],
                 default: ''
+            },
+            idInput: {
+                type: [String, Number],
+                default: 'btnInputFiltrar'
             },
             placeholder: {
                 type: String,
