@@ -24,6 +24,18 @@ class TipoAtendimentoRepository extends BaseRepository {
             'descricao' => 'bail|required|string|max:100|min:3|unique:tipo_atendimento,descricao',
         ]);
     }
+    private function validaAtualizar(Request $request, $id) {
+        $request->validate([
+            'descricao' => 'bail|required|string|max:100|min:3|unique:tipo_atendimento,descricao,'.$id.',idTipo_atendimento',
+        ]);
+    }
+
+    public function atualizaTipo(Request $request, $id) {
+        $this->validaAtualizar($request, $id);
+        return $this->update([
+            'descricao' => $request->descricao
+        ], $id);
+    }
 
     public function filtro($orderBy = 'descricao',$sortBy = 'asc', $filter = null){
         return $this->allPaginate($orderBy, $sortBy,"descricao", $filter);
