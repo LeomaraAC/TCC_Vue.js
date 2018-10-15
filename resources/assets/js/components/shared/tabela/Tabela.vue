@@ -32,9 +32,7 @@
                 <span v-else>{{props.column.label}}</span>
             </span>
             <div slot="emptystate">
-                <v-alert :value="true" color="red" icon="warning">
-                    Nenhum dado encontrado :(
-                </v-alert>
+                <v-alert :value="true" color="red" icon="warning">Nenhum dado encontrado :(</v-alert>
             </div>
         </vue-good-table>
         <div v-if="pagination && pagination.last_page > 1"  class="text-left">
