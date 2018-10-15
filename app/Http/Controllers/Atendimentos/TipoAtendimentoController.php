@@ -98,7 +98,18 @@ class TipoAtendimentoController extends Controller
      */
     public function edit($id)
     {
-        //
+        if(Gate::denies('editar_Tipo_Atendimento'))
+            return redirect()->back()->with('error', 'Ops! Acesso negado.');
+
+        $breadcrumb = json_encode([
+            ["titulo"=>"Home", "url" =>route('home')],
+            ["titulo"=>"Tipo de atendimento", "url" =>route('tipo.index')],
+            ["titulo"=>"Editar Tipo de atendimento", "url" =>""]
+        ]);
+
+        $tipo = $this->repo->findOrFail($id);
+
+        return view('atendimentos.tipos.tipo_edit', compact('breadcrumb', 'tipo'));
     }
 
     /**
