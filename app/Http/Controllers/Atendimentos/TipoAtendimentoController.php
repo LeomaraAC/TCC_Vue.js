@@ -121,7 +121,11 @@ class TipoAtendimentoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if(Gate::denies('editar_Tipo_Atendimento'))
+            return redirect()->back()->with('error', 'Ops! Acesso negado.');
+            
+        $this->repo->atualizaTipo($request, $id);
+        return redirect()->route('tipo.index')->with('success', 'Tipo de atendimento editado com sucesso!');
     }
 
     /**
