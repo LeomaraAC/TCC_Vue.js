@@ -117,6 +117,52 @@ class TipoAtendimentoTest extends TestCase
         $this->tipoIncluir = $this->repo->salvarTipo($request);
     }
 
+     /*
+    =============================Editar==================================
+    */
+
+    public function testeEditarTipo () {
+        $tipo = $this->getTipoFactory();
+        $request = $this->returnRequest($tipo);
+
+        $update = $this->repo->atualizaTipo($request,$this->tipoEditar['idTipo_atendimento']);
+        $tipo = $this->findTipoId($this->tipoEditar['idTipo_atendimento']);
+        
+        $this->assertTrue($update);
+        $this->assertNotEquals($this->tipoEditar['descricao'],$tipo['descricao']);
+    }
+
+    public function testeEditarTipoDescricaoRepetido () {
+        $this->expectException(\Illuminate\Validation\ValidationException::class);
+
+        $request = $this->returnRequest($this->tipoExistente);
+        $update = $this->repo->atualizaTipo($request,$this->tipoEditar['idTipo_atendimento']);
+    }
+
+    public function testeEditarTipoDescricaoVazio() {
+        $this->expectException(\Illuminate\Validation\ValidationException::class);
+
+        $tipo['descricao'] = '';
+        $request = $this->returnRequest($tipo);
+        $this->tipoIncluir = $this->repo->atualizaTipo($request,$this->tipoEditar['idTipo_atendimento']);
+    }
+
+    public function testeEditarTipoDescricaoMinimo() {
+        $this->expectException(\Illuminate\Validation\ValidationException::class);
+
+        $tipo['descricao'] = 'oi';
+        $request = $this->returnRequest($tipo);
+        $this->tipoIncluir = $this->repo->atualizaTipo($request,$this->tipoEditar['idTipo_atendimento']);
+    }
+
+    public function testeEditarTipoDescricaoMaximo() {
+        $this->expectException(\Illuminate\Validation\ValidationException::class);
+
+        $tipo['descricao'] = 'zxcvbnmlkjhgfdsaqwertyuiopçmnbvcxzasdfghjklçpoiuytrewqqwertyuiopçlkjhgfdsazxcvbnmçlkjhgfdsaqwertyuiopçlkjhgfdsazxcvbnm';
+        $request = $this->returnRequest($tipo);
+        $this->tipoIncluir = $this->repo->atualizaTipo($request,$this->tipoEditar['idTipo_atendimento']);
+    }
+
     /*
     =============================Listar==================================
     */
