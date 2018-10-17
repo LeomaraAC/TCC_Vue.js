@@ -36,6 +36,14 @@ class UserTableSeeder extends Seeder
                 'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
                 'remember_token' => str_random(10),
                 'idGrupo' => 1
+            ),
+            array(
+                'nome' => 'User Auxiliar',
+                'prontuario' => 'cv1112200',
+                'email' => 'auxiliar@ifsp.com',
+                'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+                'remember_token' => str_random(10),
+                'idGrupo' => 1
             )
         );
         DB::table('users')->insert($data);
