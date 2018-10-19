@@ -24,6 +24,9 @@
             },
             resetPage: function () {
                 this.page = 1;
+            },
+            setPage: function (page) {
+                this.page = page;
             }
         }
     }
