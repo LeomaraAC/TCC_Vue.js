@@ -35,10 +35,11 @@
                     <button type="button" class="btn btn-outline-primary" @click="closeModal">Fechar</button>
                 </span>
             </s-modal>
-            <div v-if="this.dadosSelect.length > 0">
-                <s-tabela :columns="columnsSelect" :rows="dadosSelect" :empty="true"
+            <div v-if="dadosSelect.length > 0">
+                <s-tabela :columns="columnsSelect" :rows="dadosPaginacao" :empty="true"
                                         :remoto="false"  :apagar="true" @apagar="removeItem">
                 </s-tabela>
+                <s-pagination v-if="dadosSelect.length > size" @navigate="paginar" :pages="pageCount()" ref="paginacao"></s-pagination>
             </div>
         </span>
     </s-formcard>
@@ -89,7 +90,10 @@ export default {
       pagination: [],
       grupo: this.nomegrupo || '',
       link: 'http://projetosara.meu/master/permissoes',
-      empty: false
+      empty: false,
+      size: 5,
+      pageAtual: 1,
+      dadosPaginacao: []
     };
   },
   mounted: function() {
@@ -115,6 +119,8 @@ export default {
                 this.idTelas.push(item.idTelas);
             });
         }
+        this.paginar();
+
     }
 
     this.columns = [
@@ -138,7 +144,7 @@ export default {
       });
     },
     resetForm: function () {
-        this.dadosSelect = this.idTelas = []; // Limpa os dados selecionados
+        this.dadosSelect = this.idTelas = this.dadosPaginacao = []; // Limpa os dados selecionados
         this.grupo = ''; // Limpa o nome do grupo
         this.$validator.reset(); // Reseta os erros
         this.$refs.grupo.focus(); // Focus no campo 'grupo'
@@ -176,10 +182,12 @@ export default {
         this.dadosSelect.push(item);
       } else {
         var index = this.getIndex(params[1].idTelas);
-        if (index > -1) this.dadosSelect.splice(index, 1);
+        if (index > -1) 
+            this.dadosSelect.splice(index, 1);
       }
 
       this.idTelas = this.dadosSelect.map(e => e.idTelas);
+      this.paginar(this.pageAtual);
     },
     novoItem(params) {
       var item = {
@@ -196,6 +204,22 @@ export default {
       var index = this.getIndex(id);
       if (index > -1) this.dadosSelect.splice(index, 1);
       this.idTelas = this.dadosSelect.map(e => e.idTelas);
+      this.paginar(this.pageAtual);
+    },
+    pageCount(){
+        let l = this.dadosSelect.length;
+        let s = this.size;
+        return Math.ceil(l/s);
+    },
+    paginar(page = 1){
+        if(page > this.pageCount()){
+            page--;            
+            this.$refs.paginacao.setPage(page);
+        }
+        this.pageAtual = page;
+        const start = (page - 1) * this.size;
+        const end = start + this.size;
+        this.dadosPaginacao = this.dadosSelect.slice(start, end); 
     }
   }
 };
