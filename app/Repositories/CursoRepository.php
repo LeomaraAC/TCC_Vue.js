@@ -8,7 +8,7 @@ class CursoRepository  extends  BaseRepository
 {
     protected $model;
 
-    public function __construct(Curso $permisso) {
-        $this->model = $permisso;
+    public function __construct(Curso $curso) {
+        $this->model = $curso;
     }
 }
