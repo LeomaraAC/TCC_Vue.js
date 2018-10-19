@@ -37,4 +37,9 @@ class Matricula extends Model
     public function curso() {
         return $this->belongsTo(Curso::class, 'codigo_curso');
     }
+
+    public function agendamento()
+    {
+        return $this->belongsToMany(Agendamento::class,'agendamento_matricula','prontuario','idAgendamento');
+    }
 }
