@@ -28,6 +28,8 @@ class PermissaoTableSeeder extends Seeder
                   'nome'=> 'editar_Tipo_Atendimento'),
             array('descricao'=>'Apagar tipo de atendimento','modulo'=>'tipo_atendimento', 
                   'nome'=> 'excluir_Tipo_Atendimento'),
+            array('descricao'=>'Agendamento de atendimentos','modulo'=>'agendamento', 
+                            'nome'=> 'agendar_Atendimento')
         );
         DB::table('permissoes')->insert($data);
     }
