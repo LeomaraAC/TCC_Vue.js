@@ -68,8 +68,9 @@ Vue.component('s-listagemalunos', require( './components/layouts/alunos/listagem
 Vue.component('s-modalimport', require('./components/layouts/alunos/modalImport.vue'));
 // Vue.component('s-teste', require('./components/ExampleComponent.vue'));
 
-Vue.component("s-listagemtipo", require('./components/layouts/atendimentos/tipos/ListagemTipo.vue'))
-Vue.component("s-formulariotipo", require('./components/layouts/atendimentos/tipos/formularioTipo.vue'))
+Vue.component("s-listagemtipo", require('./components/layouts/atendimentos/tipos/ListagemTipo.vue'));
+Vue.component("s-formulariotipo", require('./components/layouts/atendimentos/tipos/FormularioTipo.vue'));
+Vue.component("s-formularioagendamento", require('./components/layouts/atendimentos/agendamento/FormularioAgendamento.vue'));
 
 
 window.Event = new class {
