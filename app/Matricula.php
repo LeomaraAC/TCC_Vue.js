@@ -13,6 +13,7 @@ class Matricula extends Model
     protected $dates = ['deleted_at'];
     protected $hidden = ['deleted_at'];
     public $timestamps = false;
+    public $incrementing = false;
     protected $fillable = [
         'prontuario',
         'codigo_curso',

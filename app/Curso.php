@@ -10,6 +10,7 @@ class Curso extends Model
     use SoftDeletes;
     protected $table = 'cursos';
     protected $primaryKey = 'codigo';
+    public $incrementing = false;
     protected $dates = ['deleted_at'];
     protected $hidden = ['deleted_at'];
     protected $fillable = ['codigo','descricao'];
