@@ -31,7 +31,16 @@ class AgendamentoController extends Controller
      */
     public function create()
     {
-        //
+        if(Gate::denies('agendar_Atendimento'))
+            return redirect()->back()->with('error', 'Ops! Acesso negado.');
+
+        $breadcrumb = json_encode([
+            ["titulo"=>"Home", "url" =>route('home')],
+            ["titulo"=>"Agendamento", "url" =>route('agendamento.index')],
+            ["titulo"=>"Novo agendamento", "url" =>""]
+        ]);
+        $alunos = $this->repoAlunos->selectAll();
+        return view('atendimentos.agendamento.agendamento_create', compact('breadcrumb', 'alunos'));
     }
 
     /**
