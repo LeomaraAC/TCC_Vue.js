@@ -50,7 +50,8 @@ class AuthServiceProvider extends ServiceProvider
         
         Gate::define('atendimento', function (User $user){
             $tipo = $user->hasModulo('tipo_atendimento');
-            return $tipo;
+            $agendamento = $user->hasModulo('agendamento');
+            return $tipo || $agendamento;
         });
     }
 }
