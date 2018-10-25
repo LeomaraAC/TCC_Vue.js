@@ -39,7 +39,7 @@
                                         placeholder="Senha"  
                                         v-validate="'required|min:6|max:100'"
                                         :class="{'form-control form-control-warning': true, 'is-invalid': errors.has('senha') }"
-                                        data-vv-validate-on="focusout|input"
+                                        data-vv-validate-on="focusout"
                                         maxlength="100"
                             >
                             <div slot="error">
@@ -54,7 +54,7 @@
                                     placeholder="Confirmar senha"  
                                     v-validate="{ required: true, is: senha }"
                                     :class="{'form-control form-control-warning': true, 'is-invalid': errors.has('senha_confirmation') }"
-                                    data-vv-validate-on="focusout|input"
+                                    data-vv-validate-on="focusout"
                                     maxlength="100"
                             >
                             <div slot="error">

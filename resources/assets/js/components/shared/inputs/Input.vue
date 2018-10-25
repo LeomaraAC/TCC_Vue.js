@@ -9,7 +9,7 @@
                 :placeholder="placeholder"  
                 v-validate="validate"
                 :class="{'form-control form-control-warning': true, 'is-invalid': errors.has(id) }"
-                data-vv-validate-on="focusout|input"
+                data-vv-validate-on="focusout"
                 v-model="input"
                 :autofocus="autofocus"
                 :maxlength="maxlength"
