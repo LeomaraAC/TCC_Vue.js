@@ -21,6 +21,7 @@
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.2.0",
         "bootstrap-vue": "^2.0.0-rc.11",
+        "moment": "^2.22.2",
         "v-tooltip": "^2.0.0-rc.33",
         "vee-validate": "^2.1.0-beta.6",
         "vue-good-table": "^2.11.0",
