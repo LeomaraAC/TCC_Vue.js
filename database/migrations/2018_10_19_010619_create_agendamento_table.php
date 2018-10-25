@@ -17,7 +17,8 @@ class CreateAgendamentoTable extends Migration
             $table->bigIncrements('idAgendamento');
             $table->integer('idTipo_atendimento')->unsigned();
             $table->integer('idUser')->unsigned();
-            $table->dateTime('horarioPrevisto');
+            $table->string('dataPrevisto');
+            $table->string('horaPrevisto');
             $table->enum('duracao', [15,30])->default(30);
             $table->string('formaAtendimento',100);
             $table->boolean('todos')->default(false);
