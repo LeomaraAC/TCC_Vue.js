@@ -6,7 +6,7 @@
                 <div class="offset-md-2 col-md-8 col-sm-12">
                     <s-input id="descricao"  type="text" placeholder="Descrição" :valor="descricao"
                             ref="campoDescricao" validate='required|alpha_spaces|min:3|max:100'
-                            @validado="descricaoValido = $event" :maxlength='100'/>
+                            @validado="descricaoValido = $event" :maxlength='100' :autofocus="true"/>
                 </div>
             </s-formulario>
         </span>
