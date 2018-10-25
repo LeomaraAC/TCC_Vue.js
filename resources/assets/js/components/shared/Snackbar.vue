@@ -1,7 +1,7 @@
 <template>
-  <v-snackbar v-model="show" :timeout="timeout" :color="color">
-    <span>{{message}}</span>
-    <v-btn flat color="accent" @click.native="show = false">Fechar</v-btn>
+  <v-snackbar  v-model="showMessage" :timeout="timeout" :color="color" >
+    <span>{{msg}}</span>
+    <v-btn flat color="accent" @click.native="showMessage = false">Fechar</v-btn>
   </v-snackbar>
 </template>
 
@@ -15,15 +15,24 @@ export default {
       msg:{
         type: String,
         required: true
+      },
+      show: {
+        type: Boolean,
+        default: true
       }
     },
     data () {
         return {
-        show: true,
-        message: this.msg || '',
-        color: this.cor || '',
-        timeout: 4000,
+          color: this.cor || '',
+          timeout: 5000,
+          showMessage: this.show
         }
+    },
+    watch: {
+      show: function() {
+        if(this.show)
+          this.showMessage = this.show;
+      }
     }
 }
 </script>
