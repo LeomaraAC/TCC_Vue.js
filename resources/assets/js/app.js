@@ -32,6 +32,8 @@ Vue.use(VueTheMask);
 import VTooltip from 'v-tooltip';
 Vue.use(VTooltip);
 
+
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -43,6 +45,7 @@ Vue.component('s-import', require('./components/shared/inputs/Import.vue'));
 Vue.component('s-input', require('./components/shared/inputs/Input.vue'));
 Vue.component('s-pesquisa', require('./components/shared/inputs/Pesquisa.vue'));
 Vue.component('s-checkbox', require('./components/shared/inputs/Checkbox.vue'));
+Vue.component('s-radio', require('./components/shared/inputs/RadioButton.vue'));
 Vue.component('s-select', require('./components/shared/inputs/Select.vue'));
 Vue.component('s-snackbar', require('./components/shared/Snackbar.vue'));
 Vue.component('s-pagination', require('./components/shared/tabela/Pagination.vue'));
