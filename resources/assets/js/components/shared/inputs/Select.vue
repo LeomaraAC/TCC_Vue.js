@@ -1,5 +1,5 @@
 <template>
-    <div :class="{ 'mb-3':true,'invalid': isInvalid && required }">
+    <div :class="{ 'mb-3':true,'invalid': isInvalid && required || erro }">
             <multiselect  
                 v-model="value"
                 :id="id"
@@ -14,7 +14,10 @@
                 @close="onTouch">
                 <span slot="noResult">Oops! Nenhum elemento encontrado.</span>
         </multiselect>
-        <label class="typo__label form__label ml-1" v-show="isInvalid">O campo {{campo}} é obrigatório.</label>
+        <div class="typo__label form__label ml-1">
+            <label  v-show="isInvalid">O campo {{campo}} é obrigatório.</label>
+            <label v-show="erro && !isInvalid">{{messageErro}}</label>
+        </div>
         <input type="hidden" v-model="idSelect" :name="id">
     </div>
 </template>
@@ -22,6 +25,14 @@
 export default {
     props: {
         campo: {
+            type: String,
+            default: ''
+        },
+        erro: {
+            type: Boolean,
+            default: false
+        },
+        messageErro: {
             type: String,
             default: ''
         },
@@ -98,14 +109,14 @@ export default {
             this.value = [];
         }
     },
-     watch: {
-            value() {
-                if(this.value == null)
-                    this.value = [];
-                this.idSelect = Object.values(this.value)[0];
-                this.$emit('selected', this.value);
-            }
+    watch: {
+        value() {
+            if(this.value == null)
+                this.value = [];
+            this.idSelect = Object.values(this.value)[0];
+            this.$emit('selected', this.value);
         }
+    }
 }
 </script>
 <style>
@@ -121,12 +132,12 @@ export default {
         color: #495057 !important;
         border-color: #ced4da !important;
         border-radius: 0.25rem !important;
-        padding: 0.375rem 40px 0.375rem 0.75rem !important;
+        /* padding: 0.375rem 40px 0.375rem 0.75rem !important; */
     }
     .multiselect,
     .multiselect__tags,
     .multiselect__select {
-        max-height: 33px !important;
+        max-height: 100px !important;
         min-height: 33px !important;
     }
     .multiselect, 
