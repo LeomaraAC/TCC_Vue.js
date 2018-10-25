@@ -27,19 +27,26 @@
         <!-- Alunos -->
     @can('aluno')
         <li class="nav-item">
-            <a class="nav-link" href="{{route('alunos.index')}}"><i class="fas fa-user-graduate"></i>Aluno</a>
+            <a class="nav-link" href="{{route('alunos.index')}}"><i class="fas fa-user-graduate"></i>Alunos</a>
         </li>
     @endcan
 
     <!-- Atendimentos -->
     @can('atendimento')
-        <li>
-            <a href="#pageSubmenuAtendimento" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                <i class="fas fa-headset"></i>Atendimento</a>
+    <li>
+        <a href="#pageSubmenuAtendimento" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+            <i class="fas fa-headset"></i>Atendimento</a>
             <ul class="collapse list-unstyled" id="pageSubmenuAtendimento">
                 @can('tipo_atendimento')
+                    <!-- Tipo -->
                     <li>
                         <a href="/atendimento/tipo"><i class="fas fa-tag"></i>Tipos</a>
+                    </li>
+                @endcan
+                <!-- Agendamento -->
+                @can('agendamento')
+                    <li>
+                        <a href="/atendimento/agendamento"><i class="fas fa-calendar-alt"></i>Agendamentos</a>
                     </li>
                 @endcan
             </ul>
