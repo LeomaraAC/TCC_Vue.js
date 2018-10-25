@@ -4,9 +4,16 @@ namespace App\Http\Controllers\Atendimentos;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
+use App\Repositories\AlunoRepository;
+use App\Repositories\AgendamentoRepository;
 
 class AgendamentoController extends Controller
 {
+    public function __construct(AlunoRepository $repoAluno, AgendamentoRepository $repoAgendamento) {
+        $this->repoAlunos = $repoAluno;
+        $this->repoAgendamento = $repoAgendamento;
+    }
     /**
      * Display a listing of the resource.
      *
