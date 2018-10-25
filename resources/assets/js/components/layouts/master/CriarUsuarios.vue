@@ -7,15 +7,15 @@
                     <div class="col-md-2 col-sm-12">
                         <s-input id="prontuario"  type="text" placeholder="Prontuário do usuário" ref="campoProntuario"
                             @validado="campoValido.prontuario = $event" validate='required|alpha_num|min:5|max:10' :maxlength='10'
-                            :valor="this.valores.prontuario" :autofocus="true"></s-input>
+                            :valor="valores.prontuario" :autofocus="true"></s-input>
                     </div>
                     <div class="col-md-5 col-sm-12">
                         <s-input id="nome"  type="text" placeholder="Nome do usuário" ref="campoNome"  @validado="campoValido.nome = $event"
-                            validate='required|alpha_spaces|min:3|max:60'  :valor="this.valores.nome" :maxlength='60'></s-input>
+                            validate='required|alpha_spaces|min:3|max:60'  :valor="valores.nome" :maxlength='60'></s-input>
                     </div>
                     <div class="col-md-5 col-sm-12">
                         <s-input id="email"  type="email" placeholder="Email do usuário" ref="campoEmail"  @validado="campoValido.email = $event"
-                            validate='required|email|max:60'  :valor="this.valores.email" :maxlength='60'></s-input>
+                            validate='required|email|max:60'  :valor="valores.email" :maxlength='60'></s-input>
                     </div>
                 </div>
                 <div class="row">
@@ -28,7 +28,7 @@
                             label="nomeGrupo"
                             campo="grupo"
                             :required="true"
-                            :selected = this.valores.grupo
+                            :selected = valores.grupo
                             @selected="setSelect"></s-select>
                     </div>
                     <div class="col-md-4 col-sm-12" v-if="!editar">
