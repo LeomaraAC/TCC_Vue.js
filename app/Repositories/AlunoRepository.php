@@ -21,4 +21,7 @@ class AlunoRepository  extends  BaseRepository
                             ->orWhere('email_pessoal', 'like', '%'.$filter.'%')
                             ->paginate(25);
     }
+    public function selectAll() {
+        return $this->model->select('cpf', 'nome')->orderBy('nome', 'asc')->get();
+    }
 }
