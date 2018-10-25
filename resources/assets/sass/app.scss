@@ -209,3 +209,61 @@ body{
     transition: opacity .15s;
   }
 }
+
+
+// /* ---------------------------------------------------
+//   CHECKBOX RADIO BUTTON
+// ----------------------------------------------------- */
+.check {
+  display: block !important;
+  position: relative;
+  padding-left: 25px;
+  padding-bottom:  5px;
+  padding-right: 15px;
+  cursor: pointer;
+  font-size: 13px !important;
+  user-select: none;
+}
+
+.check input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 18px;
+  width: 18px;
+  background-color: #fff ;
+  border-color:#179910;
+  border-style:solid;
+  border-width:2px;
+}
+
+.check input:checked ~ .checkmark {
+  background-color: #fff  ;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.check input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.check .checkmark:after {
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border: solid ;
+  border-color:#179910;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
