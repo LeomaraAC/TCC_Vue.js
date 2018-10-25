@@ -65,7 +65,6 @@ Vue.component('s-navbar', require('./components/layouts/Navbar.vue'));
 
 
 Vue.component('s-listagemalunos', require( './components/layouts/alunos/listagemAlunos.vue'));
-Vue.component('s-formularioalunos', require('./components/layouts/alunos/formularioAlunos.vue'));
 Vue.component('s-modalimport', require('./components/layouts/alunos/modalImport.vue'));
 // Vue.component('s-teste', require('./components/ExampleComponent.vue'));
 
