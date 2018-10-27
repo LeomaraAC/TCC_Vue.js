@@ -88,8 +88,7 @@ class UsuariosController extends Controller
             return redirect()->back()->with('error', 'Ops! Acesso negado.');
         
         $this->userRepository->salvarUsuario($request);
-        // Redireciona para a página da listagem dos grupos juntamente com a mensagem de sucesso.
-        return redirect()->route('usuarios.index')->with('success', 'Usuário criado com sucesso!');
+        return redirect()->back()->with('success', 'Usuário criado com sucesso!');
     }
 
     /**

@@ -83,7 +83,7 @@ class GruposController extends Controller
             return redirect()->back()->with('error', 'Ops! Acesso negado.');
         $this->valida($request);
         $this->grupoRepository->createGrupo($request->all());
-        return redirect()->route('grupos.index')->with('success', 'Grupo criado com sucesso!');
+        return redirect()->back()->with('success', 'Grupo criado com sucesso!');
     }
 
     private function valida ($request, $id = null) {

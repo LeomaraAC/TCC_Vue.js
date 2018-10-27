@@ -76,7 +76,7 @@ class TipoAtendimentoController extends Controller
     
         $this->repo->salvarTipo($request);
         // Redireciona para a página da listagem dos grupos juntamente com a mensagem de sucesso.
-        return redirect()->route('tipo.index')->with('success', 'Tipo de atendimento criado com sucesso!');
+        return redirect()->back()->with('success', 'Tipo de atendimento criado com sucesso!');
     }
 
     /**
