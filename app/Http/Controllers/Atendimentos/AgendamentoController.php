@@ -47,7 +47,8 @@ class AgendamentoController extends Controller
             ["titulo"=>"Novo agendamento", "url" =>""]
         ]);
         $alunos = $this->repoAlunos->selectAll();
-        return view('atendimentos.agendamento.agendamento_create', compact('breadcrumb', 'alunos'));
+        $tipos = $this->repoTipo->all();
+        return view('atendimentos.agendamento.agendamento_create', compact('breadcrumb', 'alunos', 'tipos'));
     }
 
     /**
