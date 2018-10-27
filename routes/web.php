@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/alunos/{aluno}', 'AlunoController@show')->name('alunos.show');
     Route::get('/cursos', 'CursoController@getCursos');
     Route::get('/matricula/{cpf}', 'MatriculaController@getMatricula');
+    Route::get('/matricula/find/{prontuario}', 'MatriculaController@getTurma');
     Route::get('/alunos/filtro/{campo?}/{sort?}/{filter?}', 'AlunoController@filtro')->name('alunos.filtro');
     Route::prefix('import')->group(function(){
         Route::post('/alunos', 'ImportController@importAlunos');

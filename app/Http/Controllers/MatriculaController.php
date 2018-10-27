@@ -23,4 +23,9 @@ class MatriculaController extends Controller
         }
         return $cursos;
     }
+    
+    public function getTurma($prontuario) {
+        return response()->json($this->repoMatricula->findTurma($prontuario), 200);
+        
+    }
 }
