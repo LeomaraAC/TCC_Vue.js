@@ -18,4 +18,8 @@ class MatriculaRepository  extends  BaseRepository
                     ->where('cpf','=',$cpf)
                     ->get();
     }
+
+    public function findTurma($prontuario) {
+        return $this->model->select('turma')->where('prontuario', '=', $prontuario)->get();
+    }
 }
