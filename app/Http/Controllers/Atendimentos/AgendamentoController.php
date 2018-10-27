@@ -59,7 +59,19 @@ class AgendamentoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $create = $this->repoAgendamento->createAgendamento($request);
+        if($create['success']){
+
+            foreach($request->alunos as $a) {
+                $m = $this->repoMatricula->find($a["prontuario"]);
+                $m->turma = $a["semestre"];
+                $m->save();
+            }
+            return response()->json($create['response'], 200);
+        }
+        else
+            return response()->json($create['response'], 422);
+
     }
 
     /**
