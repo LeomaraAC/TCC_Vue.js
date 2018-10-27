@@ -83,7 +83,7 @@ class ImportController extends Controller
                         'instituicao_anterior' => $value->instituicao_de_ensino_anterior == '-' ? null : mb_convert_case($value->instituicao_de_ensino_anterior, MB_CASE_TITLE, "UTF-8"),
                         'situacao_curso' => mb_convert_case($value->situacao_no_curso, MB_CASE_TITLE, "UTF-8"),
                         'situacao_periodo' => $value->situacao_no_periodo == '-' ? null : mb_convert_case($value->situacao_no_periodo, MB_CASE_TITLE, "UTF-8"),
-                        'turma' => $value->turma == '-' ? null : mb_convert_case($value->turma, MB_CASE_TITLE, "UTF-8"),
+                        'turma' => null,
                         'email_academico' => $value->email_academico == '-' ? null : mb_convert_case($value->email_academico, MB_CASE_TITLE, "UTF-8"),
                         'observacao_historico' => $value->observacao_historico == '-' ? null : mb_convert_case($value->observacao_historico, MB_CASE_TITLE, "UTF-8"),
                         'Observacoes' => $value->observacoes == '-' ? null : mb_convert_case($value->observacoes, MB_CASE_TITLE, "UTF-8"),
