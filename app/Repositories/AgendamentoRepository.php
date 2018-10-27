@@ -42,4 +42,37 @@ class AgendamentoRepository  extends  BaseRepository
         else
             return false;
     }
+
+    private function validaHorarioParticular($horaInicial, $horaFinal, $data) {
+       
+        $atendimentos = $this->model
+                             ->where('todos', '=', false)
+                             ->where('idUser', '=', Auth::user()->idUser)
+                             ->where('dataPrevisto', '=', $data)
+                             ->where(function($query) use ($horaFinal, $horaInicial) {
+                                $query->where(function($q) use ($horaFinal, $horaInicial) {
+                                   $q->where('horaPrevistaInicio', '>=', $horaInicial)
+                                     ->where('horaPrevistaFim', '<=', $horaFinal); 
+                                })
+                                ->orwhere(function($q) use ($horaFinal, $horaInicial){
+                                    $q->where('horaPrevistaInicio', '>=', $horaInicial)
+                                      ->where('horaPrevistaInicio', '<', $horaFinal)
+                                      ->where('horaPrevistaFim', '>=', $horaFinal);
+                                })
+                                ->orwhere(function($q) use ($horaFinal, $horaInicial){
+                                    $q->where('horaPrevistaInicio', '<=', $horaInicial)
+                                      ->where('horaPrevistaFim', '>', $horaInicial)
+                                      ->where('horaPrevistaFim', '<=', $horaFinal);
+                                })
+                                ->orwhere(function($q) use ($horaFinal, $horaInicial){
+                                    $q->where('horaPrevistaInicio', '<=', $horaInicial)
+                                      ->where('horaPrevistaFim', '>=', $horaFinal);
+                                });
+                             })
+                             ->count();
+        if($atendimentos == 0)
+            return true;
+        else
+            return false;
+    }
 }
