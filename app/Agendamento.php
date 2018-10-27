@@ -14,7 +14,9 @@ class Agendamento extends Model
     protected $hidden = ['deleted_at'];
     public $timestamps = false;
     protected $fillable = [
-        'horarioPrevisto',
+        'dataPrevisto',
+        'horaPrevistaInicio',
+        'horaPrevistaFim',
         'formaAtendimento',
         'todos',
         'status',
