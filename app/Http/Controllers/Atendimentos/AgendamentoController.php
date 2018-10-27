@@ -6,13 +6,20 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use App\Repositories\AlunoRepository;
+use App\Repositories\MatriculaRepository;
 use App\Repositories\AgendamentoRepository;
+use App\Repositories\TipoAtendimentoRepository;
 
 class AgendamentoController extends Controller
 {
-    public function __construct(AlunoRepository $repoAluno, AgendamentoRepository $repoAgendamento) {
+    public function __construct(AlunoRepository $repoAluno, 
+                                AgendamentoRepository $repoAgendamento,
+                                TipoAtendimentoRepository $repoTipo,
+                                MatriculaRepository $repoMatricula) {
         $this->repoAlunos = $repoAluno;
         $this->repoAgendamento = $repoAgendamento;
+        $this->repoTipo = $repoTipo; 
+        $this->repoMatricula = $repoMatricula; 
     }
     /**
      * Display a listing of the resource.
