@@ -181,8 +181,10 @@ export default {
             erroHora: "", // Mensagem de erro relacionado a hora
             erroAluno: '', // Mensagem de erro ao selecionar uma aluno que já está na lista 
             erroDuracao: false, // Mensagem de erro relacionado a duração da reunião
-            msgErroSnack: '', // Mensagem de erro relacionado a lista de participantes.
-            statusLista: false // Possui algum aluno na lista?
+            msgSnack: '', // Mensagem de erro
+            showError: false, // Possui alguma mensagem de erro
+            showSuccess: false, // Possui alguma mensagem de sucesso
+            tipoSelecionado: {}, // Curso selecionado
 
         }
     },
