@@ -7,14 +7,14 @@
                 <div class="row">
                     <div class="col-md-3 col-sm-6">
                         <s-input>
-                            <the-mask 
-                                :mask="['##/##/####']"
-                                v-model="dataSelecionada"
-                                masked
-                                :class="{'form-control form-control-warning': true, 'is-invalid': erroData }" 
-                                @blur.native="validaData"
-                                placeholder="Data"/>
-
+                            <input v-mask="'##/##/####'" 
+                                   ref="campoData"
+                                   v-model="dataSelecionada"
+                                   masked
+                                   :class="{'form-control form-control-warning': true, 'is-invalid': erroData }"
+                                   @blur="validaData"
+                                   placeholder="Data"
+                                   />
                             <div slot="error">
                                 {{ erroData }}
                             </div>
