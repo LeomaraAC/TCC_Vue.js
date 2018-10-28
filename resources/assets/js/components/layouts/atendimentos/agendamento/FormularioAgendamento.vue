@@ -47,6 +47,26 @@
                         </s-checkbox>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <s-select ref="selectTipo"
+                            id="tipo"
+                            :options="tipos"
+                            placeholder="Tipo de atendimento"
+                            track-by="idTipo_atendimento"
+                            label="descricao"
+                            campo="tipo"
+                            :required="true"
+                            @selected="setSelectTipo"
+                            >
+                        </s-select>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <s-checkbox name="familiar" :ischecked="checkFamilia" ref="campoFamilia"
+                                    label="Atendimento com a família" @checked="checkedFamilia">
+                        </s-checkbox>
+                    </div>
+                </div>
                 <h5>Alunos</h5>
                 <hr>
                 <div class="row">
