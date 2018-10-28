@@ -1,5 +1,6 @@
 <template>
-    <s-formcard titulo="Cadastro do Tipo de Atendimento" icon="fas fa-tag" @submitForm="validaForm" @resetForm="resetForm">
+    <s-formcard titulo="Cadastro do Tipo de Atendimento" icon="fas fa-tag" linkTabela="/atendimento/tipo"
+                @submitForm="validaForm" @resetForm="resetForm">
         <span slot="form">
             <s-formulario @submit="validaForm"  :action="action" :token="token"  ref="form"
                                     :method="method" id="criarTipo">
