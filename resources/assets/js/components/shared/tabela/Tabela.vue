@@ -9,7 +9,7 @@
             styleClass="table table-hover">
             <span slot="table-row" slot-scope="props">
                 <s-checkbox v-if="(props.column.field == 'check') && ckeck" 
-                            :name="Object.values(props.formattedRow)[0] " :ischecked="getIndex(Object.values(props.formattedRow)[0]) > -1" 
+                            :name="Object.values(props.formattedRow)[0]+'' " :ischecked="getIndex(Object.values(props.formattedRow)[0]) > -1" 
                             :item="props.row" @checked="checked">
                 </s-checkbox>
                 <span v-if="(props.column.field == 'deletar') && apagar" class="btn-icon" v-tooltip.top-center="'Apagar'">
