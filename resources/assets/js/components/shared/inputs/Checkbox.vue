@@ -1,7 +1,7 @@
 <template>
     <label class="check ">
         {{label}}
-        <input type="checkbox" :name="name" @click="checked"  :checked="ischecked ? 'checked' : ''">
+        <input type="checkbox" :name="name" @click="checked" ref="campoCheckbox" :checked="ischecked ? 'checked' : ''">
         <span class="checkmark"></span>
     </label>
 </template>
@@ -31,6 +31,9 @@
                     this.$emit('checked', [!this.ischecked, this.name]);
                 else
                     this.$emit('checked', [!this.ischecked, this.item])
+            },
+            reset: function() {
+                this.$refs.campoCheckbox.checked = false;
             }
         }
     }

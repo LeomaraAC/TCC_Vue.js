@@ -1,6 +1,6 @@
 <template>
-    <label class="check ">{{label}}
-        <input type="radio" :name="name" :value="value" @click="checked"  :checked="ischecked ? 'checked' : ''">
+    <label :class="{'check': true, 'pb0': pb0 }">{{label}}
+        <input type="radio" :name="name" ref="campoRadio" :value="value" @click="checked"  :checked="ischecked ? 'checked' : ''">
         <span class="checkmark"></span>
     </label>
 </template>
@@ -26,11 +26,19 @@
             value: {
                 type: String,
                 required: true
+            },
+            pb0: {
+                required: false,
+                type: Boolean,
+                default: false
             }
         },
         methods: {
             checked ( ) {
                 this.$emit('checked', this.value);
+            },
+            reset: function() {
+                this.$refs.campoRadio.checked = false;
             }
         }
     }
@@ -40,5 +48,10 @@
 .checkmark {
   border-radius: 50%;
 }
+</style>
+<style>
+    .pb0{
+        padding-bottom: 0px !important;
+    }
 </style>
 
