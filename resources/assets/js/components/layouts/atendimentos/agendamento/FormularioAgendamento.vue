@@ -385,10 +385,20 @@ export default {
         validaAlunos: function() {
             // Verifica o tamanho do array de alunos
             if(this.alunosParticiapantes.length == 0){
-                this.msgErroSnack = "Pelo menos um aluno deve participar da reunião!";
-                this.statusLista = true;
+                this.openSnackbar("Pelo menos um aluno deve participar da reunião!", true);
+            }
+        },
+        openSnackbar: function(message, error) {
+            this.msgSnack = message;
+            if(error){
+                this.showError = true;
                 // Voltando o valor para false depois de um segundo 
-                setTimeout( function () {this.statusLista = false}.bind(this), 1000);
+                setTimeout( function () {this.showError = false}.bind(this), 5000);
+            }
+            else {
+                this.showSuccess = true;
+                // Voltando o valor para false depois de um segundo 
+                setTimeout( function () {this.showSuccess = false}.bind(this), 5000);
             }
         }
     },
