@@ -220,27 +220,40 @@ export default {
         validaForm: function() {
             this.validaHora();
             this.validaData();
-            this.validaDuracao();
+            this.validaDuracao(true);
             this.validaAlunos();
+            this.$refs.selectTipo.onTouch();
+
             const lista = this.alunosParticiapantes.length > 0;
-            
-            if(this.erroHora == '' && this.erroData == '' && this.duracao && lista){
+            let formaAtendimento = '';
+            if(this.checkFamilia)
+                formaAtendimento = 'Familiar';
+            else if(this.alunosParticiapantes.length == 1)
+                formaAtendimento = 'Individual';
+            else
+                formaAtendimento = 'Grupo';
+
+            if(this.erroHora == '' && this.erroData == '' && this.duracao
+                && lista && formaAtendimento != '' && this.$refs.selectTipo.valid()){
                 axios.post('/atendimento/agendamento', {
                         horaPrevista: this.horaSelecionada,
-                        dataPrevista: this.dataSelecionada,
+                        dataPrevista: this.dataSelecionada, //this.dataSelecionada
                         duracao: this.duracao,
                         alunos: this.alunosParticiapantes,
-                        visivel: this.checkVisivel
+                        visivel: this.checkVisivel,
+                        atendimento: formaAtendimento,
+                        tipo: this.tipoSelecionado['idTipo_atendimento']
 
                     })
-                    .then(function (response) {
-                        // window.location = '/atendimento/agendamento'
-                        console.log(response.data);
-                        
-                        
+                    .then((response) => {
+                        this.openSnackbar("Reunião agendada com sucesso!", false);
+                        this.resetForm();
                     })
-                    .catch(function(error) {
-                        console.log(error.response);
+                    .catch((error) => {
+                        let listOfObjects = Object.keys(error.response.data).map((key) => {
+                            return error.response.data[key]
+                        })
+                        this.openSnackbar(listOfObjects[0][0], true);
                     })
             }
         },
