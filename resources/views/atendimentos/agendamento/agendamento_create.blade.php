@@ -3,5 +3,5 @@
     
     <s-breadcrumb :caminhos="{{$breadcrumb}}"></s-breadcrumb>
     <s-formularioagendamento method="POST" action="{{ route('agendamento.store') }}" 
-                        token="{{ csrf_token() }}" :alunos="{{$alunos}}"/>
+                        token="{{ csrf_token() }}" :alunos="{{$alunos}}" :tipos="{{$tipos}}"/>
 @endsection
