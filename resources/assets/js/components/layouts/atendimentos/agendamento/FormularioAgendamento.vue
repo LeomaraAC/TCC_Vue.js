@@ -349,7 +349,7 @@ export default {
             });
         },
         adicionar: function() {
-            this.statusLista = false;
+            this.showError = false;
             this.alunosParticiapantes.push(this.item());
         },
         item: function () {
