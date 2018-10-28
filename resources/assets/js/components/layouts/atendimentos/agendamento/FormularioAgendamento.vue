@@ -35,11 +35,11 @@
                         </s-input>
                     </div>
                     <div class="col-md-3 col-sm-6">
-                        <label>Duração:</label>
+                        <span :class="{ erro: erroDuracao }">Duração:</span>
                         <br>
-                        <s-radio label="15 minutos" name="teste" id="quinze" value="15" @checked="checkedRadio"/>
-                        <s-radio label="30 minutos" name="teste" id="trinta" value="30" @checked="checkedRadio"/>
-                        <span class="erro" v-if="erroDuracao">Selecione uma opção</span>
+                        <s-radio label="15 minutos" name="teste" id="quinze" value="15" ref="quinze" @checked="checkedRadio"/>
+                        <s-radio label="30 minutos" name="teste" id="trinta" value="30" ref="trinta" @checked="checkedRadio" :pb0="true"/>
+                        <span class="erro" v-if="erroDuracao">Selecione a duração da reunião</span>
                     </div>
                     <div class="col-md-3 col-sm-6">
                         <s-checkbox name="visivel" :ischecked="checkVisivel"
