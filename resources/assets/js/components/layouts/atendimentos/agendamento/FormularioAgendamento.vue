@@ -341,6 +341,13 @@ export default {
                 this.hasCurso = false;
             });
         },
+        buscarTurma: function(prontuario) {
+            const url = "http://projetosara.meu/matricula/find/"+prontuario;
+            axios.get(url).then(res => {
+                this.hasCurso = true;
+                this.semestre = res.data[0].turma;
+            });
+        },
         adicionar: function() {
             this.statusLista = false;
             this.alunosParticiapantes.push(this.item());
