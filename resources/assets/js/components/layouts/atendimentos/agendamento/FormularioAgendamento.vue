@@ -258,9 +258,29 @@ export default {
             }
         },
         resetForm: function() {
-            // this.$refs.campoDescricao.clear();
-            // this.$refs.campoDescricao.$validator.reset(); 
-            // this.$refs.campoDescricao.setFocus();    
+            this.dataSelecionada = this.erroData = '';
+
+            this.horaSelecionada = this.erroHora = '';
+
+            this.$refs.quinze.reset();
+            this.$refs.trinta.reset();
+            this.duracao = '';
+            this.erroDuracao = false;
+
+            this.$refs.campoVisivel.reset();
+            this.$refs.campoFamilia.reset();
+
+            this.checkVisivel = this.checkFamilia = false;
+
+            this.$refs.selectTipo.reset();
+            this.alunosParticiapantes = [];
+
+            this.$refs.selectAluno.reset();
+            this.$refs.selectCurso.reset();
+            this.semestre = '';
+            this.hasAluno = this.hasCurso = false;
+
+            this.$refs.campoData.focus();
         },
         validaHora: function(){
             let horaSplit = this.horaSelecionada.split(':');
