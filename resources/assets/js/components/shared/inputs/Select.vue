@@ -107,6 +107,9 @@ export default {
         reset: function() {
             this.isTouched = false;
             this.value = [];
+        },
+        valid() {
+            return this.value.length !== 0;
         }
     },
     watch: {
