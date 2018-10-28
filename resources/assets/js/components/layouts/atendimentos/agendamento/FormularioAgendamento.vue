@@ -376,8 +376,8 @@ export default {
         getIndex(cpf) {
             return this.alunosParticiapantes.map(e => e.cpf).indexOf(cpf);
         },
-        validaDuracao: function () {
-            if(this.duracao == '')
+        validaDuracao: function (validacao) {
+            if(this.duracao == '' && validacao)
                 this.erroDuracao = true;
             else
                 this.erroDuracao = false;
@@ -393,7 +393,9 @@ export default {
         }
     },
     watch: {
-        duracao: 'validaDuracao'
+        duracao(){
+            this.validaDuracao(false)
+        }
     }
 }
 </script>
