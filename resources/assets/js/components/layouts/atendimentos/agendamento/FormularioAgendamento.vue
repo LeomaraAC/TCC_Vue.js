@@ -330,8 +330,16 @@ export default {
             }
         },
         setSelectCurso: function (value) {
-            this.cursoSelecionado = value;
-            this.hasCurso = true;
+            
+            if(value.length != 0){
+                this.cursoSelecionado = value;
+                this.buscarTurma(value.prontuario);
+            }
+            
+        },
+        setSelectTipo: function (value) {
+            this.tipoSelecionado = value;
+            
         },
         buscarCurso: function(cpf) {
             const url = "http://projetosara.meu/matricula/"+cpf;
