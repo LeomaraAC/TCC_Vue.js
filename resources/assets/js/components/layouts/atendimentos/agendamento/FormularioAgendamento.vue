@@ -155,11 +155,16 @@ export default {
         alunos: {
             type: [Object, Array],
             required: true
+        },
+        tipos: {
+            type: [Object, Array],
+            required: true
         }
     },
     data: function () {
         return {
             checkVisivel: false,
+            checkFamilia: false,
             dataSelecionada:"", // Data selecionada
             horaSelecionada:"", // Hora selecionada
             hasAluno: false, // Possui algum aluno selecionado?
