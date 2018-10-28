@@ -42,7 +42,7 @@
                         <span class="erro" v-if="erroDuracao">Selecione a duração da reunião</span>
                     </div>
                     <div class="col-md-3 col-sm-6">
-                        <s-checkbox name="visivel" :ischecked="checkVisivel"
+                        <s-checkbox name="visivel" :ischecked="checkVisivel" ref="campoVisivel"
                                     label="Visível" @checked="checkedVisivel">
                         </s-checkbox>
                     </div>
@@ -127,7 +127,8 @@
                     </s-tabela>
                 </div>
             </s-formulario>
-            <s-snackbar cor="red" :msg="msgErroSnack" :show="statusLista"></s-snackbar>
+            <s-snackbar v-show="showError" cor="red" :msg="msgSnack" :show="showError"></s-snackbar>
+            <s-snackbar v-show="showSuccess" cor="green" :msg="msgSnack" :show="showSuccess"></s-snackbar>
         </span>
     </s-formcard>
 </template>
