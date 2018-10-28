@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('content')
+    @if (session('success'))
+        <s-snackbar cor="green" msg="{{ session('success') }}"></s-snackbar>
+    @endif    
     <s-breadcrumb :caminhos="{{$breadcrumb}}"></s-breadcrumb>
     <s-criarusuario titulo="Criar Usuário"
                             :grupos="{{$grupos}}"
