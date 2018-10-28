@@ -19,7 +19,7 @@
             </s-formulario>
             <h5>Funcionalidades</h5>
             <hr>
-            <button type="button"  class="btn btn-outline-success mb-3" @click="show"> <i class="fas fa-plus"></i>  Adicionar </button>
+            <button type="button" id="adicionar" class="btn btn-outline-success mb-3" @click="show"> <i class="fas fa-plus"></i>  Adicionar </button>
             <s-modal  @open="openModal" name="permissoes" title="Lista de Permissoes">
                 <span slot="modal-body">
                     <s-input  icon="fas fa-search">
