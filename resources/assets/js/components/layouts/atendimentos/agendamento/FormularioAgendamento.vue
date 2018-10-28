@@ -1,5 +1,6 @@
 <template>
-    <s-formcard titulo="Novo Agendamento" icon="fas fa-calendar-alt" @submitForm="validaForm" @resetForm="resetForm">
+    <s-formcard titulo="Novo Agendamento" icon="fas fa-calendar-alt" linkTabela="/atendimento/agendamento"
+                @submitForm="validaForm" @resetForm="resetForm">
         <span slot="form">
             <s-formulario @submit="validaForm"  :action="action" :token="token"  ref="form"
                                     :method="method" id="novoAgendamento">
