@@ -13,6 +13,9 @@
                 <button id="limpar" type="button" @click.prevent="resetForm" class="btn btn-outline-secondary">
                     <i class="fas fa-eraser"></i> Limpar
                 </button>
+                <button v-if="linkTabela != ''" id="telaListagem" type="button" @click="navigate" class="btn btn-outline-secondary">
+                    <i class="fas fa-clipboard-list"></i> Voltar para listagem
+                </button>
             </slot>
         </span>
     </s-card>
@@ -26,6 +29,10 @@ export default {
         },
         icon: {
             type: String
+        },
+        linkTabela: {
+            type: String,
+            default: ''
         }
     },
     methods: {
@@ -34,6 +41,9 @@ export default {
         },
         resetForm: function () {
             this.$emit('resetForm')
+        },
+        navigate: function() {
+            window.location = this.linkTabela;
         }
     }
 }
