@@ -308,6 +308,9 @@ export default {
         checkedVisivel: function(value) {
             this.checkVisivel = value[0];
         },
+        checkedFamilia: function(value){
+            this.checkFamilia = value[0];
+        },
         setSelectAluno: function (value) {
             let existe = this.getIndex(value.cpf);
             if (existe < 0){
