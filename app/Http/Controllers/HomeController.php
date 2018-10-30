@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use App\Repositories\AgendamentoRepository;
 
 class HomeController extends Controller
 {
@@ -11,9 +13,10 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(AgendamentoRepository $repoAgendamento)
     {
         $this->middleware('auth');
+        $this->repoAgendamento = $repoAgendamento;
     }
 
     /**
@@ -23,6 +26,27 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $rowsProximas = $rowsAtrasadas = $columns = [];
+        if(Gate::allows('agendamento')) {
+            $rowsProximas = $this->getReunioesIndex('Agendada');
+            $rowsAtrasadas = $this->getReunioesIndex('Atrasada');
+            $columns = json_encode([
+                ["field"=>"idAgendamento", "hidden" =>true],
+                ["field"=>"visualizar", "label" =>'', "width"=> '30px', "sortable"=>false],
+                ["field"=>"dataPrevisto", "label" =>'Data', "sortable"=>false],
+                ["field"=>"horaPrevistaInicio", "label" =>'Hora', "sortable"=>false],
+                ["field"=>"descricao", "label" =>'Tipo', "sortable"=>false],
+                ["field"=>"responsavel", "label" =>'Responsável', "sortable"=>false],
+            ]);
+        }
+        return view('home', compact('rowsProximas','rowsAtrasadas', 'columns'));
+       
     }
+
+    public function getReunioesIndex($status) {
+        if(Gate::allows('agendamento'))
+            return $this->repoAgendamento->getReunioes($status);
+    }
+
+    
 }
