@@ -18,7 +18,7 @@ class Agendamento extends Model
         'horaPrevistaInicio',
         'horaPrevistaFim',
         'formaAtendimento',
-        'todos',
+        'responsavel',
         'status',
         'idTipo_atendimento',
         'idUser'

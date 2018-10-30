@@ -21,7 +21,7 @@ class CreateAgendamentoTable extends Migration
             $table->time('horaPrevistaInicio');
             $table->time('horaPrevistaFim');
             $table->string('formaAtendimento',100);
-            $table->boolean('todos')->default(false);
+            $table->String('responsavel', 15);
             $table->string('status', 45);
             $table->softDeletes();
 
