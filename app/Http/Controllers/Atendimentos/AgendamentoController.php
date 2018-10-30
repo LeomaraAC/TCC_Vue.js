@@ -28,7 +28,26 @@ class AgendamentoController extends Controller
      */
     public function index()
     {
-        //
+        if(Gate::denies('agendamento'))
+            return redirect()->back()->with('error', 'Ops! Acesso negado.');
+        
+        $columns = json_encode($this->getColunas());
+        $breadcrumb = json_encode([
+            ["titulo"=>"Home", "url" =>route('home')],
+            ["titulo"=>"Atendimentos", "url" =>""]
+        ]);
+        return view('atendimentos.agendamento.indexAgendamento', compact('breadcrumb', 'columns'));
+    }
+
+    private function getColunas() {
+        $columns = array(["field"=>"idAgendamento", "hidden" =>true]);
+        array_push($columns,["field"=>"dataPrevisto", "label" =>"Data"]);
+        array_push($columns,["field"=>"horaPrevistaInicio", "label" =>"Hora"]);
+        array_push($columns,["field"=>"tipo", "label" =>"Tipo"]);
+        array_push($columns,["field"=>"responsavel", "label" =>"Responsabilidade"]);
+        array_push($columns,["field"=>"formaAtendimento", "label" =>"Forma de atendimento"]);
+        array_push($columns,["field"=>"status", "label" =>"Status"]);
+        return $columns;
     }
 
     /**
