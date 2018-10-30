@@ -59,6 +59,8 @@ class AgendamentoController extends Controller
      */
     public function store(Request $request)
     {
+        if(Gate::denies('agendar_Atendimento'))
+            return response()->json(['authorization' => ['Ops! Acesso negado.']], 401);
         $create = $this->repoAgendamento->createAgendamento($request);
         if($create['success']){
 
