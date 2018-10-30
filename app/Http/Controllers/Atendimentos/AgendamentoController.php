@@ -43,8 +43,8 @@ class AgendamentoController extends Controller
 
         $breadcrumb = json_encode([
             ["titulo"=>"Home", "url" =>route('home')],
-            ["titulo"=>"Agendamento", "url" =>route('agendamento.index')],
-            ["titulo"=>"Novo agendamento", "url" =>""]
+            ["titulo"=>"Atendimentos", "url" =>route('agendamento.index')],
+            ["titulo"=>"Agendar atendimento", "url" =>""]
         ]);
         $alunos = $this->repoAlunos->selectAll();
         $tipos = $this->repoTipo->all();
