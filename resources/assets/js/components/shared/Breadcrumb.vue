@@ -13,7 +13,6 @@
         props:['caminhos'],
         computed: {
             isActive: function () {
-                console.log(this.item);
                 return false;
             }
         }

@@ -109,8 +109,6 @@ export default {
                 const dados = res.data
                 this.dadosSelect = dados;
                 dados.forEach(item => this.idTelas.push(item.idTelas));
-                console.log(this.idTelas);
-                
             });
         }else {
             this.dadosselecionados.forEach( param => {

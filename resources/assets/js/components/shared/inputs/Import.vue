@@ -32,8 +32,6 @@ export default {
     },
     methods: {
         handleFiles() {
-            console.log('função');
-            
             let upload = this.$refs.files.files[0];
             if(upload != undefined){
                 if(upload.type != 'application/vnd.ms-excel' && 
