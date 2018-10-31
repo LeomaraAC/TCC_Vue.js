@@ -125,5 +125,31 @@ class AgendamentoRepository  extends  BaseRepository
                 ->where('status', '=', 'Agendada')
                 ->update(array('status' => 'Atrasada'));
     }
+
+    public function getReunioes($status) {
+        $order = 'asc';
+        if($status == 'Atrasada'){
+            $this->atualizaStatusAtrasadas();
+            $order = 'desc';
+        }
+        $reunioes = $this->model
+                    ->select('idAgendamento', 'dataPrevisto', 'horaPrevistaInicio', 'descricao', 'responsavel')
+                    ->join('tipo_atendimento', 'tipo_atendimento.idTipo_atendimento','=', 'agendamento.idTipo_atendimento')
+                    ->where('status', '=', $status)
+                    ->where(function($q) {
+                        $q->where('idUser', '=', Auth::user()->idUser)
+                          ->orWhere('responsavel', '=', 'Setor');
+                    })
+                    ->orderBy('dataPrevisto', $order)
+                    ->orderBy('horaPrevistaInicio', $order)
+                    ->limit(5)
+                    ->get();
+        foreach($reunioes as $reuniao) {
+            
+            $reuniao->dataPrevisto = $this->dataFormatD_M_Y($reuniao->dataPrevisto);
+        }
+        return $reunioes;
+    }
+
     }
 }
