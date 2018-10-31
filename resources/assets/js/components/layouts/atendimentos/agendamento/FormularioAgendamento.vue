@@ -134,8 +134,8 @@
                     </s-tabela>
                 </div>
             </s-formulario>
-            <s-snackbar v-show="showError" cor="red" :msg="msgSnack" :show="showError"></s-snackbar>
-            <s-snackbar v-show="showSuccess" cor="green" :msg="msgSnack" :show="showSuccess"></s-snackbar>
+            <s-snackbar cor="red" :msg="msgSnack" :show="showError"></s-snackbar>
+            <s-snackbar cor="green" :msg="msgSnack" :show="showSuccess"></s-snackbar>
         </span>
     </s-formcard>
 </template>
