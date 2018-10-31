@@ -21,9 +21,9 @@ class AgendamentoRepository  extends  BaseRepository
     public function createAgendamento(Request $request) {
         
         $validator = Validator::make($request->all(), [
-            'horaPrevista' => 'required|date_format:"H:i"',
+            'horaPrevistaInicio' => 'required|date_format:"H:i"',
+            'horaPrevistaFim' => 'required|date_format:"H:i"',
             'dataPrevista' => 'required|date_format:"d/m/Y"',
-            'duracao' => 'required|in:15,30',
             'alunos.*.prontuario' => 'required|exists:matricula,prontuario',
             'alunos.*.codigoCurso' => 'required|exists:cursos,codigo',
             'alunos.*.semestre' => 'required|numeric|min:1',
