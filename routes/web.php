@@ -39,8 +39,10 @@ Route::middleware('auth')->group(function(){
         Route::resource('tipo', 'Atendimentos\TipoAtendimentoController')->except('show');
         Route::get('/tipo/filtro/{campo?}/{sort?}/{filter?}', 'Atendimentos\TipoAtendimentoController@filtro')
                     ->name('tipo.filtro');
-        Route::resource('agendamento', 'Atendimentos\AgendamentoController')->except('show');
-
+        Route::resource('agendamento', 'Atendimentos\AgendamentoController');
+        Route::get('/agendamento/filtro/{campo?}/{sort?}/{responsavel?}/{filter?}', 'Atendimentos\AgendamentoController@filtro')
+                    ->name('agendamento.filtro');
+        
     });
 
     Route::get('/alunos', 'AlunoController@index')->name('alunos.index');
