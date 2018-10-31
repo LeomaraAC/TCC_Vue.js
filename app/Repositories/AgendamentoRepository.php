@@ -151,5 +151,36 @@ class AgendamentoRepository  extends  BaseRepository
         return $reunioes;
     }
 
+    private function dataFormatD_M_Y($data){
+        $arrayData = explode("-", $data);
+        $dia = $arrayData[2];
+        $mes = $arrayData[1];
+        $ano = $arrayData[0];
+
+        return Carbon::createFromDate($ano, $mes, $dia, 'America/Sao_Paulo')->format('d/m/Y');
+    }
+
+    public function showAgendamento($id) {
+        $agendamento = $this->model
+            ->select(
+                    'idAgendamento',
+                    'dataPrevisto as data', 
+                    'horaPrevistaInicio as horaInicio',
+                    "horaPrevistaFim AS horaFim",
+                    'descricao',
+                    'formaAtendimento',
+                    'status',
+                    'responsavel')
+            ->join('tipo_atendimento', 'tipo_atendimento.idTipo_atendimento','=', 'agendamento.idTipo_atendimento')
+            ->where('idAgendamento', '=', $id)
+            ->where(function($q) {
+                $q->where('idUser', '=', Auth::user()->idUser)
+                    ->orWhere('responsavel', '=', 'Setor');
+            })
+            ->first();
+            if($agendamento)
+                $agendamento->data = $this->dataFormatD_M_Y($agendamento->data);
+        return $agendamento;
+    }
     }
 }
