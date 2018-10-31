@@ -81,22 +81,15 @@ class AgendamentoRepository  extends  BaseRepository
         foreach($request->alunos as $aluno) {
             $agendamento->matricula()->attach($aluno["prontuario"]);
         }
-        //  
-        /*   
-            alunos.*.prontuario -> tabela de relacionamento
-            alunos.*.semestre -> tabela matricula
-            */
-        
         return array(
             'response' => $agendamento,
             'success' => true
         );
     }
 
-    private function validaHorarioVisivel($horaInicial, $horaFinal, $data) {
+    private function validaHorario($horaInicial, $horaFinal, $data) {
        
         $atendimentos = $this->model
-                             ->where('todos', '=', true)
                              ->where('dataPrevisto', '=', $data)
                              ->where(function($query) use ($horaFinal, $horaInicial) {
                                 $query->where(function($q) use ($horaFinal, $horaInicial) {
