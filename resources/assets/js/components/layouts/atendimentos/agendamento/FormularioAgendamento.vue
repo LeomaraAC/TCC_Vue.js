@@ -49,9 +49,15 @@
                         </s-input>
                     </div>
                     <div class="col-md-3 col-sm-6">
-                        <s-checkbox name="visivel" :ischecked="checkVisivel" ref="campoVisivel"
-                                    label="Visível" @checked="checkedVisivel">
-                        </s-checkbox>
+                        <s-select ref="selectResponsavel"
+                            id="responsavel"
+                            :options="['Setor', 'Particular']"
+                            placeholder="Responsável pelo atendimento"
+                            campo="responsável"
+                            :required="true"
+                            @selected="setResponsavel"
+                            >
+                        </s-select>
                     </div>
                 </div>
                 <div class="row">
@@ -121,7 +127,7 @@
                             </div>
                         </s-input>
                     </div>
-                    <div class="col-sm-12 col-md-1" v-show="semestre != ''">
+                    <div class="col-sm-12 col-md-1" v-show="semestre">
                         <button type="button" @click="adicionar" class="btn btn-outline-success mb-3" v-tooltip.top-center="'Adicionar'">
                             <i class="fas fa-check"></i>
                         </button>
@@ -274,13 +280,20 @@ export default {
 
             this.$refs.campoFamilia.reset();
 
-            this.checkVisivel = this.checkFamilia = false;
+            this.responsabilidade = ''
+            this.checkFamilia = false;
 
             this.$refs.selectTipo.reset();
+            this.$refs.selectResponsavel.reset();
             this.alunosParticiapantes = [];
+            this.resetSelecionarAluno();
+            this.$refs.campoData.focus();
+        },
+        resetSelecionarAluno(){
             this.$refs.selectAluno.reset();
             this.$refs.selectCurso.reset();
             this.semestre = '';
+            this.erroAluno = '';
             this.hasAluno = this.hasCurso = false;
         },
         validaHoraInicial: function(){
@@ -322,9 +335,7 @@ export default {
                 this.erroData = "O valor do campo data é inválido.";
              
         },
-        checkedVisivel: function(value) {
-            this.checkVisivel = value[0];
-        },
+        
         checkedFamilia: function(value){
             this.checkFamilia = value[0];
         },
@@ -359,6 +370,9 @@ export default {
         },
         setSelectTipo: function (value) {
             this.tipoSelecionado = value;
+        },
+        setResponsavel: function (value) {
+              this.responsabilidade = value;
             
         },
         buscarCurso: function(cpf) {
