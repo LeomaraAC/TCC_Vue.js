@@ -1,11 +1,17 @@
 <template>
     <s-input  icon="fas fa-search" :btn="true">
-        <input name="busca" type="text" placeholder="Buscar...." class="form-control" autofocus
-            v-model="search" @keyup.enter="filtrar">
+        <input name="busca" type="text" placeholder="Buscar...." class="form-control" :autofocus="focus"
+            v-model="search" @keyup.enter="filtrar" @blur="filtrar">
     </s-input>
 </template>
 <script>
 export default {
+    props:{
+        focus: {
+            default: true,
+            type: Boolean
+        }
+    },
     data: function () {
         return {
             search: ''
