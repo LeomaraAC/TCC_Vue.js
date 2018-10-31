@@ -406,7 +406,7 @@ export default {
             this.msgSnack = message;
             if(error){
                 this.showError = true;
-                // Voltando o valor para false depois de um segundo 
+                // Voltando o valor para false depois de cinco segundo 
                 setTimeout( function () {this.showError = false}.bind(this), 5000);
             }
             else {
