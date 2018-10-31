@@ -57,29 +57,16 @@ class AgendamentoRepository  extends  BaseRepository
         $horaInicial =  Carbon::createFromTime($horaInicio, $minutoInicio, '00', 'America/Sao_Paulo')->format('H:i:s');
         $horaFinal =  Carbon::createFromTime($horaFim, $minutoFim, '00', 'America/Sao_Paulo')->format('H:i:s');
 
-        if($request->visivel){
-            if(!$this->validaHorarioVisivel($horaInicial, $horaFinal, $data))
-                return array(
-                    'response' => ['horario' => ['A hora agendada para reunião entra em conflito com outra reunião!']],
-                    'success' => false
-                );
-            
-        } else if(!$this->validaHorarioParticular($horaInicial, $horaFinal, $data))
         if($horaFinal < $horaInicial)
             return array(
                 'response' => ['horario' => ['O termino da reunião deve ser posterior ao seu início!']],
                 'success' => false
             ); 
+        if(!$this->validaHorario($horaInicial, $horaFinal, $data))
             return array(
                 'response' => ['horario' => ['A hora agendada para reunião entra em conflito com outra reunião!']],
                 'success' => false
-            );
-        
-            /*$grupo = $this->create(['nomeGrupo'=>$dados['grupo']]);
-        
-        
-        $grupo->funcoes()->attach(array_unique($permissoes)); */
-        
+            );        
         $agendamento = $this->create([
             'dataPrevisto' => $data,
             'horaPrevistaInicio' => $horaInicial,
