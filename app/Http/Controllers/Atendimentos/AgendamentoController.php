@@ -103,7 +103,19 @@ class AgendamentoController extends Controller
      */
     public function show($id)
     {
-        //
+        if(Gate::denies('agendamento'))
+            return response()->json('Ops! Acesso negado.', 401);        
+        $atendimento = $this->repoAgendamento->showAgendamento($id);
+        $alunos = $this->repoAlunos->getAlunoAgendamento($id);
+        
+        if($atendimento && $alunos){
+            return response()->json([
+                'agendamento' => $atendimento,
+                'alunos' => $alunos
+            ], 200);
+        }
+        else
+            return response()->json('Atendimento não encontrado!', 404);
     }
 
     /**
