@@ -35,11 +35,18 @@
                         </s-input>
                     </div>
                     <div class="col-md-3 col-sm-6">
-                        <span :class="{ erro: erroDuracao }">Duração:</span>
-                        <br>
-                        <s-radio label="15 minutos" name="teste" id="quinze" value="15" ref="quinze" @checked="checkedRadio"/>
-                        <s-radio label="30 minutos" name="teste" id="trinta" value="30" ref="trinta" @checked="checkedRadio" :pb0="true"/>
-                        <span class="erro" v-if="erroDuracao">Selecione a duração da reunião</span>
+                        <s-input>
+                            <the-mask 
+                                :mask="['##:##']"
+                                v-model="horaFinal"
+                                masked
+                                :class="{'form-control form-control-warning': true, 'is-invalid': erroHoraFim }" 
+                                @blur.native="validaHoraFinal"
+                                placeholder="Horário final"/>
+                            <div slot="error">
+                                {{ erroHoraFim }}
+                            </div>
+                        </s-input>
                     </div>
                     <div class="col-md-3 col-sm-6">
                         <s-checkbox name="visivel" :ischecked="checkVisivel" ref="campoVisivel"
@@ -263,37 +270,47 @@ export default {
         resetForm: function() {
             this.dataSelecionada = this.erroData = '';
 
-            this.horaSelecionada = this.erroHora = '';
+            this.horaInicial = this.horaFinal = this.erroHoraInicial = this.erroHoraFim = '';
 
-            this.$refs.quinze.reset();
-            this.$refs.trinta.reset();
-            this.duracao = '';
-            this.erroDuracao = false;
-
-            this.$refs.campoVisivel.reset();
             this.$refs.campoFamilia.reset();
 
             this.checkVisivel = this.checkFamilia = false;
 
             this.$refs.selectTipo.reset();
             this.alunosParticiapantes = [];
-
             this.$refs.selectAluno.reset();
             this.$refs.selectCurso.reset();
             this.semestre = '';
             this.hasAluno = this.hasCurso = false;
-
-            this.$refs.campoData.focus();
         },
-        validaHora: function(){
-            let horaSplit = this.horaSelecionada.split(':');
+        validaHoraInicial: function(){
+            this.erroHoraInicial = this.horaIsValid(this.horaInicial, "horário inicial");
+            if(this.horaFinal != '')
+                this.validaHoraFinal();
+        },
+        validaHoraFinal: function(){
+            let erro = this.horaIsValid(this.horaFinal, "horário final");
+            let after = moment(this.horaFinal,'HH:mm', true).isAfter(moment(this.horaInicial,'HH:mm', true));
+            
+            if (erro == '' && after){
+                this.erroHoraFim = '';
+            }
+            else if(erro != ''){
+                this.erroHoraFim = erro;
+            }
+            else{
+                this.erroHoraFim = 'O termino da reunião deve ser posterior ao seu início.'
+            }
+
+        },
+        horaIsValid: function (hora, campo) {
+             let horaSplit = hora.split(':');
             if(horaSplit.length == 1 && horaSplit[0].length == 0)
-                        this.erroHora = "O campo horário é obrigatório.";
-            else if (moment(this.horaSelecionada, 'HH:mm', true).isValid()) {
-                this.erroHora = ""
+                        return "O campo "+campo+" é obrigatório.";
+            else if (moment(hora, 'HH:mm', true).isValid()) {
+                return "";
             } else
-                this.erroHora = "O valor do campo horário é inválido.";
-             
+                return "O valor do campo "+campo+" é inválido.";
         },
         validaData: function(){
             let dataSplit = this.dataSelecionada.split('/');
@@ -304,9 +321,6 @@ export default {
             } else
                 this.erroData = "O valor do campo data é inválido.";
              
-        },
-        checkedRadio: function(value) {
-            this.duracao = value;            
         },
         checkedVisivel: function(value) {
             this.checkVisivel = value[0];
@@ -390,12 +404,6 @@ export default {
         getIndex(cpf) {
             return this.alunosParticiapantes.map(e => e.cpf).indexOf(cpf);
         },
-        validaDuracao: function (validacao) {
-            if(this.duracao == '' && validacao)
-                this.erroDuracao = true;
-            else
-                this.erroDuracao = false;
-        },
         validaAlunos: function() {
             // Verifica o tamanho do array de alunos
             if(this.alunosParticiapantes.length == 0){
@@ -414,11 +422,6 @@ export default {
                 // Voltando o valor para false depois de um segundo 
                 setTimeout( function () {this.showSuccess = false}.bind(this), 5000);
             }
-        }
-    },
-    watch: {
-        duracao(){
-            this.validaDuracao(false)
         }
     }
 }
