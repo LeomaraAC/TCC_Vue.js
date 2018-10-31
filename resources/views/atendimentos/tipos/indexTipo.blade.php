@@ -15,11 +15,9 @@
             </div>
         </span>
         <span slot="footer" v-if="{{Auth::user()->can('incluir_Tipo_Atendimento') == true ? 'true' : 'false'}}">
-            @if(Auth::user()->can('importar_Alunos'))
-                <div class="text-left">
-                    <a id="novoTipo" href="{{route('tipo.create')}}" class="btn btn-outline-info"><i class="fas fa-plus"></i> Novo</a>
-                </div>
-            @endif
+            <div class="text-left">
+                <a id="novoTipo" href="{{route('tipo.create')}}" class="btn btn-outline-info"><i class="fas fa-plus"></i> Novo</a>
+            </div>
         </span>
     </s-card>
     <hr>
