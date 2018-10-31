@@ -1,5 +1,5 @@
 <template>
-     <modal :name="name" height="auto" :draggable="true" 
+     <modal :name="name" height="auto" :draggable="true" :width="width"
                 @before-open="beforeOpen" @before-close="beforeClose">
         <div class="modal-content">
             <div class="modal-header">
@@ -20,7 +20,20 @@
 
 <script>
     export default {
-        props:['title', 'name'],
+        props:{
+            title:{
+                type: String,
+                required: true
+            },
+            name:{
+                type: String,
+                required: true
+            },
+            width: {
+                type: Number,
+                default: 600
+            }
+        },
          methods: {
             hide () {
                 this.$modal.hide(this.name);
