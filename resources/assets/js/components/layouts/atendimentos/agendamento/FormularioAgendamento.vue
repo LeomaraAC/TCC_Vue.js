@@ -24,13 +24,13 @@
                         <s-input>
                             <the-mask 
                                 :mask="['##:##']"
-                                v-model="horaSelecionada"
+                                v-model="horaInicial"
                                 masked
-                                :class="{'form-control form-control-warning': true, 'is-invalid': erroHora }" 
-                                @blur.native="validaHora"
-                                placeholder="Horário"/>
+                                :class="{'form-control form-control-warning': true, 'is-invalid': erroHoraInicial }" 
+                                @blur.native="validaHoraInicial"
+                                placeholder="Horário inicial"/>
                             <div slot="error">
-                                {{ erroHora }}
+                                {{ erroHoraInicial }}
                             </div>
                         </s-input>
                     </div>
@@ -163,29 +163,30 @@ export default {
     },
     data: function () {
         return {
-            checkVisivel: false,
+            responsabilidade: '',
             checkFamilia: false,
             dataSelecionada:"", // Data selecionada
-            horaSelecionada:"", // Hora selecionada
-            hasAluno: false, // Possui algum aluno selecionado?
-            hasCurso: false, // Possui algum curso selecionado?
+            horaInicial:"", // Hora selecionada
+            horaFinal: '',
             alunoSelecionado: {}, // Aluno selecionado
             cursoSelecionado: {}, // Curso selecionado
             cursos: [], // Cursos que o aluno está cursando ou já cursou
             semestre: '', // Modulo/Ano do curso
             alunosParticiapantes: [], // Alunos escolhidos para participar da reunião 
-            duracao: '', // Duração da reunião
             columnsSelect: [], // Colunas da tabela com os alunos que irão participar da reunião
+            tipoSelecionado: {}, // Curso selecionado
+
+            // *****************************************************************************
+            hasAluno: false, // Possui algum aluno selecionado?
+            hasCurso: false, // Possui algum curso selecionado?
             erroAlunoRepetido: false, // Visibilidade 
             erroData: "", // Mensagem de erro relacionado a data
-            erroHora: "", // Mensagem de erro relacionado a hora
-            erroAluno: '', // Mensagem de erro ao selecionar uma aluno que já está na lista 
-            erroDuracao: false, // Mensagem de erro relacionado a duração da reunião
+            erroHoraInicial: "", // Mensagem de erro relacionado a hora
+            erroAluno: '', // Mensagem de erro ao selecionar uma aluno que já está na lista
+            erroHoraFim: '', 
             msgSnack: '', // Mensagem de erro
             showError: false, // Possui alguma mensagem de erro
             showSuccess: false, // Possui alguma mensagem de sucesso
-            tipoSelecionado: {}, // Curso selecionado
-
         }
     },
     mounted() {
@@ -212,17 +213,18 @@ export default {
             { field: "nome", label: "Nome" },
             { field: "prontuario", label: "Prontuário" },
             { field: "descricaoCurso", label: "Curso"},
-            { field: "semestre", label: "Ano\Semestre"}
+            { field: "semestre", label: "Ano ou Semestre"}
         ];
 
     },
     methods: {
         validaForm: function() {
-            this.validaHora();
+            this.validaHoraInicial();
+            this.validaHoraFinal();
             this.validaData();
-            this.validaDuracao(true);
             this.validaAlunos();
             this.$refs.selectTipo.onTouch();
+            this.$refs.selectResponsavel.onTouch();
 
             const lista = this.alunosParticiapantes.length > 0;
             let formaAtendimento = '';
@@ -232,24 +234,25 @@ export default {
                 formaAtendimento = 'Individual';
             else
                 formaAtendimento = 'Grupo';
+            //limpar campos dos campos de selecionar o aluno
+            this.resetSelecionarAluno();
 
-            if(this.erroHora == '' && this.erroData == '' && this.duracao
+            if(this.erroHoraInicial == '' && this.erroData == '' && this.$refs.selectResponsavel.valid()
                 && lista && formaAtendimento != '' && this.$refs.selectTipo.valid()){
                 axios.post('/atendimento/agendamento', {
-                        horaPrevista: this.horaSelecionada,
-                        dataPrevista: this.dataSelecionada, //this.dataSelecionada
-                        duracao: this.duracao,
+                        horaPrevistaInicio: this.horaInicial,
+                        horaPrevistaFim: this.horaFinal,
+                        dataPrevista: this.dataSelecionada, 
                         alunos: this.alunosParticiapantes,
-                        visivel: this.checkVisivel,
+                        responsavel: this.responsabilidade,
                         atendimento: formaAtendimento,
                         tipo: this.tipoSelecionado['idTipo_atendimento']
-
                     })
                     .then((response) => {
                         this.openSnackbar("Reunião agendada com sucesso!", false);
                         this.resetForm();
                     })
-                    .catch((error) => {
+                    .catch((error) => {      
                         let listOfObjects = Object.keys(error.response.data).map((key) => {
                             return error.response.data[key]
                         })
