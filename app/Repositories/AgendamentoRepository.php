@@ -118,5 +118,12 @@ class AgendamentoRepository  extends  BaseRepository
             return false;
     }
 
+    public function atualizaStatusAtrasadas() {
+        $dataAtual =  Carbon::now(new \DateTimeZone('America/Sao_Paulo'))->format('Y-m-d');
+        return $this->model
+                ->where('dataPrevisto', '<', $dataAtual)
+                ->where('status', '=', 'Agendada')
+                ->update(array('status' => 'Atrasada'));
+    }
     }
 }
