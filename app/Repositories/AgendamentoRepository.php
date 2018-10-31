@@ -65,6 +65,11 @@ class AgendamentoRepository  extends  BaseRepository
                 );
             
         } else if(!$this->validaHorarioParticular($horaInicial, $horaFinal, $data))
+        if($horaFinal < $horaInicial)
+            return array(
+                'response' => ['horario' => ['O termino da reunião deve ser posterior ao seu início!']],
+                'success' => false
+            ); 
             return array(
                 'response' => ['horario' => ['A hora agendada para reunião entra em conflito com outra reunião!']],
                 'success' => false
