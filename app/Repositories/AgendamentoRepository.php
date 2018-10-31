@@ -40,9 +40,13 @@ class AgendamentoRepository  extends  BaseRepository
                     );
         } 
         
-        $horario = explode(":", $request->horaPrevista);
-        $hora = $horario[0];
-        $minuto = $horario[1];
+        $horario = explode(":", $request->horaPrevistaInicio);
+        $horaInicio = $horario[0];
+        $minutoInicio = $horario[1];
+
+        $horario = explode(":", $request->horaPrevistaFim);
+        $horaFim = $horario[0];
+        $minutoFim = $horario[1];
 
         $arrayData = explode("/", $request->dataPrevista);
         $dia = $arrayData[0];
@@ -50,8 +54,8 @@ class AgendamentoRepository  extends  BaseRepository
         $ano = $arrayData[2];
 
         $data = Carbon::createFromDate($ano, $mes, $dia, 'America/Sao_Paulo')->format('Y-m-d');
-        $horaInicial =  Carbon::createFromTime($hora, $minuto, '00', 'America/Sao_Paulo')->format('H:i:s');
-        $horaFinal =  Carbon::createFromTime($hora, $minuto, '00', 'America/Sao_Paulo')->addMinutes($request->duracao)->format('H:i:s');
+        $horaInicial =  Carbon::createFromTime($horaInicio, $minutoInicio, '00', 'America/Sao_Paulo')->format('H:i:s');
+        $horaFinal =  Carbon::createFromTime($horaFim, $minutoFim, '00', 'America/Sao_Paulo')->format('H:i:s');
 
         if($request->visivel){
             if(!$this->validaHorarioVisivel($horaInicial, $horaFinal, $data))
