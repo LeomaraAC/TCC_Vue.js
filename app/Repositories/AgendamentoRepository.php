@@ -72,8 +72,8 @@ class AgendamentoRepository  extends  BaseRepository
             'horaPrevistaInicio' => $horaInicial,
             'horaPrevistaFim' => $horaFinal,
             'formaAtendimento' => $request->atendimento,
-            'todos' => $request->visivel,
-            'status' => 'agendada',
+            'responsavel' => $request->responsavel,
+            'status' => 'Agendada',
             'idTipo_atendimento' => $request->tipo,
             'idUser' => Auth::user()->idUser
         ]);
