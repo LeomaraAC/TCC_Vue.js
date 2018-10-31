@@ -182,5 +182,45 @@ class AgendamentoRepository  extends  BaseRepository
                 $agendamento->data = $this->dataFormatD_M_Y($agendamento->data);
         return $agendamento;
     }
+
+    public function filtro($orderBy = 'idAgendamento',$sortBy = 'asc', $filter = null, $responsavel = null) {
+        $reunioes = $this->model
+        ->select('idAgendamento',
+                 'dataPrevisto',
+                 'horaPrevistaInicio',
+                 'descricao as tipo',
+                 'responsavel',
+                 'formaAtendimento',
+                 'status')
+        ->join('tipo_atendimento', 'tipo_atendimento.idTipo_atendimento','=', 'agendamento.idTipo_atendimento')
+        ->where(function($q) use($filter) {
+            $q->where('status', 'like', '%'.$filter.'%')
+              ->orWhere('dataPrevisto', 'like', '%'.$filter.'%')
+              ->orWhere('horaPrevistaInicio', 'like', '%'.$filter.'%')
+              ->orWhere('descricao', 'like', '%'.$filter.'%')
+              ->orWhere('responsavel', 'like', '%'.$filter.'%')
+              ->orWhere('formaAtendimento', 'like', '%'.$filter.'%');
+        })
+        ->when($responsavel == 'setor', function($q){
+                return $q->where('responsavel', '=', 'Setor');
+        }, function($q) use($responsavel){
+            return $q->when($responsavel != null && $responsavel == 'particular', function($query) {
+                    return $query->where('idUser', '=', Auth::user()->idUser)
+                    ->where('responsavel', '=', 'Particular');
+            }, function($query) {
+                return $query->where(function($queryWhere){
+                    $queryWhere->where('idUser', '=', Auth::user()->idUser)
+                    ->orWhere('responsavel', '=', 'Setor');
+                });
+            });
+        })
+        ->orderBy($orderBy, $sortBy)
+        ->paginate(25);
+
+        // foreach($reunioes as $reuniao) {
+        //     $reuniao->dataPrevisto = $this->dataFormatD_M_Y($reuniao->dataPrevisto);
+        // }
+
+        return $reunioes;
     }
 }
