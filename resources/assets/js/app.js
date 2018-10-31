@@ -71,6 +71,9 @@ Vue.component('s-modalimport', require('./components/layouts/alunos/modalImport.
 Vue.component("s-listagemtipo", require('./components/layouts/atendimentos/tipos/ListagemTipo.vue'));
 Vue.component("s-formulariotipo", require('./components/layouts/atendimentos/tipos/FormularioTipo.vue'));
 Vue.component("s-formularioagendamento", require('./components/layouts/atendimentos/agendamento/FormularioAgendamento.vue'));
+Vue.component("s-visualizacaohome", require('./components/layouts/atendimentos/agendamento/VisualizacaoHome.vue'));
+Vue.component("s-pesquisaagendamento", require('./components/layouts/atendimentos/agendamento/pesquisaAgendamento.vue'));
+Vue.component("s-listagemagendamento", require('./components/layouts/atendimentos/agendamento/listagemAtendimento.vue'));
 
 
 window.Event = new class {
