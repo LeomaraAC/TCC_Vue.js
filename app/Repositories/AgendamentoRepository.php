@@ -27,7 +27,7 @@ class AgendamentoRepository  extends  BaseRepository
             'alunos.*.prontuario' => 'required|exists:matricula,prontuario',
             'alunos.*.codigoCurso' => 'required|exists:cursos,codigo',
             'alunos.*.semestre' => 'required|numeric|min:1',
-            'visivel' => 'required|boolean',
+            'responsavel' => 'required|in:Particular,Setor',
             'atendimento' => 'required|in:Familiar,Individual,Grupo',
             'tipo' => 'required|exists:tipo_atendimento,idTipo_atendimento'
 
