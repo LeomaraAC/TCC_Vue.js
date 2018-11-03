@@ -128,18 +128,27 @@ class ImportController extends Controller
                 //Caso a classe não seja, significa que existe duas planilhas
                 if (get_class($data) == 'Maatwebsite\Excel\Collections\RowCollection') {
                     $sem_cpf = 0;
+                    $last_cpf_invalid = $this->alunoRepo->countCpfInvalido() + 1;
                     foreach ($data as $key => $value) {
-                        //Procurar o aluno.Se ele existir os dados devem ser atualiizados, 
-                        //se não devem ser criados
                         $value->cpf = $this->soNumeros($value->cpf);
                         if($value->cpf == '') {
+                            // $aluno = $this->alunoRepo->find($value->cpf);
+                            $aluno = $this->alunoRepo->findByName(mb_convert_case($value->nome, MB_CASE_TITLE, "UTF-8"));
+                            if($aluno){
+                                $value->cpf = $aluno->cpf;
+                            }
+                            else{
+                                $value->cpf = $last_cpf_invalid;
+                                $value->cpf = $last_cpf_invalid++;
+                            }
                             $sem_cpf++;
-                            $value->cpf = $sem_cpf;
                         }
 
                         $dadosMatricula = $this->arrayMatricula($value);
                         //Criar o curso caso não exista
                         $this->salvarCurso($value);
+                        //Procurar o aluno.Se ele existir os dados devem ser atualiizados, 
+                        //se não devem ser criados
                         $findAluno = $this->alunoRepo->find($value->cpf);
                         if($findAluno){
                             //Atualizar os registros quando o usuário já existir
