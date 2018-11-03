@@ -46,4 +46,17 @@ class AlunoRepository  extends  BaseRepository
             ->get();
         
     }
+
+    public function countCpfInvalido() {
+        return $this->model
+                            ->where('cpf', '<', 99999999)
+                            ->count();
+    } 
+
+    public function findByName($name) {
+        return $this->model
+                            ->where('cpf', '<', 99999999)
+                            ->where('nome', '=', $name)
+                            ->first();
+    }
 }
