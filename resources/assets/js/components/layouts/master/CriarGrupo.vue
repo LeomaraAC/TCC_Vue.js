@@ -210,7 +210,8 @@ export default {
         return Math.ceil(l/s);
     },
     paginar(page = 1){
-        if(page > this.pageCount()){
+        const count = this.pageCount();
+        if(page > count && count > 0){
             page--;            
             this.$refs.paginacao.setPage(page);
         }
