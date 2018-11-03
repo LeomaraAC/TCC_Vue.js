@@ -81,23 +81,8 @@ class GruposController extends Controller
     {
         if (Gate::denies('incluir_Grupo')) 
             return redirect()->back()->with('error', 'Ops! Acesso negado.');
-        $this->valida($request);
-        $this->grupoRepository->createGrupo($request->all());
+        $this->grupoRepository->createGrupo($request);
         return redirect()->back()->with('success', 'Grupo criado com sucesso!');
-    }
-
-    private function valida ($request, $id = null) {
-        if ($id == null) {
-            $request->validate([
-                'grupo' =>'bail|required|unique:grupo,nomeGrupo|min:3|max:60|regex:/^[a-zA-Z0-9\\- áÁéÉíÍóÓúÚçÇ`àÀãÃõÕôÔêÊ_]+$/',
-                'idTelas' =>'required'
-            ]);
-        } else {
-            $request->validate([
-                'grupo' =>'bail|required|min:3|max:60|regex:/^[a-zA-Z0-9\\- áÁéÉíÍóÓúÚçÇ`àÀãÃõÕôÔêÊ_]+$/|unique:grupo,nomeGrupo,'.$id.',idGrupo',
-                'idTelas' =>'required'
-            ]);
-        }
     }
 
     /**
@@ -131,8 +116,7 @@ class GruposController extends Controller
     {
         if (Gate::denies('editar_Grupo')) 
             return redirect()->back()->with('error', 'Ops! Acesso negado.');
-        $this->valida($request,$id);
-        $this->grupoRepository->updateGrupo($request->all(), $id);
+        $this->grupoRepository->updateGrupo($request, $id);
        // Redireciona para a página da listagem dos grupos juntamente com a mensagem de sucesso.
         return redirect()->route('grupos.index')->with('success', 'Grupo editado com sucesso!');
     }
