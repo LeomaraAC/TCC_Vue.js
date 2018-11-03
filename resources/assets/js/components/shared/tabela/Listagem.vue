@@ -3,10 +3,7 @@
     <s-card :titulo="titulo" :footer="adicionar" :icon="icon">
         <span slot="body">
             <div class="offset-md-2 col-md-8 col-sm-12">
-                <s-input  icon="fas fa-search" :btn="true">
-                    <input name="busca" type="text" placeholder="Buscar...." class="form-control" autofocus 
-                    v-model="busca" @keyup.enter="filtrar">
-                </s-input>
+                <s-pesquisa></s-pesquisa>
             </div>
         </span>
         <span slot="footer" v-if="adicionar">
@@ -84,15 +81,17 @@
             }
         },
         mounted() {
-            Event.listen('filtrar', () => {
+            Event.listen('filtrar', (termoBusca) => {
+                this.busca = termoBusca;
                 this.buscaDados();
+                this.$refs.tabela.resetPage();
             })
             this.buscaDados();
         },
         methods: {
             buscaDados(page = 1) {
                 var url = this.busca === '' ? this.linkfiltro+'/'+this.sortProperty+'/'+this.sortDirection+'?page='+page
-                                          : this.linkfiltro+'/'+this.sortProperty+'/'+this.sortDirection+'/'+this.busca+'?page='+page;
+                                          : this.linkfiltro+'/'+this.sortProperty+'/'+this.sortDirection+'/'+this.busca+'?page='+page;                
                 
                 axios.get(url).then (res => {
                     this.empty = true;
@@ -105,10 +104,6 @@
                 this.sortProperty = this.columns[params.columnIndex].field;
                 this.$refs.tabela.resetPage();
                 this.buscaDados();
-            },
-            filtrar () {
-                this.buscaDados();
-                this.$refs.tabela.resetPage();
             }
         }
     }
