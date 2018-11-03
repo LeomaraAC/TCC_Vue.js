@@ -150,6 +150,8 @@ class AgendamentoController extends Controller
     public function destroy($id)
     {
         //
+    }
+        
     public function filtro($campo = 'dataPrevisto',$order = 'asc', $responsavel='todos', $filter = null){
         $responsavel = $responsavel == 'todos' ? null: $responsavel; 
         return $this->repoAgendamento->filtro($campo,$order, $filter, $responsavel);
