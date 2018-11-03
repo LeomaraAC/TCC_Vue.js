@@ -11,19 +11,24 @@ class GrupoTableSeeder extends Seeder
      */
     public function run()
     {
-        $idGrupo = DB::table('grupo')->insertGetId(
+        $grupo = App\Grupo::create(
             ['nomeGrupo' => 'Master']
         );
 
-        $count = DB::table('permissoes')->count();
-        for ($i=1; $i <= $count ; $i++) { 
-            DB::table('permissoes_grupo')->insert(
-                [
-                    'idGrupo' => $idGrupo,
-                    'idTelas' => $i
-                ]
-            );
-        }
+        $count = App\Permissao::all()->count();
+        $grupo->funcoes()->attach(App\Permissao::all());
+
+        App\Grupo::insert([
+            ['nomeGrupo' => 'Grupo Repetido'],
+            ['nomeGrupo' => 'Grupo Editar'],
+            ['nomeGrupo' => 'Grupo Existente'],
+            ['nomeGrupo' => 'Grupo Editar sem alterar permissões']
+        ]);
+        $grupos = App\Grupo::where('nomeGrupo', '!=', 'Master')->get();
+        $grupos->each(function($a) use($count) {
+            $num = rand(1,$count);
+            $a->funcoes()->attach(App\Permissao::all()->random($num));
+        });
 
         // factory(App\Grupo::class)->create()->each(function($a) {
         //     $a->funcoes()->attach(App\Permissao::all()->random(13));
