@@ -32,6 +32,10 @@ Vue.use(VueTheMask);
 import VTooltip from 'v-tooltip';
 Vue.use(VTooltip);
 
+import VueSweetalert2 from 'vue-sweetalert2';
+
+Vue.use(VueSweetalert2);
+
 
 
 /**

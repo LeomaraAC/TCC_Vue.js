@@ -101,7 +101,23 @@ export default {
             this.resetPage();
         },
         deletarItem: function (index, id) {
-            this.remoto ? document.getElementById(index).submit() : this.$emit('apagar', id)
+            if(this.remoto) {
+                this.$swal({
+                    text: "Tem certeza que deseja deletar?",
+                    type: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sim, delete!',
+                    cancelButtonText: 'Cancele!'
+                }).then((result) => {
+                    if (result.value) {
+                        document.getElementById(index).submit();
+                    }
+                })
+            }
+            else
+                this.$emit('apagar', id)
         },
         paginar: function (params) {
              this.$emit('paginar', params)
