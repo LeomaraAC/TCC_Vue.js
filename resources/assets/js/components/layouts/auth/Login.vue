@@ -30,8 +30,7 @@
             <!-- /Senha -->
             <!-- Remember -->
             <div class="checkbox text-center">
-                <input class="form-check-input" type="checkbox" name="remember" id="remember">                
-                <label for="remember">Mantenha-me conectado</label>
+                <s-checkbox name="remember" label="Mantenha-me conectado" :ischecked="false"></s-checkbox>
             </div>
             <!-- /Remember -->
             <button type="submit" class="log-btn btn-primary">Log in </button>
