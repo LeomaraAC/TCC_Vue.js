@@ -22,7 +22,8 @@ class GrupoTableSeeder extends Seeder
             ['nomeGrupo' => 'Grupo Repetido'],
             ['nomeGrupo' => 'Grupo Editar'],
             ['nomeGrupo' => 'Grupo Existente'],
-            ['nomeGrupo' => 'Grupo Editar sem alterar permissões']
+            ['nomeGrupo' => 'Grupo Editar sem alterar permissões'],
+            ['nomeGrupo' => 'Grupo Excluir']
         ]);
         $grupos = App\Grupo::where('nomeGrupo', '!=', 'Master')->get();
         $grupos->each(function($a) use($count) {
