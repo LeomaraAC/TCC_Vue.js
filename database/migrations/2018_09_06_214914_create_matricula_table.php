@@ -15,7 +15,7 @@ class CreateMatriculaTable extends Migration
     {
         Schema::create('matricula', function (Blueprint $table) {
             $table->string('prontuario');
-            $table->bigInteger('cpf');
+            $table->bigInteger('idAluno')->unsigned();
             $table->string('codigo_curso');
             $table->year('previsao_conclusao');
             $table->year('ano_ingresso');
@@ -31,7 +31,7 @@ class CreateMatriculaTable extends Migration
             $table->softDeletes();
 
             $table->primary('prontuario');
-            $table->foreign('cpf')->references('cpf')->on('alunos')->onDelete('cascade');
+            $table->foreign('idAluno')->references('idAluno')->on('alunos')->onDelete('cascade');
             $table->foreign('codigo_curso')->references('codigo')->on('cursos')->onDelete('cascade');
         });
     }

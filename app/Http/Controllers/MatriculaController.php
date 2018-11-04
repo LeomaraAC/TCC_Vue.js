@@ -10,8 +10,8 @@ class MatriculaController extends Controller
     public function __construct(MatriculaRepository $repoMatricula) {
         $this->repoMatricula = $repoMatricula;
     }
-    public function getMatricula($cpf) {
-        $matricula = $this->repoMatricula->findByCpf($cpf);
+    public function getMatricula($idAluno) {
+        $matricula = $this->repoMatricula->findByIdAluno($idAluno);
         $cursos = array();
         foreach ($matricula as $m) {
             $curso = [

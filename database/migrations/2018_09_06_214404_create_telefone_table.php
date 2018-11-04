@@ -15,10 +15,9 @@ class CreateTelefoneTable extends Migration
     {
         Schema::create('telefone', function (Blueprint $table) {
             $table->increments('idTelefone');
-            $table->bigInteger('cpf');
+            $table->bigInteger('idAluno')->unsigned();
             $table->string('numero', 20);
-            $table->softDeletes();
-            $table->foreign('cpf')->references('cpf')->on('alunos')->onDelete('cascade');
+            $table->foreign('idAluno')->references('idAluno')->on('alunos')->onDelete('cascade');
         });
     }
 

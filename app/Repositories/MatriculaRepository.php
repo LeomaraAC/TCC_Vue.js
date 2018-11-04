@@ -12,10 +12,10 @@ class MatriculaRepository  extends  BaseRepository
         $this->model = $matricula;
     }
 
-    public function findByCpf($cpf) {
+    public function findByIdAluno($idAluno) {
         return $this->model
                     ->orderBy('ano_ingresso', 'desc')
-                    ->where('cpf','=',$cpf)
+                    ->where('idAluno','=',$idAluno)
                     ->get();
     }
 

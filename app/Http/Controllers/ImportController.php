@@ -67,7 +67,7 @@ class ImportController extends Controller
             ];
         return $aluno;
     }
-    private function arrayMatricula($value) {
+    private function arrayMatricula($value, $idAluno) {
         $arrCurso = explode('-', $value->curso);
         if($value->data_de_integralizacao != '-'){
             $data = explode(' ', $value->data_de_integralizacao);
@@ -87,18 +87,18 @@ class ImportController extends Controller
                         'email_academico' => $value->email_academico == '-' ? null : mb_convert_case($value->email_academico, MB_CASE_TITLE, "UTF-8"),
                         'observacao_historico' => $value->observacao_historico == '-' ? null : mb_convert_case($value->observacao_historico, MB_CASE_TITLE, "UTF-8"),
                         'Observacoes' => $value->observacoes == '-' ? null : mb_convert_case($value->observacoes, MB_CASE_TITLE, "UTF-8"),
-                        'cpf' => $value->cpf,
+                        'idAluno' => $idAluno,
         ];
         return $matricula;
     }
 
-    private function salvarTelefones($value) {
+    private function salvarTelefones($value, $idAluno) {
         $arrTelefone = explode(',', $value->telefone);
         foreach($arrTelefone as $telefone) {
             $telefone = $this->soNumeros($telefone);
             $this->telefoneRepo->create([
                 'numero' => $telefone,
-                'cpf' => $value->cpf
+                'idAluno' => $idAluno
             ]);
         }
     }
@@ -131,11 +131,13 @@ class ImportController extends Controller
                     $last_cpf_invalid = $this->alunoRepo->countCpfInvalido() + 1;
                     foreach ($data as $key => $value) {
                         $value->cpf = $this->soNumeros($value->cpf);
+
+                        //Procurar o aluno.Se ele existir os dados devem ser atualiizados, 
+                        //se não devem ser criados
+                        $findAluno = $this->alunoRepo->findByName(mb_convert_case($value->nome, MB_CASE_TITLE, "UTF-8"));
                         if($value->cpf == '') {
-                            // $aluno = $this->alunoRepo->find($value->cpf);
-                            $aluno = $this->alunoRepo->findByName(mb_convert_case($value->nome, MB_CASE_TITLE, "UTF-8"));
-                            if($aluno){
-                                $value->cpf = $aluno->cpf;
+                            if($findAluno){
+                                $value->cpf = $findAluno->cpf;
                             }
                             else{
                                 $value->cpf = $last_cpf_invalid;
@@ -144,24 +146,22 @@ class ImportController extends Controller
                             $sem_cpf++;
                         }
 
-                        $dadosMatricula = $this->arrayMatricula($value);
                         //Criar o curso caso não exista
                         $this->salvarCurso($value);
-                        //Procurar o aluno.Se ele existir os dados devem ser atualiizados, 
-                        //se não devem ser criados
-                        $findAluno = $this->alunoRepo->find($value->cpf);
+
                         if($findAluno){
+                            $dadosMatricula = $this->arrayMatricula($value, $findAluno->idAluno);
                             //Atualizar os registros quando o usuário já existir
                     
                             //Atualizar o aluno
                             $dadosAluno = $this->arrayAluno($value);
-                            $this->alunoRepo->update($dadosAluno, $findAluno->cpf); 
+                            $this->alunoRepo->update($dadosAluno, $findAluno->idAluno); 
 
                             //Atualizar o telefone
                             //Apagar todos telefones que existe e...
                             $findAluno->telefone()->delete();
                             //inserir os novos.
-                            $this->salvarTelefones($value);
+                            $this->salvarTelefones($value, $findAluno->idAluno);
                             
                             //Atualizar a matricula caso ela exista...
                             $findMatricula = $this->matriculaRepo->find($value->matricula);
@@ -175,13 +175,13 @@ class ImportController extends Controller
                         else {
                             // Inserindo os registros do aluno pela primeira vez.
 
-
                             // Salvando o aluno
                             $dadosAluno = $this->arrayAluno($value);
-                            $this->alunoRepo->create($dadosAluno);                       
-                
+                            $alunoCreate = $this->alunoRepo->create($dadosAluno);   
+
+                            $dadosMatricula = $this->arrayMatricula($value, $alunoCreate->idAluno);
                             // Salvando o Telefone
-                            $this->salvarTelefones($value);
+                            $this->salvarTelefones($value, $alunoCreate->idAluno);
                             
                             // Salvando a matricula
                             $this->matriculaRepo->create($dadosMatricula);

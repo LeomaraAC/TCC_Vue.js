@@ -24,7 +24,7 @@ class AlunoRepository  extends  BaseRepository
     }
 
     public function selectAll() {
-        return $this->model->select('cpf', 'nome')->orderBy('nome', 'asc')->get();
+        return $this->model->select('cpf', 'nome', 'idAluno')->orderBy('nome', 'asc')->get();
     }
 
     public function getAlunoAgendamento($idAgendamento) {
@@ -35,13 +35,12 @@ class AlunoRepository  extends  BaseRepository
                     'alunos.responsavel',
                     'cursos.descricao as curso',
                     DB::raw('group_concat(telefone.numero) as telefone'))
-            ->join('telefone', 'telefone.cpf','=', 'alunos.cpf')
-            ->join('matricula', 'matricula.cpf','=', 'alunos.cpf')
+            ->join('telefone', 'telefone.idAluno','=', 'alunos.idAluno')
+            ->join('matricula', 'matricula.idAluno','=', 'alunos.idAluno')
             ->join('cursos', 'cursos.codigo','=', 'matricula.codigo_curso')
             ->join('agendamento_matricula', 'agendamento_matricula.prontuario','=', 'matricula.prontuario')
             ->join('agendamento', 'agendamento.idAgendamento','=', 'agendamento_matricula.idAgendamento')
             ->where('agendamento.idAgendamento', '=', $idAgendamento)
-            ->where('telefone.deleted_at', '=', null)
             ->groupBy('matricula.prontuario')
             ->get();
         
@@ -55,7 +54,6 @@ class AlunoRepository  extends  BaseRepository
 
     public function findByName($name) {
         return $this->model
-                            ->where('cpf', '<', 99999999)
                             ->where('nome', '=', $name)
                             ->first();
     }

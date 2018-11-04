@@ -9,7 +9,7 @@ class Aluno extends Model
 {
     use SoftDeletes;
     protected $table = 'alunos';
-    protected $primaryKey = 'cpf';
+    protected $primaryKey = 'idAluno';
     protected $dates = ['deleted_at'];
     protected $hidden = ['deleted_at'];
     public $timestamps = false;
@@ -38,9 +38,9 @@ class Aluno extends Model
     ];
     public function matricula()
     {
-        return $this->hasMany(Matricula::class, 'cpf');
+        return $this->hasMany(Matricula::class, 'idAluno');
     }
     public function telefone() {
-        return $this->hasMany(Telefone::class, 'cpf');
+        return $this->hasMany(Telefone::class, 'idAluno');
     }
 }

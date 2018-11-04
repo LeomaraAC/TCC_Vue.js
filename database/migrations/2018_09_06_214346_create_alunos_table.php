@@ -14,6 +14,7 @@ class CreateAlunosTable extends Migration
     public function up()
     {
         Schema::create('alunos', function (Blueprint $table) {
+            $table->bigIncrements('idAluno');
             $table->bigInteger('cpf');
             $table->string('rg')->nullable();
             $table->string('nome', 60);
@@ -37,8 +38,6 @@ class CreateAlunosTable extends Migration
             $table->string('endereco');
 
             $table->softDeletes();
-
-            $table->primary('cpf');
         });
     }
 

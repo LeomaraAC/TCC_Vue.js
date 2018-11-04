@@ -39,7 +39,7 @@ class AlunoController extends Controller
     }
 
     private function getColunas() {
-        $columns = array();
+        $columns = array(["field"=>"idAluno", "hidden" =>true]);
         if (Gate::allows('visualizar_Aluno'))
             array_push($columns,["field"=>"pdf", "label" =>'', "width"=> '30px', "sortable"=>false]);
         
@@ -57,13 +57,13 @@ class AlunoController extends Controller
      * @param  \App\Aluno  $aluno
      * @return \Illuminate\Http\Response
      */
-    public function show($cpf)
+    public function show($idAluno)
     {
         if(Gate::denies('visualizar_Aluno'))
             return redirect()->back()->with('error', 'Ops! Acesso negado');
         
-        $matriculas = $this->repoMatricula->findByCpf($cpf);
-        $aluno = $this->repository->find($cpf);
+        $matriculas = $this->repoMatricula->findByIdAluno($idAluno);
+        $aluno = $this->repository->find($idAluno);
         $titulo = 'aluno_'.$aluno->cpf.'.pdf';
         return PDF::loadView('alunos.aluno_pdf', compact('aluno','matriculas'))->stream($titulo);
     }

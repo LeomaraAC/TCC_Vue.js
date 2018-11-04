@@ -88,7 +88,7 @@
                             id="aluno"
                             :options="alunos"
                             placeholder="Aluno"
-                            track-by="cpf"
+                            track-by="idAluno"
                             label="nome"
                             campo="aluno"
                             :messageErro="erroAluno"
@@ -220,7 +220,7 @@ export default {
             this.dataSelecionada = dd + '/' + mm + '/' + yyyy;
         }
         this.columnsSelect = [
-            { field: "cpf", label: "",  hidden: true },
+            { field: "idAluno", label: "",  hidden: true },
             { field: "codigoCurso", label: "",  hidden: true },
             { field: "deletar", label: '', width: '50px', sortable: false}, 
             { field: "nome", label: "Nome" },
@@ -340,7 +340,7 @@ export default {
             this.checkFamilia = value[0];
         },
         setSelectAluno: function (value) {
-            let existe = this.getIndex(value.cpf);
+            let existe = this.getIndex(value.idAluno);
             if (existe < 0){
                 this.$refs.selectCurso.reset();
                 this.alunoSelecionado = value;
@@ -352,7 +352,9 @@ export default {
                 else{
                     this.erroAlunoRepetido = false;
                     this.erroAluno = '';
-                    this.buscarCurso(value.cpf);
+                    console.log(value);
+                    
+                    this.buscarCurso(value.idAluno);
                 }
             }
             else {
@@ -375,8 +377,8 @@ export default {
               this.responsabilidade = value;
             
         },
-        buscarCurso: function(cpf) {
-            const url = "http://projetosara.meu/matricula/"+cpf;
+        buscarCurso: function(idAluno) {
+            const url = "http://projetosara.meu/matricula/"+idAluno;
             axios.get(url).then(res => {
                 this.hasAluno = true;
                 this.cursos = res.data;
@@ -396,7 +398,7 @@ export default {
         },
         item: function () {
             let item = {
-                            "cpf": this.alunoSelecionado.cpf,
+                            "idAluno": this.alunoSelecionado.idAluno,
                             "nome": this.alunoSelecionado.nome,
                             "prontuario": this.cursoSelecionado.prontuario,
                             "codigoCurso": this.cursoSelecionado.codigo,
@@ -410,13 +412,13 @@ export default {
             this.hasAluno = this.hasCurso = false;
             return item;
         },
-        removeItem: function(cpf) {
-            var index = this.getIndex(cpf);
+        removeItem: function(idAluno) {
+            var index = this.getIndex(idAluno);
             if (index > -1) 
                 this.alunosParticiapantes.splice(index, 1);
         },
-        getIndex(cpf) {
-            return this.alunosParticiapantes.map(e => e.cpf).indexOf(cpf);
+        getIndex(idAluno) {
+            return this.alunosParticiapantes.map(e => e.idAluno).indexOf(idAluno);
         },
         validaAlunos: function() {
             // Verifica o tamanho do array de alunos

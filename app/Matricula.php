@@ -28,12 +28,12 @@ class Matricula extends Model
         'email_academico',
         'observacao_historico',
         'Observacoes',
-        'cpf',
+        'idAluno',
         
     ];
 
     public function aluno () {
-        return $this->belongsTo(Aluno::class, 'cpf');
+        return $this->belongsTo(Aluno::class, 'idAluno');
     }
     public function curso() {
         return $this->belongsTo(Curso::class, 'codigo_curso');

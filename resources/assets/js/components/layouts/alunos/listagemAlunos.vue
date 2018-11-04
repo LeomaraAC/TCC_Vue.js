@@ -10,7 +10,7 @@
             <!-- SLOT DAS LINHAS -->
             <span slot="table-row" slot-scope="props">
                 <span v-if="props.column.field == 'pdf' && permissao_visualizar" class="btn-icon"  v-tooltip.top-center="'Visualizar'">
-                        <a :href="linkacoes + '/' + Object.values(props.formattedRow)[1]"><i  class="fas fa-file-pdf"></i></a>
+                        <a :href="linkacoes + '/' + Object.values(props.formattedRow)[0]"><i  class="fas fa-file-pdf"></i></a>
                 </span>
                 <span v-else>
                     {{props.formattedRow[props.column.field]}}
