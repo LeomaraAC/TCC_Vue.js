@@ -58,27 +58,4 @@ export default {
     }
 };
 </script>
-<style scoped>
-    .login-form {
-        width: 400px;
-        padding: 40px 30px;
-        background: #eee;
-        border-radius: 4px;
-        margin: auto;
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 25%;
-    }
-    .log-btn {
-        margin-top: 20px;
-        width: 100%;
-        font-size: 16px;
-        height: 50px;
-        text-decoration: none;
-        border: none;
-        border-radius: 4px;
-    }
-
-</style>
 

@@ -62,6 +62,7 @@ Vue.component('s-card', require('./components/shared/Card.vue'));
 Vue.component('s-box', require('./components/shared/Box.vue'));
 
 Vue.component('s-login', require('./components/layouts/auth/Login.vue'));
+Vue.component('s-trocarsenha', require('./components/layouts/auth/TrocarSenha.vue'));
 Vue.component('s-criargrupo', require('./components/layouts/master/CriarGrupo.vue'));
 Vue.component('s-criarusuario', require('./components/layouts/master/CriarUsuarios.vue'));
 Vue.component('s-sidebar', require('./components/layouts/Sidebar.vue'));

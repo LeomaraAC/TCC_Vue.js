@@ -144,4 +144,20 @@ class UsuariosController extends Controller
         }else
             return redirect()->route('usuarios.index')->with('error', 'Ops! O usuário a ser excluído  não foi encontrado.');
     }
+
+    public function showFormResetPassword() {
+        $breadcrumb = json_encode([
+            ["titulo"=>"Home", "url" =>route('home')],
+            ["titulo"=>"Trocar Senha", "url" =>""]
+        ]);
+        return view('auth.newPassword',compact('breadcrumb'));
+    }
+
+    public function trocarSenha(Request $request) {
+        // dd($request->all());
+        $update = $this->userRepository->trocarSenha($request);
+        if($update[0] == false)
+            return redirect()->back()->with('error', $update[1]);
+        return redirect()->route('home')->with('success', $update[1]);
+    }
 }

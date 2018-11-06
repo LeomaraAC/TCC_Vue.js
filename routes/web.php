@@ -26,6 +26,9 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 
 Route::middleware('auth')->group(function(){
+    // Trocar Senha autenticado
+    Route::get('/user/trocar_senha', 'Admin\UsuariosController@showFormResetPassword');
+    Route::post('/user/trocar_senha', 'Admin\UsuariosController@trocarSenha');
     Route::prefix('master')->group(function(){
         Route::resource('grupos', 'Admin\GruposController')->except('show');
         Route::resource('usuarios', 'Admin\UsuariosController')->except('show');

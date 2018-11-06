@@ -12,6 +12,7 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/user/trocar_senha">Trocar Senha</a>
                         <form id="logout-form" v-bind:action="logout" method="POST">
                             <input type="hidden" name="_token" v-bind:value="token">
                             <a class="dropdown-item" href="#" v-on:click="executaLogout">

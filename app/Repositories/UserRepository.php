@@ -6,6 +6,7 @@ use App\Repositories\Contracts\Base\BaseRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\User;
+use Auth;
 
 
 class UserRepository  extends  BaseRepository
@@ -48,7 +49,6 @@ class UserRepository  extends  BaseRepository
             'nome' => $request->nome,
             'prontuario' => $request->prontuario,
             'email' => $request->email,
-            'password' => Hash::make($request->senha),
             'idGrupo' => $request->grupos
         ], $id);
     }
@@ -70,5 +70,21 @@ class UserRepository  extends  BaseRepository
             'email' => 'bail|required|string|email|max:60|unique:users,email,'.$id.',idUser',
             'grupos'=>'bail|required|numeric'
         ]);
+    }
+
+    public function trocarSenha(Request $request) {
+        $request->validate([
+            'senhaAtual' => 'bail|required',
+            'senha' => 'bail|required|string|min:6|confirmed',
+        ]);
+        $usuario = $this->model->where('idUser', Auth::user()->idUser)->first();
+        // dd()
+        if(!Hash::check($request->senhaAtual, $usuario->password))
+            return [false, "A senha atual é invalida"];
+        $update = $this->update([
+            'password' => Hash::make($request->senha),
+        ], Auth::user()->idUser);
+        if($update)
+            return [true, "Senha atualizada com sucesso!"];
     }
 }
