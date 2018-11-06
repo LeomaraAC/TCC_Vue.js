@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+@if (session('success'))
+    <s-snackbar cor="green" msg="{{ session('success') }}"></s-snackbar>
+@endif 
+
 @if(Auth::user()->can('agendamento'))
 <div class="row">
     <div class="col-md-6 col-sm-12">
