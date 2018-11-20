@@ -39,23 +39,10 @@ class AgendamentoRepository  extends  BaseRepository
                         'success' => false
                     );
         } 
-        
-        $horario = explode(":", $request->horaPrevistaInicio);
-        $horaInicio = $horario[0];
-        $minutoInicio = $horario[1];
 
-        $horario = explode(":", $request->horaPrevistaFim);
-        $horaFim = $horario[0];
-        $minutoFim = $horario[1];
-
-        $arrayData = explode("/", $request->dataPrevista);
-        $dia = $arrayData[0];
-        $mes = $arrayData[1];
-        $ano = $arrayData[2];
-
-        $data = Carbon::createFromDate($ano, $mes, $dia, 'America/Sao_Paulo')->format('Y-m-d');
-        $horaInicial =  Carbon::createFromTime($horaInicio, $minutoInicio, '00', 'America/Sao_Paulo')->format('H:i:s');
-        $horaFinal =  Carbon::createFromTime($horaFim, $minutoFim, '00', 'America/Sao_Paulo')->format('H:i:s');
+        $data = $this->dataFormatY_M_D($request->dataPrevista);
+        $horaInicial =  $this->horaFormat($request->horaPrevistaInicio);
+        $horaFinal =  $this->horaFormat($request->horaPrevistaFim);
 
         if($horaFinal < $horaInicial)
             return array(
