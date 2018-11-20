@@ -191,6 +191,7 @@ class AgendamentoRepository  extends  BaseRepository
     }
 
     public function filtro($orderBy = 'idAgendamento',$sortBy = 'asc', $filter = null, $responsavel = null) {
+        $this->atualizaStatusAtrasadas();
         $reunioes = $this->model
         ->select('idAgendamento',
                  'dataPrevisto',
