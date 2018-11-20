@@ -78,6 +78,7 @@ class AgendamentoRepository  extends  BaseRepository
        
         $atendimentos = $this->model
                              ->where('dataPrevisto', '=', $data)
+                             ->where('status', 'Agendada')
                              ->where(function($query) use ($horaFinal, $horaInicial) {
                                 $query->where(function($q) use ($horaFinal, $horaInicial) {
                                    $q->where('horaPrevistaInicio', '>=', $horaInicial)
@@ -123,6 +124,7 @@ class AgendamentoRepository  extends  BaseRepository
                     ->select('idAgendamento', 'dataPrevisto', 'horaPrevistaInicio', 'descricao', 'responsavel')
                     ->join('tipo_atendimento', 'tipo_atendimento.idTipo_atendimento','=', 'agendamento.idTipo_atendimento')
                     ->where('status', '=', $status)
+                    ->where('status', '!=', 'Remarcada')        
                     ->where(function($q) {
                         $q->where('idUser', '=', Auth::user()->idUser)
                           ->orWhere('responsavel', '=', 'Setor');
@@ -177,6 +179,7 @@ class AgendamentoRepository  extends  BaseRepository
                     'responsavel')
             ->join('tipo_atendimento', 'tipo_atendimento.idTipo_atendimento','=', 'agendamento.idTipo_atendimento')
             ->where('idAgendamento', '=', $id)
+            ->where('status', '!=', 'Remarcada')        
             ->where(function($q) {
                 $q->where('idUser', '=', Auth::user()->idUser)
                     ->orWhere('responsavel', '=', 'Setor');
@@ -197,6 +200,7 @@ class AgendamentoRepository  extends  BaseRepository
                  'formaAtendimento',
                  'status')
         ->join('tipo_atendimento', 'tipo_atendimento.idTipo_atendimento','=', 'agendamento.idTipo_atendimento')
+        ->where('status', '!=', 'Remarcada')        
         ->where(function($q) use($filter) {
             $q->where('status', 'like', '%'.$filter.'%')
               ->orWhere('dataPrevisto', 'like', '%'.$filter.'%')
@@ -208,7 +212,7 @@ class AgendamentoRepository  extends  BaseRepository
         ->when($responsavel == 'setor', function($q){
                 return $q->where('responsavel', '=', 'Setor');
         }, function($q) use($responsavel){
-            return $q->when($responsavel != null && $responsavel == 'particular', function($query) {
+            return $q->when($responsavel == 'particular', function($query) {
                     return $query->where('idUser', '=', Auth::user()->idUser)
                     ->where('responsavel', '=', 'Particular');
             }, function($query) {
