@@ -253,8 +253,9 @@ export default {
             //limpar campos dos campos de selecionar o aluno
             this.resetSelecionarAluno();
 
-            if(this.erroHoraInicial == '' && this.erroData == '' && this.$refs.selectResponsavel.valid()
-                && lista && formaAtendimento != '' && this.$refs.selectTipo.valid()){
+            if(this.erroHoraInicial == '' && this.erroData == '' && this.erroHoraFim == ''
+                && this.$refs.selectResponsavel.valid() && lista && formaAtendimento != ''
+                && this.$refs.selectTipo.valid()){
                 axios.post('/atendimento/agendamento', {
                         horaPrevistaInicio: this.horaInicial,
                         horaPrevistaFim: this.horaFinal,
@@ -297,6 +298,7 @@ export default {
             this.$refs.selectCurso.reset();
             this.semestre = '';
             this.erroAluno = '';
+            this.erroAlunoRepetido = false;
             this.hasAluno = this.hasCurso = false;
         },
         validaHoraInicial: function(){

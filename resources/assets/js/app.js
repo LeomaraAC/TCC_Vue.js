@@ -79,6 +79,7 @@ Vue.component("s-formularioagendamento", require('./components/layouts/atendimen
 Vue.component("s-visualizacaohome", require('./components/layouts/atendimentos/agendamento/VisualizacaoHome.vue'));
 Vue.component("s-pesquisaagendamento", require('./components/layouts/atendimentos/agendamento/pesquisaAgendamento.vue'));
 Vue.component("s-listagemagendamento", require('./components/layouts/atendimentos/agendamento/listagemAtendimento.vue'));
+Vue.component("s-reagendamento", require('./components/layouts/atendimentos/agendamento/Reagendamento.vue'));
 
 
 window.Event = new class {
