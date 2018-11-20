@@ -223,4 +223,82 @@ class AgendamentoRepository  extends  BaseRepository
 
         return $reunioes;
     }
+    public function findReagendamento($id) {
+        $agendamento = $this->model
+                            ->select('idAgendamento','dataPrevisto', 'horaPrevistaInicio', 'horaPrevistaFim', 'status')
+                            ->where('idAgendamento', $id)
+                            ->where('status', '!=', 'Remarcada')        
+                            ->where(function($q) {
+                                $q->where('idUser', '=', Auth::user()->idUser)
+                                  ->orWhere('responsavel', '=', 'Setor');
+                            })
+                            ->first();
+        if($agendamento) {
+            $arrayData = explode("-", $agendamento->dataPrevisto);
+            $dia = $arrayData[2];
+            $mes = $arrayData[1];
+            $ano = $arrayData[0];
+            $agendamento->dataPrevisto = Carbon::createFromDate($ano, $mes, $dia, 'America/Sao_Paulo')->format('d/m/Y');
+            
+            $horario = explode(":", $agendamento->horaPrevistaInicio);
+            $agendamento->horaPrevistaInicio = Carbon::createFromTime($horario[0], $horario[1], $horario[2], 'America/Sao_Paulo')->format('H:i');
+            
+            $horario = explode(":", $agendamento->horaPrevistaFim);
+            $agendamento->horaPrevistaFim = Carbon::createFromTime($horario[0], $horario[1], $horario[2], 'America/Sao_Paulo')->format('H:i');
+        }
+        return $agendamento;
+    }
+
+    public function remarcar(Request $request, $id) {
+        $request->validate([
+            'horaInicial' => 'required|date_format:"H:i"',
+            'horaFinal' => 'required|date_format:"H:i"',
+            'data' => 'required|date_format:"d/m/Y"'
+        ]);
+        
+        $data = $this->dataFormatY_M_D($request->data);
+        $horaInicial =  $this->horaFormat($request->horaInicial);
+        $horaFinal =  $this->horaFormat($request->horaFinal);
+
+        if($horaFinal < $horaInicial)
+            return array(
+                'response' => 'O termino da reunião deve ser posterior ao seu início!',
+                'success' => false
+            ); 
+        
+        if(!$this->validaHorario($horaInicial, $horaFinal, $data))
+            return array(
+                'response' => 'A hora agendada para reunião entra em conflito com outra reunião!',
+                'success' => false
+            );  
+        
+        $update = $this->update([
+            'dataRemarcada' => $data,
+            'status' => 'Remarcada'
+        ], $id);
+
+        $remarcar = $this->find($id);
+
+        $agendamento = $this->create([
+            'dataPrevisto' => $data,
+            'horaPrevistaInicio' => $horaInicial,
+            'horaPrevistaFim' => $horaFinal,
+            'formaAtendimento' => $remarcar->formaAtendimento,
+            'responsavel' => $remarcar->responsavel,
+            'status' => 'Agendada',
+            'idTipo_atendimento' => $remarcar->idTipo_atendimento,
+            'idUser' => Auth::user()->idUser
+        ]);
+
+        if($agendamento && $update)
+            return array(
+                'response' => 'Agendamento remarcado com sucesso!',
+                'success' => true
+            ); 
+        else
+            return array(
+                'response' => 'Ops! Ocorreu um erro ao tentar reagendar o atendimento.',
+                'success' => false
+            );
+    }
 }

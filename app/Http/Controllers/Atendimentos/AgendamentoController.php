@@ -159,6 +159,33 @@ class AgendamentoController extends Controller
     {
         //
     }
+    public function formRemarcar($id) {
+        if(Gate::denies('remarcar_agendamento'))
+            return redirect()->back()->with('error', 'Ops! Acesso negado.');
+
+        $breadcrumb = json_encode([
+            ["titulo"=>"Home", "url" =>route('home')],
+            ["titulo"=>"Agendamentos", "url" =>route('agendamento.index')],
+            ["titulo"=>"Remarcar agendamento", "url" =>""]
+        ]);
+        $agendamento = $this->repoAgendamento->findReagendamento($id);
+            // dd($agendamento);
+        if($agendamento)
+            return view('atendimentos.agendamento.agendamento_remarcar', compact('breadcrumb', 'agendamento'));
+        else 
+            return redirect()->route('agendamento.index')->with('error', 'Ops! O atendimento a ser reagendado não foi encontrado.');
+    }
+
+    public function remarcar(Request $request, $id) {
+        if(Gate::denies('remarcar_agendamento'))
+            return redirect()->back()->with('error', 'Ops! Acesso negado.');
+        $route = '/atendimento/agendamento/remarcar/'.$id;
+        $remarcar = $this->repoAgendamento->remarcar($request, $id);
+        if($remarcar['success'])
+            return redirect()->route('agendamento.index')->with('success', $remarcar['response']);
+        else
+            return redirect()->back()->with('error', $remarcar['response']);
+    }
         
     public function filtro($campo = 'dataPrevisto',$order = 'asc', $responsavel='todos', $filter = null){
         $responsavel = $responsavel == 'todos' ? null: $responsavel; 
