@@ -21,7 +21,8 @@ class Agendamento extends Model
         'responsavel',
         'status',
         'idTipo_atendimento',
-        'idUser'
+        'idUser',
+        'dataRemarcada'
     ];
 
     public function matricula()
