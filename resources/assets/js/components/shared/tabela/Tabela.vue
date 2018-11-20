@@ -109,7 +109,7 @@ export default {
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
                     confirmButtonText: 'Sim, delete!',
-                    cancelButtonText: 'Cancele!'
+                    cancelButtonText: 'Não!'
                 }).then((result) => {
                     if (result.value) {
                         document.getElementById(index).submit();
