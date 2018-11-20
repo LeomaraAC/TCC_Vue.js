@@ -7,7 +7,7 @@
         <s-snackbar cor="red" msg="{{ session('error') }}"></s-snackbar>
     @endif    
     <s-breadcrumb :caminhos="{{$breadcrumb}}"></s-breadcrumb>
-    <s-card titulo="Atendimentos" icon="fas fa-calendar-alt"
+    <s-card titulo="Agendamentos" icon="fas fa-calendar-alt"
         :footer="{{Auth::user()->can('agendar_Atendimento') == true ? 'true' : 'false'}}">
         <span slot="body">
                 <s-pesquisaagendamento></s-pesquisaagendamento>
