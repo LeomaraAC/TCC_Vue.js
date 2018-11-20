@@ -15,13 +15,15 @@
         <span slot="footer" v-if="{{Auth::user()->can('agendar_Atendimento') == true ? 'true' : 'false'}}">
             @if(Auth::user()->can('agendar_Atendimento'))
                 <div class="text-left">
-                    <a id="novoTipo" href="{{route('agendamento.create')}}" class="btn btn-outline-info"><i class="fas fa-plus"></i> Novo</a>
+                    <a id="novoAgendamento" href="{{route('agendamento.create')}}" class="btn btn-outline-info"><i class="fas fa-plus"></i> Novo</a>
                 </div>
             @endif
         </span>
     </s-card>
     <hr>
-    <s-listagemagendamento linkfiltro="{{route('agendamento.filtro')}}"
-        :columns="{{$columns}}"
+    <s-listagemagendamento linkfiltro="{{route('agendamento.filtro')}}" :columns="{{$columns}}" token="{{csrf_token()}}"
+        :permissao_remarcar="{{Auth::user()->can('remarcar_agendamento') == true ? 'true' : 'false'}}"
+        :permissao_cancelar="{{Auth::user()->can('cancelar_agendamento') == true ? 'true' : 'false'}}"
+        :permissao_registrar="{{Auth::user()->can('registrar_agendamento') == true ? 'true' : 'false'}}"
     />        
 @endsection
