@@ -333,7 +333,11 @@ export default {
         validaData: function(){
             let dataSplit = this.dataSelecionada.split('/');
             if(dataSplit.length == 1 && dataSplit[0].length == 0)
-                        this.erroData = "O campo data é obrigatório.";
+                this.erroData = "O campo data é obrigatório.";
+            else if(dataSplit[2] < 2000)
+                this.erroData = "A data deve ser superior ou igual ao ano 2000";
+            else if(dataSplit[2] > 2200)
+                this.erroData = "A data deve ser inferior ou igual ao ano 2200";
             else if (moment(this.dataSelecionada, 'DD/MM/YYYY',true).isValid()) {
                 this.erroData = ""
             } else
