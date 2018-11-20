@@ -34,13 +34,21 @@ class AgendamentoController extends Controller
         $columns = json_encode($this->getColunas());
         $breadcrumb = json_encode([
             ["titulo"=>"Home", "url" =>route('home')],
-            ["titulo"=>"Atendimentos", "url" =>""]
+            ["titulo"=>"Agendamentos", "url" =>""]
         ]);
         return view('atendimentos.agendamento.indexAgendamento', compact('breadcrumb', 'columns'));
     }
 
     private function getColunas() {
         $columns = array(["field"=>"idAgendamento", "hidden" =>true]);
+        if (Gate::allows('agendamento'))
+            array_push($columns,["field"=>"visualizar", "label" =>'', "width"=> '30px', "sortable"=>false]);
+        if (Gate::allows('cancelar_agendamento'))
+            array_push($columns,["field"=>"cancelar", "label" =>'', "width"=> '30px', "sortable"=>false]);
+        if (Gate::allows('remarcar_agendamento'))
+            array_push($columns,["field"=>"remarcar", "label" =>'', "width"=> '30px', "sortable"=>false]);
+        if (Gate::allows('registrar_agendamento'))
+            array_push($columns,["field"=>"registrar", "label" =>'', "width"=> '30px', "sortable"=>false]);
         array_push($columns,["field"=>"dataPrevisto", "label" =>"Data"]);
         array_push($columns,["field"=>"horaPrevistaInicio", "label" =>"Hora"]);
         array_push($columns,["field"=>"tipo", "label" =>"Tipo"]);
@@ -62,7 +70,7 @@ class AgendamentoController extends Controller
 
         $breadcrumb = json_encode([
             ["titulo"=>"Home", "url" =>route('home')],
-            ["titulo"=>"Atendimentos", "url" =>route('agendamento.index')],
+            ["titulo"=>"Agendamentos", "url" =>route('agendamento.index')],
             ["titulo"=>"Agendar atendimento", "url" =>""]
         ]);
         $alunos = $this->repoAlunos->selectAll();
