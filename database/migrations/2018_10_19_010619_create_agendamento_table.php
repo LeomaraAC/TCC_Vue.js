@@ -17,12 +17,13 @@ class CreateAgendamentoTable extends Migration
             $table->bigIncrements('idAgendamento');
             $table->integer('idTipo_atendimento')->unsigned();
             $table->integer('idUser')->unsigned();
-            $table->date('dataPrevisto');
-            $table->time('horaPrevistaInicio');
-            $table->time('horaPrevistaFim');
+            $table->date('dataPrevisto')->nullable();
+            $table->time('horaPrevistaInicio')->nullable();
+            $table->time('horaPrevistaFim')->nullable();
             $table->string('formaAtendimento',100);
             $table->String('responsavel', 15);
             $table->string('status', 45);
+            $table->date('dataRemarcada')->nullable();
             $table->softDeletes();
 
             $table->foreign('idTipo_atendimento')->references('idTipo_atendimento')->on('tipo_atendimento')->onDelete('cascade');
