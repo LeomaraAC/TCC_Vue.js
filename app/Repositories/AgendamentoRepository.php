@@ -151,6 +151,7 @@ class AgendamentoRepository  extends  BaseRepository
         return $reunioes;
     }
 
+    
     private function dataFormatD_M_Y($data){
         $arrayData = explode("-", $data);
         $dia = $arrayData[2];
@@ -158,6 +159,22 @@ class AgendamentoRepository  extends  BaseRepository
         $ano = $arrayData[0];
 
         return Carbon::createFromDate($ano, $mes, $dia, 'America/Sao_Paulo')->format('d/m/Y');
+    }
+    
+    private function dataFormatY_M_D($data){
+        $arrayData = explode("/", $data);
+        $dia = $arrayData[0];
+        $mes = $arrayData[1];
+        $ano = $arrayData[2];
+
+        return Carbon::createFromDate($ano, $mes, $dia, 'America/Sao_Paulo')->format('Y-m-d');
+    }
+
+    private function horaFormat($horaFormatar){
+        $horario = explode(":", $horaFormatar);
+        $hora = $horario[0];
+        $minuto = $horario[1];
+        return Carbon::createFromTime($hora, $minuto, '00', 'America/Sao_Paulo')->format('H:i:s');
     }
 
     public function showAgendamento($id) {
