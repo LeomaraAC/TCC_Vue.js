@@ -11,6 +11,7 @@
                                    ref="campoData"
                                    v-model="dataSelecionada"
                                    masked
+                                   id="data"
                                    :class="{'form-control form-control-warning': true, 'is-invalid': erroData }"
                                    @blur="validaData"
                                    placeholder="Data"
@@ -26,6 +27,7 @@
                                 :mask="['##:##']"
                                 v-model="horaInicial"
                                 masked
+                                id="horaInicial"
                                 :class="{'form-control form-control-warning': true, 'is-invalid': erroHoraInicial }" 
                                 @blur.native="validaHoraInicial"
                                 placeholder="Horário inicial"/>
@@ -40,6 +42,7 @@
                                 :mask="['##:##']"
                                 v-model="horaFinal"
                                 masked
+                                id="horaFinal"
                                 :class="{'form-control form-control-warning': true, 'is-invalid': erroHoraFim }" 
                                 @blur.native="validaHoraFinal"
                                 placeholder="Horário final"/>
@@ -128,7 +131,7 @@
                         </s-input>
                     </div>
                     <div class="col-sm-12 col-md-1" v-show="semestre">
-                        <button type="button" @click="adicionar" class="btn btn-outline-success mb-3" v-tooltip.top-center="'Adicionar'">
+                        <button type="button" id="adicionarAluno" @click="adicionar" class="btn btn-outline-success mb-3" v-tooltip.top-center="'Adicionar'">
                             <i class="fas fa-check"></i>
                         </button>
                     </div>
