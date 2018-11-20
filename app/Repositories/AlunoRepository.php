@@ -35,7 +35,7 @@ class AlunoRepository  extends  BaseRepository
                     'alunos.responsavel',
                     'cursos.descricao as curso',
                     DB::raw('group_concat(telefone.numero) as telefone'))
-            ->join('telefone', 'telefone.idAluno','=', 'alunos.idAluno')
+            ->leftJoin('telefone', 'telefone.idAluno','=', 'alunos.idAluno')
             ->join('matricula', 'matricula.idAluno','=', 'alunos.idAluno')
             ->join('cursos', 'cursos.codigo','=', 'matricula.codigo_curso')
             ->join('agendamento_matricula', 'agendamento_matricula.prontuario','=', 'matricula.prontuario')
