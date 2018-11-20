@@ -25,7 +25,7 @@ class CreateAlunosTable extends Migration
             $table->string('responsavel',60)->nullable();
             $table->string('email_pessoal', 60)->nullable();
             $table->string('email_responsavel',60)->nullable();
-            $table->string('estado_civil',20);
+            $table->string('estado_civil',30);
             $table->string('naturalidade')->nullable();
             $table->string('deficiencia')->nullable();
             $table->string('etnia',20);
