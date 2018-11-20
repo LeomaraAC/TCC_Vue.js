@@ -159,6 +159,18 @@ class AgendamentoController extends Controller
     {
         //
     }
+    
+    public function cancelar($id) {
+        if (Gate::denies('cancelar_agendamento')) 
+            return redirect()->back()->with('error', 'Ops! Acesso negado.');
+        
+        if($this->repoAgendamento->cancelarAtendimento($id)) {
+            return redirect()->route('agendamento.index')->with('success', 'Atendimento cancelado com sucesso!');
+        }
+        else
+            return redirect()->route('agendamento.index')->with('error', 'Ops! O atendimento a ser cancelado não foi encontrado.');
+    }
+
     public function formRemarcar($id) {
         if(Gate::denies('remarcar_agendamento'))
             return redirect()->back()->with('error', 'Ops! Acesso negado.');
