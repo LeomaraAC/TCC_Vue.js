@@ -27,7 +27,13 @@ class PermissaoTableSeeder extends Seeder
             array('descricao'=>'Apagar tipo de atendimento','modulo'=>'tipo_atendimento', 
                   'nome'=> 'excluir_Tipo_Atendimento'),
             array('descricao'=>'Agendamento de atendimentos','modulo'=>'agendamento', 
-                            'nome'=> 'agendar_Atendimento')
+                            'nome'=> 'agendar_Atendimento'),
+            array('descricao'=>'Remarcar agendamentos','modulo'=>'agendamento', 
+                            'nome'=> 'remarcar_agendamento'),
+            array('descricao'=>'Cancelar agendamentos','modulo'=>'agendamento', 
+                            'nome'=> 'cancelar_agendamento'),
+            array('descricao'=>'Registrar atendimentos','modulo'=>'agendamento', 
+                            'nome'=> 'registrar_agendamento'),
         );
         DB::table('permissoes')->insert($data);
     }
