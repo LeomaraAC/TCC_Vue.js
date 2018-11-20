@@ -224,11 +224,14 @@ class AgendamentoRepository  extends  BaseRepository
         })
         ->orderBy($orderBy, $sortBy)
         ->paginate(25);
+        foreach ($reunioes as $reuniao) {
+            $arrayData = explode("-", $reuniao->dataPrevisto);
+            $dia = $arrayData[2];
+            $mes = $arrayData[1];
+            $ano = $arrayData[0];
 
-        // foreach($reunioes as $reuniao) {
-        //     $reuniao->dataPrevisto = $this->dataFormatD_M_Y($reuniao->dataPrevisto);
-        // }
-
+            $reuniao->dataPrevisto = Carbon::createFromDate($ano, $mes, $dia, 'America/Sao_Paulo')->format('d/m/Y');
+        }
         return $reunioes;
     }
 
