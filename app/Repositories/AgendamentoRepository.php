@@ -231,6 +231,12 @@ class AgendamentoRepository  extends  BaseRepository
 
         return $reunioes;
     }
+
+    public function cancelarAtendimento($id) {
+        $this->model = $this->findOrFail($id);
+        return $this->model->update(array('status' => 'Cancelada'));
+    }
+
     public function findReagendamento($id) {
         $agendamento = $this->model
                             ->select('idAgendamento','dataPrevisto', 'horaPrevistaInicio', 'horaPrevistaFim', 'status')
