@@ -113,6 +113,12 @@ class AgendamentoRepository  extends  BaseRepository
                 ->where('status', '=', 'Agendada')
                 ->update(array('status' => 'Atrasada'));
     }
+    
+    public function atualizaStatusRealizada($id) {
+        return $this->model
+                ->where('idAgendamento', $id)
+                ->update(array('status' => 'Realizada'));
+    }
 
     public function getReunioes($status) {
         $order = 'asc';
