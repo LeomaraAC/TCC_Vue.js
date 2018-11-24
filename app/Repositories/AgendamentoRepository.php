@@ -130,7 +130,8 @@ class AgendamentoRepository  extends  BaseRepository
                     ->select('idAgendamento', 'dataPrevisto', 'horaPrevistaInicio', 'descricao', 'responsavel')
                     ->join('tipo_atendimento', 'tipo_atendimento.idTipo_atendimento','=', 'agendamento.idTipo_atendimento')
                     ->where('status', '=', $status)
-                    ->where('status', '!=', 'Remarcada')        
+                    ->where('status', '!=', 'Remarcada')           
+                    ->where('status', '!=', 'Realizada')     
                     ->where(function($q) {
                         $q->where('idUser', '=', Auth::user()->idUser)
                           ->orWhere('responsavel', '=', 'Setor');
@@ -185,7 +186,8 @@ class AgendamentoRepository  extends  BaseRepository
                     'responsavel')
             ->join('tipo_atendimento', 'tipo_atendimento.idTipo_atendimento','=', 'agendamento.idTipo_atendimento')
             ->where('idAgendamento', '=', $id)
-            ->where('status', '!=', 'Remarcada')        
+            ->where('status', '!=', 'Remarcada')             
+            ->where('status', '!=', 'Realizada')   
             ->where(function($q) {
                 $q->where('idUser', '=', Auth::user()->idUser)
                     ->orWhere('responsavel', '=', 'Setor');
@@ -208,6 +210,7 @@ class AgendamentoRepository  extends  BaseRepository
                  'status')
         ->join('tipo_atendimento', 'tipo_atendimento.idTipo_atendimento','=', 'agendamento.idTipo_atendimento')
         ->where('status', '!=', 'Remarcada')        
+        ->where('status', '!=', 'Realizada')        
         ->where(function($q) use($filter) {
             $q->where('status', 'like', '%'.$filter.'%')
               ->orWhere('dataPrevisto', 'like', '%'.$filter.'%')
@@ -251,7 +254,8 @@ class AgendamentoRepository  extends  BaseRepository
         $agendamento = $this->model
                             ->select('idAgendamento','dataPrevisto', 'horaPrevistaInicio', 'horaPrevistaFim', 'status')
                             ->where('idAgendamento', $id)
-                            ->where('status', '!=', 'Remarcada')        
+                            ->where('status', '!=', 'Remarcada')  
+                            ->where('status', '!=', 'Realizada')      
                             ->where(function($q) {
                                 $q->where('idUser', '=', Auth::user()->idUser)
                                   ->orWhere('responsavel', '=', 'Setor');
