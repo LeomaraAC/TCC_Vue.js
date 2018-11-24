@@ -42,11 +42,13 @@ Route::middleware('auth')->group(function(){
         Route::resource('tipo', 'Atendimentos\TipoAtendimentoController')->except('show');
         Route::get('/tipo/filtro/{campo?}/{sort?}/{filter?}', 'Atendimentos\TipoAtendimentoController@filtro')
                     ->name('tipo.filtro');
-        Route::resource('agendamento', 'Atendimentos\AgendamentoController')->except('destroy');
+        Route::resource('agendamento', 'Atendimentos\AgendamentoController')->except('destroy', 'update', 'edit');
+        Route::resource('realizados', 'Atendimentos\AtendimentoController');
         Route::put('/agendamento/cancelar/{id}', 'Atendimentos\AgendamentoController@cancelar');
         Route::put('/agendamento/remarcar/{id}', 'Atendimentos\AgendamentoController@remarcar');
         Route::get('/agendamento/remarcar/{id}', 'Atendimentos\AgendamentoController@formRemarcar');
         Route::get('/agendamento/registrar/{id}', 'Atendimentos\AtendimentoController@formRegistrar');
+        Route::post('/agendamento/registrar', 'Atendimentos\AtendimentoController@registrarAtendimento');
         Route::get('/agendamento/filtro/{campo?}/{sort?}/{responsavel?}/{filter?}', 'Atendimentos\AgendamentoController@filtro')
                     ->name('agendamento.filtro');
         
