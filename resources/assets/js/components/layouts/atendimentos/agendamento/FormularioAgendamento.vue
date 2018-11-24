@@ -322,7 +322,7 @@ export default {
 
         },
         horaIsValid: function (hora, campo) {
-             let horaSplit = hora.split(':');
+            let horaSplit = hora.split(':');
             if(horaSplit.length == 1 && horaSplit[0].length == 0)
                         return "O campo "+campo+" é obrigatório.";
             else if (moment(hora, 'HH:mm', true).isValid()) {
@@ -361,8 +361,6 @@ export default {
                 else{
                     this.erroAlunoRepetido = false;
                     this.erroAluno = '';
-                    console.log(value);
-                    
                     this.buscarCurso(value.idAluno);
                 }
             }
