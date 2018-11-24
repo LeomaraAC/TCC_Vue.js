@@ -73,7 +73,7 @@ export default {
             default: ''
         },
         selected: {
-            type: String,
+            type: [String, Number] ,
             default: ''
         },
         selectedLabel: {
@@ -90,10 +90,7 @@ export default {
     },
     mounted: function () {
         if(this.selected != '') 
-            this.options.map(e =>{
-                if(Object.values(e)[0] == this.selected)
-                    this.value = e;
-            })
+            this.setSelect()
     },
     computed: {
         isInvalid () {
@@ -110,6 +107,12 @@ export default {
         },
         valid() {
             return this.value.length !== 0;
+        },
+        setSelect() {
+            this.options.map(e =>{
+                if(Object.values(e)[0] == this.selected)
+                    this.value = e;
+            })
         }
     },
     watch: {
@@ -118,6 +121,10 @@ export default {
                 this.value = [];
             this.idSelect = Object.values(this.value)[0];
             this.$emit('selected', this.value);
+        },
+        selected() {
+            if(this.selected != '')
+                this.setSelect();
         }
     }
 }
