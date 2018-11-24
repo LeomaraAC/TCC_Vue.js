@@ -2,7 +2,7 @@
     <li>
         <a href="/">
             <i class="fas fa-tachometer-alt"></i>
-            Dashboard
+            Home
         </a>
     </li>
     <!-- Administração -->
@@ -47,6 +47,12 @@
                 @can('agendamento')
                     <li>
                         <a href="/atendimento/agendamento"><i class="fas fa-calendar-alt"></i>Agendamentos</a>
+                    </li>
+                @endcan
+                <!-- Atendimentos -->
+                @can('realizados')
+                    <li>
+                        <a href="/atendimento/realizados"><i class="fas fa-headset"></i>Atendimentos</a>
                     </li>
                 @endcan
             </ul>
