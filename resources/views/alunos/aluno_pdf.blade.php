@@ -53,7 +53,7 @@
         <strong>Transtorno:</strong> {{$aluno->transtorno}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     @endif
 
-    <br><br><br>
+    <br><br>
     <h6><strong>Filiação</strong></h6>
     <hr>
     <strong>Nome da mãe:</strong> {{$aluno->nome_mae}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -63,11 +63,11 @@
         <br>
     @endif
 
-    <br><br><br>
+    <br><br>
     <h6><strong>Endereço</strong></h6>
     <hr>
     {{$aluno->endereco}}
-    <br><br><br>
+    <br><br>
     <h6><strong>Contato</strong></h6>
     <hr>
     <strong>E-mail Pessoal:</strong> {{$aluno->email_pessoal}}  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -81,15 +81,20 @@
         <strong>E-mail do Responsável:</strong> {{$aluno->email_responsavel}}
     @endif
     <br>
-    <br><br><br>
+    <br><br>
     <h6><strong>Situação Socioeconômica</strong></h6>
     <hr>
     <strong>Renda Bruta:</strong> @php echo number_format($aluno->renda_bruta, 2, ',', '.');  @endphp &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <strong>Renda per capita:</strong> @php echo number_format($aluno->renda_per_capta, 2, ',', '.');  @endphp
-    <br><br><br>
+    <br><br>
     <h6><strong>Dados Educacionais</strong></h6>
     <hr>
-    <strong>Tipo da escola de origem:</strong> {{$aluno->tipo_escola_origem}}
+    <strong>Tipo da escola de origem:</strong>
+    @if($aluno->tipo_escola_origem != '')
+        {{$aluno->tipo_escola_origem}}
+    @else
+        -
+    @endif
     <br><br>
     @foreach($matriculas as $matricula)
         <center>
