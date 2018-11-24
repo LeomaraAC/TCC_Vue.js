@@ -33,6 +33,10 @@ class User extends Authenticatable
     public function grupo () {
         return $this->belongsTo(Grupo::class, 'idGrupo');
     }
+    
+    public function registroAtendimento(){
+        return $this->belongsToMany(RegistroAtendimento::class,'registro_user','idUser','idRegistro');
+    }
 
     public function hasPermission(Permissao $permissao) {
        return $this->hasGrupo($permissao->grupos);

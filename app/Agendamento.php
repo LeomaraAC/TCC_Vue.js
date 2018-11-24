@@ -29,4 +29,8 @@ class Agendamento extends Model
     {
         return $this->belongsToMany(Matricula::class,'agendamento_matricula','idAgendamento','prontuario');
     }
+
+    public function RegistroAtendimento(){
+        return $this->hasOne(Agendamento::class, 'idAgendamento', 'idAgendamento');
+    }
 }

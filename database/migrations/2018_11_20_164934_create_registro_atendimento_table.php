@@ -16,7 +16,6 @@ class CreateRegistroAtendimentoTable extends Migration
         Schema::create('registro_atendimento', function (Blueprint $table) {
             $table->increments('idRegistro');
             $table->bigInteger('idAgendamento')->unsigned();
-            $table->integer('idResumoAtendimento')->unsigned();
             $table->date('dataRealizado');
             $table->time('horaRealizado');
             $table->boolean('comparecimentoFamiliar')->nullable();
@@ -24,7 +23,6 @@ class CreateRegistroAtendimentoTable extends Migration
             $table->softDeletes();
             
             $table->foreign('idAgendamento')->references('idAgendamento')->on('agendamento')->onDelete('cascade');
-            $table->foreign('idResumoAtendimento')->references('idResumoAtendimento')->on('resumo_atendimento');            
         });
 
     }
