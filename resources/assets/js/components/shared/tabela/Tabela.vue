@@ -18,8 +18,9 @@
                         <i  class="fas fa-trash-alt" @click="deletarItem(props.row.originalIndex, Object.values(props.formattedRow)[0])"></i>
                     </s-formulario>
                 </span>
-                <span v-if="(props.column.field == 'editar') && editar" class="btn-icon"  v-tooltip.top-center="'Editar'">
-                        <a :href="linkacoes + '/' + Object.values(props.formattedRow)[0] +'/edit'"><i  class="fas fa-pen-alt"></i></a>
+                <span v-if="(props.column.field == 'editar') && editar " class="btn-icon"  v-tooltip.top-center="'Editar'">
+                        <a v-if="remoto" :href="linkacoes + '/' + Object.values(props.formattedRow)[0] +'/edit'"><i  class="fas fa-pen-alt"></i></a>
+                        <span v-else @click="editarItem(Object.values(props.formattedRow)[0])"><i  class="fas fa-pen-alt"></i></span>
                 </span>
                 <span v-else>
                     {{props.formattedRow[props.column.field]}}
@@ -118,6 +119,9 @@ export default {
             }
             else
                 this.$emit('apagar', id)
+        },
+        editarItem: function (id) {
+            this.$emit('editar', id)
         },
         paginar: function (params) {
              this.$emit('paginar', params)
