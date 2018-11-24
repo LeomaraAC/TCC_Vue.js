@@ -333,4 +333,17 @@ class AgendamentoRepository  extends  BaseRepository
                 'success' => false
             );
     }
+
+    public function getAgendamentoForRegistro($id) {
+        $agendamento = $this->model
+                            ->select('idAgendamento','formaAtendimento','dataPrevisto', 'responsavel')
+                            ->where('idAgendamento', $id)
+                            ->where('status', 'Agendada')      
+                            ->where(function($q) {
+                                $q->where('idUser', '=', Auth::user()->idUser)
+                                  ->orWhere('responsavel', '=', 'Setor');
+                            })
+                            ->first();
+        return $agendamento;
+    }
 }
