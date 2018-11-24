@@ -78,7 +78,6 @@ class UserRepository  extends  BaseRepository
             'senha' => 'bail|required|string|min:6|confirmed',
         ]);
         $usuario = $this->model->where('idUser', Auth::user()->idUser)->first();
-        // dd()
         if(!Hash::check($request->senhaAtual, $usuario->password))
             return [false, "A senha atual é invalida"];
         $update = $this->update([
@@ -86,5 +85,11 @@ class UserRepository  extends  BaseRepository
         ], Auth::user()->idUser);
         if($update)
             return [true, "Senha atualizada com sucesso!"];
+    }
+
+    public function all() {
+        return $this->model
+                            ->select('idUser','nome')
+                            ->get();
     }
 }
