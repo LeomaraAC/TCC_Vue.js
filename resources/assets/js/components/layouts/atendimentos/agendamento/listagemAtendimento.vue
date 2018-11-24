@@ -192,8 +192,6 @@ export default {
                     this.showModal()
                  })
                  .catch(error => {
-                     console.log(error.response);
-                     
                      this.msgSnack = error.response.data;
                      this.openSnackbar();
                  });

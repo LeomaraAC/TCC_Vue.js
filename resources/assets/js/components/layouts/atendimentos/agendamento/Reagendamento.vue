@@ -84,8 +84,6 @@ export default {
             this.validaHoraInicial();
             this.validaHoraFinal();
             this.validaData();
-            console.log(this.agendamento.status == "Cancelada");
-            
             if(this.data != this.agendamento.dataPrevisto || this.horaInicial != this.agendamento.horaPrevistaInicio
                     || this.horaFinal != this.agendamento.horaPrevistaFim || this.agendamento.status == "Cancelada"){
                 if(this.erroHoraInicial == '' && this.erroData == '' && this.erroHoraFim == ''){
