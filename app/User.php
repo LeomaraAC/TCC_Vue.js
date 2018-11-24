@@ -51,4 +51,8 @@ class User extends Authenticatable
        }
        return $this->grupo->contains('nome', $grupos);
     }
+
+    public function hasSpecificPermission($permissao) {
+        return $this->grupo->funcoes->contains('nome', $permissao);
+    }
 }

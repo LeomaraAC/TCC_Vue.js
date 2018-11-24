@@ -51,7 +51,14 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('atendimento', function (User $user){
             $tipo = $user->hasModulo('tipo_atendimento');
             $agendamento = $user->hasModulo('agendamento');
-            return $tipo || $agendamento;
+            $atendimentos = $user->hasModulo('atendimentosRealizados');
+            return $tipo || $agendamento || $atendimentos;
+        });
+
+        Gate::define('realizados', function (User $user){
+            $registrar = $user->hasSpecificPermission('registrar_agendamento');
+            $atendimentos = $user->hasModulo('atendimentosRealizados');
+            return $registrar || $atendimentos;
         });
     }
 }
