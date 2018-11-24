@@ -306,7 +306,7 @@ class AgendamentoRepository  extends  BaseRepository
         ], $id);
 
         $remarcar = $this->find($id);
-
+        
         $agendamento = $this->create([
             'dataPrevisto' => $data,
             'horaPrevistaInicio' => $horaInicial,
@@ -318,6 +318,10 @@ class AgendamentoRepository  extends  BaseRepository
             'idUser' => Auth::user()->idUser
         ]);
 
+        foreach($remarcar->matricula as $m){
+            $agendamento->matricula()->attach($m->prontuario);
+        }
+       
         if($agendamento && $update)
             return array(
                 'response' => 'Agendamento remarcado com sucesso!',
