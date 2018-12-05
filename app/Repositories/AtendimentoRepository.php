@@ -111,4 +111,54 @@ class AtendimentoRepository  extends  BaseRepository
             return $atendimentos;
     }
 
+    public function getAtendimento ($id) {
+        $atendimento = $this->model
+            ->select('registro_atendimento.idRegistro',
+                     'agendamento.idAgendamento',
+                     'resumo',
+                     'formaAtendimento',
+                     'dataRealizado',
+                     'horaRealizado',
+                     'responsavel',
+                     DB::raw('IF (comparecimentoFamiliar IS FALSE, "Não", "Sim") AS comparecimentoFamiliar'),
+                     DB::raw('IF (grauParentesco IS NULL OR comparecimentoFamiliar IS FALSE, "-", grauParentesco) AS grauParentesco')
+                    )
+            ->join('agendamento', 'agendamento.idAgendamento', '=', 'registro_atendimento.idAgendamento')
+            ->join('registro_user', 'registro_atendimento.idRegistro','=', 'registro_user.idRegistro')
+            ->where('registro_atendimento.idRegistro', '=', $id)
+            ->where(function($q) {
+                $q->where('registro_user.idUser', '=', Auth::user()->idUser)
+                    ->orWhere('agendamento.responsavel', '=', 'Setor');
+            })
+            ->first();
+        if($atendimento) {
+            $atendimento->resumo = Crypt::decrypt($atendimento->resumo);
+            $atendimento->dataRealizado = $this->dataFormatD_M_A($atendimento->dataRealizado);
+            $responsaveis = $this->model
+                ->select(DB::raw('group_concat(nome) as nome'))
+                ->join('registro_user', 'registro_atendimento.idRegistro','=', 'registro_user.idRegistro')
+                ->join('users', 'registro_user.idUser','=', 'users.idUser')
+                ->where('registro_user.idRegistro', $atendimento->idRegistro)
+                ->first();
+            $alunos = $this->model
+                ->select(
+                    'matricula.prontuario',
+                    'nome',
+                    'descricao as curso'
+                )
+                ->join('agendamento', 'agendamento.idAgendamento', '=', 'registro_atendimento.idAgendamento')
+                ->join('agendamento_matricula', 'agendamento.idAgendamento', '=', 'agendamento_matricula.idAgendamento')
+                ->join('matricula', 'matricula.prontuario', '=', 'agendamento_matricula.prontuario')
+                ->join('alunos', 'matricula.idAluno', '=', 'alunos.idAluno')
+                ->join('cursos', 'matricula.codigo_curso', '=', 'cursos.codigo')
+                ->where('agendamento.idAgendamento', $atendimento->idAgendamento)
+                ->get();
+            } else 
+                return response()->json('Atendimento não encontrado!', 404);
+        return [
+            'atendimento' => $atendimento,
+            'alunos' => $alunos,
+            'responsaveis' => $responsaveis
+        ];
+    }
 }
