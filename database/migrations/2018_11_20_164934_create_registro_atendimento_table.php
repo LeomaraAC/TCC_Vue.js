@@ -20,6 +20,7 @@ class CreateRegistroAtendimentoTable extends Migration
             $table->time('horaRealizado');
             $table->boolean('comparecimentoFamiliar')->nullable();
             $table->string('grauParentesco',60)->nullable();
+            $table->text('resumo');
             $table->softDeletes();
             
             $table->foreign('idAgendamento')->references('idAgendamento')->on('agendamento')->onDelete('cascade');

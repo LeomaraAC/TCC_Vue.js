@@ -18,12 +18,13 @@ class RegistroAtendimento extends Model
         'horaRealizado',
         'comparecimentoFamiliar',
         'grauParentesco',
+        'resumo',
         'idAgendamento',
     ];
 
     public function user()
     {
-        return $this->belongsToMany(User::class,'registro_user','idRegistro','idUser')->withPivot('resumo');
+        return $this->belongsToMany(User::class,'registro_user','idRegistro','idUser');
     }
 
     public function agendamento() {

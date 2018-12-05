@@ -16,7 +16,6 @@ class CreateRegistroUserTable extends Migration
         Schema::create('registro_user', function (Blueprint $table) {
             $table->integer('idRegistro')->unsigned();
             $table->integer('idUser')->unsigned();
-            $table->text('resumo');
             $table->primary(['idRegistro', 'idUser']);
 
             $table->foreign('idRegistro')->references('idRegistro')->on('registro_atendimento')->onDelete('cascade');
