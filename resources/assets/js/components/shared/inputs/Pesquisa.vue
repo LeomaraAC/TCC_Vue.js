@@ -8,7 +8,7 @@
 export default {
     props:{
         focus: {
-            default: true,
+            default: false,
             type: Boolean
         }
     },
