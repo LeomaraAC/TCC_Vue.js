@@ -346,4 +346,29 @@ class AgendamentoRepository  extends  BaseRepository
                             ->first();
         return $agendamento;
     }
+    
+    public function getAgendamentoByProntuario($prontuario) {
+        $agendamentos = $this->model
+            ->select(
+                    'agendamento.idAgendamento',
+                    'dataPrevisto as data', 
+                    'horaPrevistaInicio as hora',
+                    'descricao',
+                    'formaAtendimento',
+                    'status',
+                    'dataRemarcada'
+                    )
+            ->join('tipo_atendimento', 'tipo_atendimento.idTipo_atendimento','=', 'agendamento.idTipo_atendimento')
+            ->join('agendamento_matricula', 'agendamento_matricula.idAgendamento','=', 'agendamento.idAgendamento')
+            ->where('agendamento_matricula.prontuario', '=', $prontuario)
+            ->orderBy('agendamento.idAgendamento', 'desc')
+            ->get();
+        foreach($agendamentos as $agendamento) {
+        
+            $agendamento->data = $this->dataFormatD_M_Y($agendamento->data);
+            if($agendamento->dataRemarcada != null)
+                $agendamento->dataRemarcada = $this->dataFormatD_M_Y($agendamento->dataRemarcada);
+        }
+        return $agendamentos;
+    }
 }
