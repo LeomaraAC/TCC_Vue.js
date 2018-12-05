@@ -29,32 +29,24 @@ class AtendimentoController extends Controller
     {
         if(Gate::denies('agendamento'))
             return redirect()->back()->with('error', 'Ops! Acesso negado.');
-        // $columns = json_encode($this->getColunas());
+        $columns = json_encode($this->getColunas());
         $breadcrumb = json_encode([
             ["titulo"=>"Home", "url" =>route('home')],
             ["titulo"=>"Atendimentos", "url" =>""]
         ]);
-        return view('atendimentos.AtendimentosRealizados.indexAtendimento', compact('breadcrumb'));
+        return view('atendimentos.AtendimentosRealizados.indexAtendimento', compact('breadcrumb', 'columns'));
     }
 
-    // private function getColunas() {
-    //     $columns = array(["field"=>"idAgendamento", "hidden" =>true]);
-    //     if (Gate::allows('agendamento'))
-    //         array_push($columns,["field"=>"visualizar", "label" =>'', "width"=> '30px', "sortable"=>false]);
-    //     if (Gate::allows('cancelar_agendamento'))
-    //         array_push($columns,["field"=>"cancelar", "label" =>'', "width"=> '30px', "sortable"=>false]);
-    //     if (Gate::allows('remarcar_agendamento'))
-    //         array_push($columns,["field"=>"remarcar", "label" =>'', "width"=> '30px', "sortable"=>false]);
-    //     if (Gate::allows('registrar_agendamento'))
-    //         array_push($columns,["field"=>"registrar", "label" =>'', "width"=> '30px', "sortable"=>false]);
-    //     array_push($columns,["field"=>"dataPrevisto", "label" =>"Data"]);
-    //     array_push($columns,["field"=>"horaPrevistaInicio", "label" =>"Hora"]);
-    //     array_push($columns,["field"=>"tipo", "label" =>"Tipo"]);
-    //     array_push($columns,["field"=>"responsavel", "label" =>"Responsabilidade"]);
-    //     array_push($columns,["field"=>"formaAtendimento", "label" =>"Forma de atendimento"]);
-    //     array_push($columns,["field"=>"status", "label" =>"Status"]);
-    //     return $columns;
-    // }
+    private function getColunas() {
+        $columns = array(["field"=>"idRegistro", "hidden" =>true]);
+        if (Gate::allows('realizados'))
+            array_push($columns,["field"=>"visualizar", "label" =>'', "width"=> '30px', "sortable"=>false]);
+        array_push($columns,["field"=>"dataRealizado", "label" =>"Data"]);
+        array_push($columns,["field"=>"horaRealizado", "label" =>"Hora"]);
+        array_push($columns,["field"=>"formaAtendimento", "label" =>"Forma de Atendimento"]);
+        array_push($columns,["field"=>"responsaveis", "label" =>"Responsáveis"]);
+        return $columns;
+    }
 
     /**
      * Show the form for creating a new resource.
