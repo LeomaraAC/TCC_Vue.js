@@ -161,4 +161,25 @@ class AtendimentoRepository  extends  BaseRepository
             'responsaveis' => $responsaveis
         ];
     }
+    public function findByIdAgendamento($id) {
+        /**->select()
+                 */
+        $atendimento = $this->model
+            ->select('registro_atendimento.idRegistro',
+                     'resumo',
+                     'dataRealizado',
+                     'horaRealizado',
+                     DB::raw('group_concat(nome) as nome'),
+                     DB::raw('IF (comparecimentoFamiliar IS FALSE, "Não", "Sim") AS comparecimentoFamiliar'),
+                     DB::raw('IF (grauParentesco IS NULL OR comparecimentoFamiliar IS FALSE, "-", grauParentesco) AS grauParentesco')
+                    )
+            ->join('registro_user', 'registro_atendimento.idRegistro','=', 'registro_user.idRegistro')
+            ->join('users', 'registro_user.idUser','=', 'users.idUser')
+            ->where('idAgendamento', $id)
+            ->groupBy('registro_atendimento.idRegistro')
+            ->first();
+        $atendimento->resumo = Crypt::decrypt($atendimento->resumo);
+        $atendimento->dataRealizado = $this->dataFormatD_M_A($atendimento->dataRealizado);
+        return $atendimento;
+    }
 }
