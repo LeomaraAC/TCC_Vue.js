@@ -42,6 +42,8 @@ class AlunoController extends Controller
         $columns = array(["field"=>"idAluno", "hidden" =>true]);
         if (Gate::allows('visualizar_Aluno'))
             array_push($columns,["field"=>"pdf", "label" =>'', "width"=> '30px', "sortable"=>false]);
+        if (Gate::allows('relatorio_atendimento_alunos'))
+            array_push($columns,["field"=>"atendimentos", "label" =>'', "width"=> '30px', "sortable"=>false]);
         
         array_push($columns,["field"=>"cpf", "label" =>"CPF"]);
         array_push($columns,["field"=>"nome", "label" =>"Aluno"]);

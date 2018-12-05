@@ -17,8 +17,10 @@
         </span>
     </s-card>
     <hr>
+    
     <s-listagemalunos linkacoes="{{route('alunos.index')}}" linkfiltro="{{route('alunos.filtro')}}"
-        :columns="{{$columns}}" :permissao_visualizar="true"
+        :columns="{{$columns}}" :permissao_visualizar="{{Auth::user()->can('visualizar_Aluno') == true ? 'true' : 'false'}}"
+        :permissao_relatorio_atendimento="{{Auth::user()->can('relatorio_atendimento_alunos') == true ? 'true' : 'false'}}"
     >
     </s-listagemalunos>
 

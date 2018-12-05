@@ -10,7 +10,10 @@
             <!-- SLOT DAS LINHAS -->
             <span slot="table-row" slot-scope="props">
                 <span v-if="props.column.field == 'pdf' && permissao_visualizar" class="btn-icon"  v-tooltip.top-center="'Visualizar'">
-                        <a :href="linkacoes + '/' + Object.values(props.formattedRow)[0]"><i  class="fas fa-file-pdf"></i></a>
+                        <a :href="linkacoes + '/' + Object.values(props.formattedRow)[0]"><i  class="fas fa-eye"></i></a>
+                </span>
+                <span v-if="props.column.field == 'atendimentos' && permissao_relatorio_atendimento" class="btn-icon"  v-tooltip.top-center="'Relatório de atendimentos'">
+                        <a :href="linkacoes + '/relatorio/' + Object.values(props.formattedRow)[0]"><i  class="fas fa-file-pdf"></i></a>
                 </span>
                 <span v-else>
                     {{props.formattedRow[props.column.field]}}
@@ -51,6 +54,9 @@ export default {
         columns: {
             required: true,
             type: Array
+        },
+        permissao_relatorio_atendimento: {
+            type: Boolean
         },
         permissao_visualizar: {
             type: Boolean,
