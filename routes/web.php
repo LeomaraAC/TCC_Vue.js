@@ -44,13 +44,18 @@ Route::middleware('auth')->group(function(){
                     ->name('tipo.filtro');
         Route::resource('agendamento', 'Atendimentos\AgendamentoController')->except('destroy', 'update', 'edit');
         Route::resource('realizados', 'Atendimentos\AtendimentoController');
-        Route::put('/agendamento/cancelar/{id}', 'Atendimentos\AgendamentoController@cancelar');
-        Route::put('/agendamento/remarcar/{id}', 'Atendimentos\AgendamentoController@remarcar');
-        Route::get('/agendamento/remarcar/{id}', 'Atendimentos\AgendamentoController@formRemarcar');
-        Route::get('/agendamento/registrar/{id}', 'Atendimentos\AtendimentoController@formRegistrar');
-        Route::post('/agendamento/registrar', 'Atendimentos\AtendimentoController@registrarAtendimento');
-        Route::get('/agendamento/filtro/{campo?}/{sort?}/{responsavel?}/{filter?}', 'Atendimentos\AgendamentoController@filtro')
-                    ->name('agendamento.filtro');
+        Route::prefix('agendamento')->group(function() {
+            Route::put('/cancelar/{id}', 'Atendimentos\AgendamentoController@cancelar');
+            Route::put('/remarcar/{id}', 'Atendimentos\AgendamentoController@remarcar');
+            Route::get('/remarcar/{id}', 'Atendimentos\AgendamentoController@formRemarcar');
+            Route::get('/registrar/{id}', 'Atendimentos\AtendimentoController@formRegistrar');
+            Route::post('/registrar', 'Atendimentos\AtendimentoController@registrarAtendimento');
+            Route::get('/filtro/{campo?}/{sort?}/{responsavel?}/{filter?}', 'Atendimentos\AgendamentoController@filtro')
+                        ->name('agendamento.filtro');
+        });
+        
+        Route::get('/realizados/filtro/{campo?}/{sort?}/{filter?}', 'Atendimentos\AtendimentoController@filtro')
+                ->name('atendimento.filtro');
         
     });
 
@@ -63,4 +68,5 @@ Route::middleware('auth')->group(function(){
     Route::prefix('import')->group(function(){
         Route::post('/alunos', 'ImportController@importAlunos');
     });
+    Route::get('/alunos/relatorio/{id}', 'RelatoriosController@alunosAtendimentos');
 });
