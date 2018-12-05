@@ -114,6 +114,9 @@ class AtendimentoController extends Controller
         //
     }
 
+    public function filtro($campo = 'dataRealizado',$order = 'des', $filter = null){
+        return $this->repoAtendimento->filtro($campo,$order, $filter);
+    }
     public function formRegistrar($id) {
         if(Gate::denies('registrar_agendamento'))
             return redirect()->back()->with('error', 'Ops! Acesso negado.');
