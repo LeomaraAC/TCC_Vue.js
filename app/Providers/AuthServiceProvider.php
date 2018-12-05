@@ -60,5 +60,10 @@ class AuthServiceProvider extends ServiceProvider
             $atendimentos = $user->hasModulo('atendimentosRealizados');
             return $registrar || $atendimentos;
         });
+
+        Gate::define('relatorios', function (User $user){
+            $relatorio_alunos = $user->hasSpecificPermission('relatorio_atendimento_alunos');
+            return $relatorio_alunos;
+        });
     }
 }
