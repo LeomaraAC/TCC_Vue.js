@@ -77,7 +77,7 @@ class AtendimentoController extends Controller
      */
     public function show($id)
     {
-        //
+        return $this->repoAtendimento->getAtendimento($id);        
     }
 
     /**
