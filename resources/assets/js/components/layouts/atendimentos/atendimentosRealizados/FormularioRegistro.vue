@@ -63,6 +63,12 @@
                                 </div>
                                 <br>
                                 <div class="row">
+                                    <div class="col-sm-12">
+                                        <textarea class="form-control" id="comentarios" placeholder="Resumo" rows="2" v-model="comentario"></textarea>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
                                     <div class="col-md-4 col-sm-12">
                                         <s-select ref="selectResponsavel"
                                             id="responsavel"
@@ -73,15 +79,12 @@
                                             campo="responsável"
                                             :messageErro="erroResponsavel"
                                             :erro="erroResponsavelRepetido"
-                                            :selected = userEditar
+                                            :selected = userSelecionar
                                             @selected="setSelectResponsavel"
                                             >
                                         </s-select>
                                     </div>
-                                    <div class="col-md-5 col-sm-12" v-if="temResponsavel">
-                                        <textarea class="form-control" id="comentarios" rows="2" v-model="comentario"></textarea>
-                                    </div>
-                                    <div class="col-sm-2" v-if="comentario != ''">
+                                    <div class="col-sm-2" v-if="temResponsavel != ''">
                                         <button type="button" id="adicionarComentario" @click="adicionar" class="btn btn-outline-success mb-3" v-tooltip.top-center="'Adicionar'">
                                             <i class="fas fa-check"></i>
                                         </button>
@@ -90,8 +93,8 @@
                                 <br>
                                 <div class="row" v-if="lista.length > 0">
                                     <div class="col-sm-12">
-                                        <s-tabela   :columns="columns" :rows="lista" :empty="true" :editar="true"
-                                                    :remoto="false"  :apagar="true" @apagar="remover" @editar="editar">
+                                        <s-tabela   :columns="columns" :rows="lista" :empty="true"
+                                                    :remoto="false"  :apagar="true" @apagar="remover">
                                         </s-tabela>
                                     </div>
                                 </div>
@@ -124,7 +127,7 @@ export default {
     },
     mounted: function() {
         if(this.agendamento.responsavel == 'Particular')
-            this.userEditar = this.usuarioAtual.idUser;
+            this.userSelecionar = this.usuarioAtual.idUser;
     },
     data: function () {
         return {
@@ -140,12 +143,8 @@ export default {
             columns: [
                 { field: "idUser", label: "",  hidden: true },
                 { field: "deletar", label: '', width: '50px', sortable: false}, 
-                { field: "editar", label: '', width: '50px', sortable: false}, 
-                { field: "responsavel", label: "Responsável" },
-                { field: "comentario", label: "Comentário" }
+                { field: "responsavel", label: "Responsável" }
             ],
-            userEditar: '',
-            estaEditando: false,
             /** DATA */
             erroData: '',
             data:'',
@@ -165,6 +164,9 @@ export default {
             const temLista = this.lista.length > 0;
             if(!temLista) {
                 this.openSnackbar("É obrigatório informar o responsável pelo atendimento!");
+            } 
+            else if(this.comentario == '') {
+                this.openSnackbar("É obrigatório informar o resumo do atendimento!");
             }
             else  if(this.erroData == '' && this.erroHora == ''){
                 this.$validator.validateAll().then(result => {
@@ -175,10 +177,11 @@ export default {
                                 hora: this.hora,
                                 familia: this.familiaCompareceu,
                                 parentesco: this.parentesco,
-                                responsaveis: this.lista
+                                responsaveis: this.lista,
+                                resumo: this.comentario
                             })
                             .then((response) => {
-                                window.location.href = 'atendimento/realizados'
+                                window.location.href = '/atendimento/realizados'
                             })
                             .catch((error) => {  
                                 // console.log(error.response.data);
@@ -190,8 +193,6 @@ export default {
                         }
                             
                     });  
-            } else if(this.erroData == '' && this.erroHora == '') {
-                console.log('enviar form 2');
             }
             
         },
@@ -207,11 +208,7 @@ export default {
         setSelectResponsavel: function (value) {             
             let existe = this.getIndex(value.idUser);          
             if(value.length != 0) {
-                if(existe < 0 || this.estaEditando) {
-                    if(value.idUser != this.userEditar) {
-                        this.estaEditando = false;
-                        this.comentario = '';
-                    }
+                if(existe < 0) {
                     this.reponsavel = value;
                     this.temResponsavel = true;
                     this.erroResponsavelRepetido = false;
@@ -228,20 +225,12 @@ export default {
             }
         },
         adicionar: function () {
-            if(!this.estaEditando){
-                var item = {
-                    idUser: this.reponsavel.idUser,
-                    responsavel: this.reponsavel.nome,
-                    comentario: this.comentario
-                }             
-                this.lista.push(item);
-            } else {
-                let index = this.getIndex(this.userEditar);
-                this.lista[index].comentario = this.comentario 
-            }          
-            this.comentario = this.userEditar = '';
+            var item = {
+                idUser: this.reponsavel.idUser,
+                responsavel: this.reponsavel.nome
+            }             
+            this.lista.push(item);         
             this.$refs.selectResponsavel.reset();
-            this.estaEditando = false;
         },
         getIndex(id) {
             return this.lista.map(e => e.idUser).indexOf(id);
@@ -249,13 +238,6 @@ export default {
         remover: function (item) {
             var index = this.getIndex(item);
             this.lista.splice(index, 1);
-        },
-        editar: function (item) {
-            this.$refs.selectResponsavel.reset();
-            let index = this.getIndex(item);
-            this.estaEditando = true;
-            this.userEditar = item;
-            this.comentario = this.lista[index].comentario;
         },
         validaData: function () {
             let dataSplit = this.data.split('/');
