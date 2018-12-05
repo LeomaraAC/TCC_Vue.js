@@ -78,9 +78,10 @@ Vue.component("s-formulariotipo", require('./components/layouts/atendimentos/tip
 Vue.component("s-formularioagendamento", require('./components/layouts/atendimentos/agendamento/FormularioAgendamento.vue'));
 Vue.component("s-visualizacaohome", require('./components/layouts/atendimentos/agendamento/VisualizacaoHome.vue'));
 Vue.component("s-pesquisaagendamento", require('./components/layouts/atendimentos/agendamento/pesquisaAgendamento.vue'));
-Vue.component("s-listagemagendamento", require('./components/layouts/atendimentos/agendamento/listagemAtendimento.vue'));
+Vue.component("s-listagemagendamento", require('./components/layouts/atendimentos/agendamento/listagemAgendamento.vue'));
 Vue.component("s-reagendamento", require('./components/layouts/atendimentos/agendamento/Reagendamento.vue'));
 Vue.component("s-formularioregistro", require('./components/layouts/atendimentos/atendimentosRealizados/FormularioRegistro.vue'));
+Vue.component("s-listagematendimento", require('./components/layouts/atendimentos/atendimentosRealizados/listagemAtendimentos.vue'));
 
 
 window.Event = new class {
